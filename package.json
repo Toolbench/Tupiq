@@ -1,0 +1,46 @@
+{
+  "name": "Tupiq",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/js/app.js",
+  "dependencies": {
+    "classnames": "^1.2.0",
+    "flux": "^2.0.1",
+    "keymirror": "^0.1.1",
+    "moment": "^2.9.0",
+    "moment-range": "^1.0.7",
+    "normalize.css": "^3.0.2",
+    "object-assign": "^2.0.0",
+    "react": "^0.12.2",
+    "react-dnd": "^0.9.8"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.3",
+    "envify": "^3.2.0",
+    "reactify": "^1.0.0",
+    "uglify-js": "^2.4.16",
+    "watchify": "^2.4.0",
+    "node-sass": "^2.0.1",
+    "watch": "^0.14.0",
+    "parallelshell": "^1.0.4"
+  },
+  "scripts": {
+    "postinstall": "cp node_modules/normalize.css/normalize.css src/sass/_normalize.scss",
+    "start": "parallelshell 'npm run watch:js' 'npm run watch:css'",
+    "watch:js": "watchify -o bin/js/bundle.js -v -d .",
+    "watch:css": "watch 'node-sass src/sass/main.scss bin/css/main.css' src/sass",
+    "build:js": "NODE_ENV=production browserify . | uglifyjs -cm > bin/js/bundle.min.js",
+    "build:css": "node-sass src/sass/main.scss bin/css/main.css",
+    "build": "npm run build:css && npm run build:js",
+    "package": "./scripts/package",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify"
+    ]
+  },
+  "author": "Toolbench",
+  "license": "MIT"
+}

@@ -1,0 +1,29 @@
+@font-face {
+	font-family: 'Bitter';
+	src: url('/fonts/Bitter-Regular.ttf') format('truetype');
+}
+
+body, html {
+	width: 100%;
+	height: 100%;
+	font-family: 'Bitter', serif;
+	font-weight: 400;
+	font-size: 1em;
+	overflow: hidden;
+	position: relative;
+	color: rgba(0, 0, 0, .87);
+	display: flex;
+}
+
+#app, .app-wrapper {
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+	position: absolute;
+}
+
+.app-wrapper {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}

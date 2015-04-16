@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cd "$(dirname "$0")/.."
+
+version=$(./scripts/version)
+
+echo Packaging version $version
+
+zipfile=releases/tupiq-$version.zip
+
+files="bin"
+
+zip -FSr -X $zipfile $files -x \*bower.json \*.bowerrc
+
+echo Packaged $zipfile

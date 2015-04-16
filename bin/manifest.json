@@ -1,0 +1,19 @@
+{
+  "name": "Tupiq",
+  "version": "0.0.1",
+  "chrome_url_overrides" : {
+    "newtab": "index.html"
+  },
+  "permissions": [
+    "storage",
+    "geolocation",
+    "identity",
+    "https://unsplash.it/"
+  ],
+  "oauth2": {
+    "client_id": "51141367093-4sc06mfr2u50apnhhpaooterd3nk7rbo.apps.googleusercontent.com",
+    "scopes": []
+  },
+  "manifest_version": 2,
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmQLlJ04mcTm33+ZIn//p1jN/786fZogVew4yL1keA82xLnB4aK0i5bl8ZhueRf8EtvAer8TZ3w6nbTRbINrkPe8Ml/+wfIr7oikWKSiCYTooj5Ree/l9ixrR7URru1RyfU4E2zX0f/2F1lIoqaphvpWwZJbjOBsmUybHy3drh/con0SyFJl50PgefvtCP2WWmD82sOK2QTSMsCObA0gvUoJBxr6ah/pQadiICcwX9DH0ij4LyPx2CEbZoJXqdVJ6f3TJCJL/6IcXxEzRhaXRtNMKcw5t7xgbWZVBBJVLI6MAZ9KKYsaTUAQQee0pWqFKOGV09FZ+1azmDCJWhxJ+RQIDAQAB"
+}
