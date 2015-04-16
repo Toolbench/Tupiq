@@ -30,11 +30,26 @@ function NumbersToWords(num) {
 	return output;
 }
 
+function prepNextEvent(nextEvent, moment) {
+	nextEvent.momentStart = moment(nextEvent.start.dateTime || nextEvent.start.date);
+	nextEvent.momentEnd = moment(nextEvent.end.dateTime || nextEvent.end.date);
+	nextEvent.fromNow = nextEvent.momentStart.fromNow();
+
+	if (nextEvent.location !== undefined) {
+		nextEvent.actualLocation = ' at ' + nextEvent.location;
+	} else {
+		nextEvent.actualLocation = '';
+	}
+
+	return nextEvent;
+}
+
 var TupiqTools = {
 
 	agenda: function(upcomingEvents) {
 		if (upcomingEvents && upcomingEvents.length > 0) {
 			var momentNow = moment(),
+				momentTomorrow = moment().add(1, 'days').endOf('day'),
 				primaryNote,
 				secondaryNote,
 				nextEvent = upcomingEvents[0],
@@ -42,29 +57,23 @@ var TupiqTools = {
 				isNextEventToday,
 				isNextEventTomorrow,
 				isNextEventRightNow,
-				eventsRemainingToday,
-				eventsRemainingTomorrow;
+				eventsRemainingToday = 'zero',
+				eventsRemainingTomorrow = 'zero';
 
-			nextEvent.momentStart = moment(nextEvent.start.dateTime || nextEvent.start.date);
-			nextEvent.momentEnd = moment(nextEvent.end.dateTime || nextEvent.end.date);
-			nextEvent.fromNow = nextEvent.momentStart.fromNow();
-
-			if (nextEvent.location !== undefined) {
-				nextEvent.actualLocation = ' at ' + nextEvent.location;
-			} else {
-				nextEvent.actualLocation = '';
-			}
+			nextEvent = prepNextEvent(nextEvent, moment);
 
 			isNextEventToday = nextEvent.momentStart.isSame(momentNow, 'day');
-			isNextEventTomorrow = nextEvent.momentStart.isAfter(momentNow, 'day');
+			isNextEventTomorrow = nextEvent.momentStart.isAfter(momentNow, 'day') && nextEvent.momentStart.isBefore(momentTomorrow);
 			isNextEventRightNow = nextEvent.momentStart.isBefore(momentNow) && nextEvent.momentEnd.isAfter(momentNow);
 
-			eventsRemaining = upcomingEvents.slice(1).filter(function(event) {
-				return moment(event.start.dateTime || event.start.date).isSame(momentNow, 'day');
-			});
+			if (upcomingEvents.length > 1 && (isNextEventToday || isNextEventTomorrow)) {
+				eventsRemaining = upcomingEvents.slice(1).filter(function(event) {
+					return moment(event.start.dateTime || event.start.date).isSame(momentNow, 'day');
+				});
 
-			eventsRemainingToday = NumbersToWords(eventsRemaining.length);
-			eventsRemainingTomorrow = NumbersToWords(upcomingEvents.length - 1);
+				eventsRemainingToday = NumbersToWords(eventsRemaining.length);
+				eventsRemainingTomorrow = NumbersToWords(upcomingEvents.length - 1);
+			}
 
 			// If upcoming event is today...
 			if (isNextEventToday) {
@@ -76,7 +85,7 @@ var TupiqTools = {
 
 			  // The event is yet to happen
 			  } else {
-			    primaryNote = `Youve got ${nextEvent.summary} ${nextEvent.fromNow}${nextEvent.actualLocation}.`;
+			    primaryNote = `You've got ${nextEvent.summary} ${nextEvent.fromNow}${nextEvent.actualLocation}.`;
 			    secondaryNote = `Plus ${eventsRemainingToday} other upcoming events today.`;
 			  }
 
@@ -84,12 +93,17 @@ var TupiqTools = {
 			} else if (isNextEventTomorrow) {
 			  primaryNote = `Tomorrow your day starts at ${nextEvent.momentStart.format('h:mma')} with ${nextEvent.summary}${nextEvent.actualLocation}.`;
 			  secondaryNote = `Plus ${eventsRemainingTomorrow} other events.`;
+
+			// If upcoming event is in the future...
+			} else {
+				primaryNote = `Today and tomorrow look clear.`,
+				secondaryNote = `Your next event is ${nextEvent.summary} ${nextEvent.fromNow}.`;
 			}
 
 		// No upcoming events today or tomorrow
 		} else {
 			primaryNote = `Today and tomorrow look clear.`,
-			secondaryNote = `Your next event is Sprint Review in 3 days.`;
+			secondaryNote = `And there are no events on the horizon.`;
 		}
 
 		return {

@@ -60,12 +60,12 @@ function calendarRefresh(retry) {
   });
 }
 
-function requestEvents(token, callback) {
+function requestEvents(token, callback, searchFuture) {
   var today = moment();
 
   var params = {
     timeMin: today.format('YYYY-MM-DD[T]HH:mm:ssZ'),
-    timeMax: today.add(1, 'days').endOf('day').format('YYYY-MM-DD[T]HH:mm:ssZ'),
+    timeMax: (!searchFuture) ? today.add(1, 'days').endOf('day').format('YYYY-MM-DD[T]HH:mm:ssZ') : today.add(1, 'year').endOf('day').format('YYYY-MM-DD[T]HH:mm:ssZ'),
     fields: 'items(status,description,htmlLink,hangoutLink,summary,location,start,end,id)',
     singleEvents: true,
     orderBy: 'startTime',
@@ -82,7 +82,11 @@ function requestEvents(token, callback) {
     if (req.status !== 200 || upcomingEvents === null || upcomingEvents === undefined) {
       callback(new Error());
     } else {
-      callback(null, upcomingEvents);
+      if (upcomingEvents.length === 0 && !searchFuture) {
+      	requestEvents(token, callback, true);
+      } else {
+      	callback(null, upcomingEvents);
+      }
     }
   };
   req.send();
