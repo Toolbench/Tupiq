@@ -3,6 +3,7 @@
  */
 var React = require('react');
 var objectAssign = require('object-assign');
+var classNames = require('classnames');
 
 /**
  * Child components
@@ -16,7 +17,10 @@ var TupiqFooterContainer = require('./TupiqFooterContainer');
  */
 var Tupiq = React.createClass({
   render: function(){
-    var className = 'tupiq';
+    var tupiqClassName = classNames({
+    	'tupiq': true,
+    	'is-dragging': this.props.isDragging
+    });
 
     var style = {
       left: this.props.coordinates.x,
@@ -24,12 +28,8 @@ var Tupiq = React.createClass({
       transform: this.props.coordinates.transform
     };
 
-    if (this.props.isDragging) {
-      className += ' isDragging';
-    }
-
     return (
-      <div className={className} style={style}>
+      <div className={tupiqClassName} style={style}>
         <TupiqHeaderContainer onMouseDown={this.props.onMouseDown} />
         <TupiqBodyContainer />
         <TupiqFooterContainer />
