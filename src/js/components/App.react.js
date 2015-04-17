@@ -7,7 +7,8 @@ var React = require('react');
  * Components
  */
 var Background = require('./Background.react'),
-    TupiqContainer = require('./TupiqContainer.react');
+    TupiqContainer = require('./TupiqContainer.react'),
+    DragHintContainer = require('./DragHintContainer.react');
 
 /**
  * Stores
@@ -50,6 +51,8 @@ var App = React.createClass({
     return(
       <div className="app-wrapper">
         <Background image={this.state.backgroundImage} />
+
+        <DragHintContainer />
 
         <TupiqContainer />
       </div>

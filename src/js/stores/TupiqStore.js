@@ -44,7 +44,7 @@ AppDispatcher.register(function(action) {
       break;
 
     case AppConstants.TUPIQ_DRAG_STOP:
-      isDragging = true;
+      isDragging = false;
       TupiqStore.emitChange();
       break;
 

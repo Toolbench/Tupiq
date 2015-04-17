@@ -1,6 +1,7 @@
 .tupiq {
   width: 350px;
   position: absolute;
+  z-index: 2;
   box-shadow: 0px 0px 1px rgba(0, 0, 0, .25);
 
   &__header {
@@ -37,6 +38,7 @@
 
     .primary {
       color: rgba(0, 0, 0, .87);
+      widows: 2;
     }
 
     .secondary {

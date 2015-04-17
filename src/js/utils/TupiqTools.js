@@ -46,6 +46,12 @@ function prepNextEvent(nextEvent, moment) {
 
 var TupiqTools = {
 
+	isNumberBetween: function (num, a, b) {
+		var min = Math.min.apply(Math, [a,b]),
+			max = Math.max.apply(Math, [a,b]);
+		return num >= min && num <= max;
+	},
+
 	agenda: function(upcomingEvents) {
 		if (upcomingEvents && upcomingEvents.length > 0) {
 			var momentNow = moment(),

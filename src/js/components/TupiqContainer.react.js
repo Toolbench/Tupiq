@@ -2,6 +2,7 @@
  * Libs
  */
 var React = require('react');
+var TupiqTools = require('../utils/TupiqTools');
 
 /**
  * Stores
@@ -104,14 +105,24 @@ var TupiqContainer = React.createClass({
   },
 
   onMouseMove: function(event) {
-    var deltaX = event.pageX - this.state.dragOriginData.scrollOriginX;
-    var deltaY = event.pageY - this.state.dragOriginData.scrollOriginY;
-    var targetX = this.state.dragOriginData.elementOriginX + deltaX;
-    var targetY = this.state.dragOriginData.elementOriginY + deltaY;
+    var deltaX = event.pageX - this.state.dragOriginData.scrollOriginX,
+				deltaY = event.pageY - this.state.dragOriginData.scrollOriginY,
+				targetX = this.state.dragOriginData.elementOriginX + deltaX,
+				targetY = this.state.dragOriginData.elementOriginY + deltaY,
+				elementWidthCenter = this.getDOMNode().offsetWidth / 2,
+				elementHeightCenter = this.getDOMNode().offsetHeight / 2,
+				windowWidthCenter = window.innerWidth / 2,
+				windowHeightCenter = window.innerHeight / 2,
+				snapBuffer = 15;
 
     if (this.state.isDragging) {
       targetX = this.respectWidth(targetX);
       targetY = this.respectHeight(targetY);
+
+      if (TupiqTools.isNumberBetween(targetX + elementWidthCenter, windowWidthCenter - snapBuffer, windowWidthCenter + snapBuffer) && TupiqTools.isNumberBetween(targetY + elementHeightCenter, windowHeightCenter - snapBuffer, windowHeightCenter + snapBuffer)) {
+      	targetX = windowWidthCenter - elementWidthCenter;
+      	targetY = windowHeightCenter - elementHeightCenter;
+      }
 
       TupiqActions.reposition({
         x: targetX,
