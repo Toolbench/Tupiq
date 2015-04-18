@@ -7,6 +7,7 @@
     "classnames": "^1.2.0",
     "flux": "^2.0.1",
     "keymirror": "^0.1.1",
+    "lz-string": "^1.4.1",
     "moment": "^2.9.0",
     "moment-range": "^1.0.7",
     "normalize.css": "^3.0.2",
