@@ -94,6 +94,10 @@ var TupiqBodyContainer = React.createClass({
   	}
   },
 
+  onCloseButtonClick: function() {
+  	CalendarActions.disconnect();
+  },
+
   render: function() {
     var agenda = TupiqTools.agenda(this.state.upcomingEvents);
 
@@ -101,6 +105,7 @@ var TupiqBodyContainer = React.createClass({
     if (this.state.isCalendarConnected && this.state.upcomingEvents !== null) {
 	    return (
 	      <TupiqCalendar
+	      	onCloseButtonClick={this.onCloseButtonClick}
 	      	primaryNote={agenda.primaryNote}
 	        secondaryNote={agenda.secondaryNote} />
 	    )

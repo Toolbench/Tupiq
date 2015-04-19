@@ -13,7 +13,8 @@
     "normalize.css": "^3.0.2",
     "object-assign": "^2.0.0",
     "react": "^0.12.2",
-    "react-dnd": "^0.9.8"
+    "react-dnd": "^0.9.8",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "browserify": "^9.0.3",

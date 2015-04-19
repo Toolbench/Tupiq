@@ -52,6 +52,7 @@
 
   &__body--calendar {
   	display: block;
+  	position: relative;
 
   	p {
       margin: 0;
@@ -66,6 +67,30 @@
       color: rgba(0, 0, 0, .54);
       font-size: 14px;
       margin-top: 5px;
+    }
+
+    &__close-btn {
+    	opacity: 0;
+    	transition: 0.2s;
+    	position: absolute;
+    	top: 0;
+    	right: 4px;
+    	line-height: 1;
+    	color: $hint-disabled-text-color;
+    	cursor: pointer;
+
+    	&:after {
+    		display: inline-block;
+    		content: "\00d7";
+    	}
+
+    	&:hover {
+    		color: $secondary-text-color;
+    	}
+    }
+
+    &:hover .tupiq__body--calendar__close-btn {
+    	opacity: 1;
     }
   }
 
