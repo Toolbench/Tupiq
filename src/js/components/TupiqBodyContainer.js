@@ -3,6 +3,7 @@
  */
 var React = require('react');
 var TupiqTools = require('../utils/TupiqTools');
+var Analytics = require('../utils/Analytics');
 
 /**
  * Stores
@@ -92,10 +93,14 @@ var TupiqBodyContainer = React.createClass({
   	if (!this.state.isCalendarConnected && !this.state.isCalendarConnecting) {
   		CalendarActions.connect();
   	}
+
+  	Analytics.trackEvent('button', 'click', 'connect calendar');
   },
 
   onCloseButtonClick: function() {
   	CalendarActions.disconnect();
+
+  	Analytics.trackEvent('button', 'click', 'disconnect calendar');
   },
 
   render: function() {

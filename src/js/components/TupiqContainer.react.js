@@ -3,6 +3,7 @@
  */
 var React = require('react');
 var TupiqTools = require('../utils/TupiqTools');
+var Analytics = require('../utils/Analytics');
 
 /**
  * Stores
@@ -101,6 +102,8 @@ var TupiqContainer = React.createClass({
         elementOriginX: pageOffset.left,
         elementOriginY: pageOffset.top
       });
+
+      Analytics.trackEvent('tupiq', 'drag');
     }
   },
 

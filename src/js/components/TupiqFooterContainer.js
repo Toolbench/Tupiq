@@ -2,6 +2,7 @@
  * Libs
  */
 var React = require('react');
+var Analytics = require('../utils/Analytics');
 
 /**
  * Pure component
@@ -56,6 +57,8 @@ var TupiqFooterContainer = React.createClass({
   },
 
   onShuffleBackgroundClick: function() {
+    Analytics.trackEvent('button', 'click', 'shuffle background');
+
     if (this.state.isBackgroundLoading === false) {
       BackgroundActions.backgroundShuffle();
     }
@@ -70,6 +73,8 @@ var TupiqFooterContainer = React.createClass({
   },
 
   onDownloadBackgroundClick: function() {
+  	Analytics.trackEvent('button', 'click', 'download background');
+
   	chrome.tabs.create({
   		url: this.state.backgroundImage.post_url
   	});

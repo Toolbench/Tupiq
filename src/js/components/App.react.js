@@ -2,6 +2,7 @@
  * Libs
  */
 var React = require('react');
+var Analytics = require('../utils/Analytics');
 
 /**
  * Components
@@ -37,6 +38,8 @@ var App = React.createClass({
 
   componentDidMount: function() {
     BackgroundStore.addChangeListener(this._onChange);
+
+    Analytics.trackPageview('/');
   },
 
   componentWillUnmount: function() {
