@@ -21,5 +21,6 @@ module.exports = keyMirror({
   LOCAL_BACKGROUND_IMAGE: null,
   LOCAL_TUPIQ_COORDINATES: null,
   LOCAL_USED_BACKGROUNDS: null,
-  LOCAL_BACKGROUNDS_JSON: null
+  LOCAL_BACKGROUNDS_JSON: null,
+  LOCAL_VERSION: null
 });

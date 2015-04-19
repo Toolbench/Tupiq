@@ -104,10 +104,10 @@ var TupiqBodyContainer = React.createClass({
   },
 
   render: function() {
-    var agenda = TupiqTools.agenda(this.state.upcomingEvents);
-
     // If we're connected and not awaiting events
     if (this.state.isCalendarConnected && this.state.upcomingEvents !== null) {
+	    var agenda = TupiqTools.agenda(this.state.upcomingEvents);
+
 	    return (
 	      <TupiqCalendar
 	      	onCloseButtonClick={this.onCloseButtonClick}

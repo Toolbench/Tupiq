@@ -12,6 +12,11 @@ var App = require('./components/App.react');
  * for(var x in localStorage)console.log(x+"="+((localStorage[x].length * 2)/1024/1024).toFixed(2)+" MB");
  */
 
+/**
+ * Save version number
+ * chrome.runtime.getManifest().version
+ */
+
  React.render(
  	<App />,
  	document.getElementById('app')
