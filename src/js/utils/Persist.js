@@ -1,7 +1,6 @@
 var LZString = require('lz-string');
 
 var Persist = {
-
 	getItem: function(key, decompress) {
 		decompress = (decompress === undefined) ? true : decompress;
 
@@ -16,8 +15,11 @@ var Persist = {
 		item = (compress) ? LZString.compress(JSON.stringify(item)) : JSON.stringify(item);
 
 		localStorage.setItem(key, item);
-	}
+	},
 
+	removeItem: function(key) {
+		localStorage.removeItem(key);
+	}
 };
 
 module.exports = Persist;

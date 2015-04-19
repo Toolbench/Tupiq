@@ -34,16 +34,15 @@ function loadBackground(backgroundItem) {
 
     canvas.parentNode.removeChild(canvas);
 
-    var usedBackgrounds;
+    var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
 
-    if (localStorage.getItem('usedBackgrounds') !== null) {
-			usedBackgrounds = Persist.getItem('usedBackgrounds');
-			usedBackgrounds.push(backgroundItem);
+    if (usedBackgrounds !== null) {
+		usedBackgrounds.push(backgroundItem);
     } else {
     	usedBackgrounds = [backgroundItem];
     }
 
-    Persist.setItem('usedBackgrounds', usedBackgrounds);
+    Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, usedBackgrounds);
 
     AppDispatcher.dispatch({
       actionType: AppConstants.BACKGROUND_SHUFFLE_SUCCESS,
@@ -55,13 +54,13 @@ function loadBackground(backgroundItem) {
 }
 
 function readJSON() {
-	var backgroundJSON = Persist.getItem('backgroundJSON');
+	var backgroundJSON = Persist.getItem(AppConstants.LOCAL_BACKGROUNDS_JSON);
 
 	if (backgroundJSON === null) {
 		requestJSON(function(backgroundJSON) {
 			// Compress produces invalid UTF-16 Strings therefore only good for Chrome.
 			// Read more: http://pieroxy.net/blog/pages/lz-string/index.html
-			Persist.setItem('backgroundJSON', backgroundJSON);
+			Persist.setItem(AppConstants.LOCAL_BACKGROUNDS_JSON, backgroundJSON);
 
 			shuffleBackground(backgroundJSON);
 		});
@@ -84,23 +83,23 @@ function requestJSON(callback) {
 function shuffleBackground(backgroundJSON) {
 	var random, backgrounds, backgroundItem;
 
-	if (Persist.getItem('usedBackgrounds') !== null) {
-		// Get all the used backgrounds
-		var usedBackgrounds = Persist.getItem('usedBackgrounds');
+	// Get all the used backgrounds
+	var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
 
+	if (usedBackgrounds !== null) {
 		// Get all unused backgrounds by comparing with latest backgrounds JSON
 		var unusedBackgrounds = TupiqTools.getUniqueObjects(usedBackgrounds, backgroundJSON, 'id');
 
 		// No more unused backgrounds left, reset and start again.
 		if (unusedBackgrounds.length === 0) {
-			Persist.setItem('usedBackgrounds', []);
+			Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, []);
 
 			backgrounds = backgroundJSON;
 		} else {
 			backgrounds = unusedBackgrounds;
 		}
 	} else {
-		Persist.setItem('usedBackgrounds', []);
+		Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, []);
 
 		backgrounds = backgroundJSON;
 	}

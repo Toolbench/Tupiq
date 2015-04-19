@@ -6,7 +6,7 @@ var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
 
-var backgroundImage = Persist.getItem('backgroundImage', false) || {
+var backgroundImage = Persist.getItem(AppConstants.LOCAL_BACKGROUND_IMAGE, false) || {
 	post_url: 'https://www.flickr.com/photos/ilovegreenland/13187636953/in/set-72157632226028027',
 	data: 'images/bg.jpg'
 };
@@ -42,7 +42,7 @@ AppDispatcher.register(function(action) {
       break;
 
     case AppConstants.BACKGROUND_SHUFFLE_SUCCESS:
-      Persist.setItem('backgroundImage', action.backgroundImage, false);
+      Persist.setItem(AppConstants.LOCAL_BACKGROUND_IMAGE, action.backgroundImage, false);
       backgroundImage = action.backgroundImage;
       isLoading = false;
       BackgroundStore.emitChange();

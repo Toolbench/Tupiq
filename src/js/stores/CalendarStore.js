@@ -1,18 +1,19 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
+var Persist = require('../utils/Persist');
 var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
 
-var upcomingEvents = JSON.parse(localStorage.getItem('upcomingEvents'));
+var upcomingEvents = Persist.getItem(AppConstants.LOCAL_UPCOMING_EVENTS);
 var isConnected = upcomingEvents !== null;
 var isConnecting = false;
 var isRefreshing = false;
 var refreshedTime = null;
 
 function reset() {
-  localStorage.removeItem('upcomingEvents');
+  Persist.removeItem(AppConstants.LOCAL_UPCOMING_EVENTS);
   upcomingEvents = refreshedTime = null;
   isConnecting = isConnected = isRefreshing = false;
 }
@@ -81,7 +82,7 @@ AppDispatcher.register(function(action) {
       break;
 
     case AppConstants.CALENDAR_REFRESH_SUCCESS:
-      localStorage.setItem('upcomingEvents', JSON.stringify(action.upcomingEvents));
+      Persist.setItem(AppConstants.LOCAL_UPCOMING_EVENTS, action.upcomingEvents);
       upcomingEvents = action.upcomingEvents;
       isRefreshing = false;
       CalendarStore.emitChange();
