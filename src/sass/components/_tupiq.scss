@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(0, 0, 0, .06);
+    border-bottom: 1px solid $border-color;
     user-select: none;
     cursor: move;
 
@@ -30,22 +30,34 @@
     overflow: hidden;
     padding: 10px;
     box-sizing: border-box;
-    border-bottom: 1px solid rgba(0, 0, 0, .06);
+    border-bottom: 1px solid $border-color;
     display: flex;
     align-items: center;
     justify-content: center;
 
     &__connect-prompt {
     	text-align: center;
-    	color: rgba(0, 0, 0, .54);
+    	//color: rgba(0, 0, 0, .54);
+    	color: $hint-disabled-text-color;
     	cursor: pointer;
+    	background-color: $border-color;
+    	padding: 8px 16px;
+    	border-radius: 4px;
+
+    	/*
+    	&:before {
+    		display: inline-block;
+			  content: "\2795";
+			}
+			*/
 
     	&.connecting {
     		cursor: default;
+    		background-color: transparent;
     	}
 
     	&:hover:not(.connecting) {
-    		color: rgba(0, 0, 0, .87);
+    		color: $secondary-text-color;
     	}
     }
   }
@@ -59,12 +71,12 @@
     }
 
     .primary {
-      color: rgba(0, 0, 0, .87);
+      color: $primary-text-color;
       widows: 2;
     }
 
     .secondary {
-      color: rgba(0, 0, 0, .54);
+      color: $secondary-text-color;
       font-size: 14px;
       margin-top: 5px;
     }
@@ -101,7 +113,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: rgba(255, 255, 255, 1);
-    color: rgba(0, 0, 0, .54);
+    color: $secondary-text-color;
     font-size: 13px;
     padding: 10px;
 
@@ -111,7 +123,7 @@
     }
 
     span:not(.loading):hover {
-      color: rgba(0, 0, 0, .87);
+      color: $primary-text-color;
     }
 
     &__shuffle-background {
