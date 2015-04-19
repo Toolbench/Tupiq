@@ -4,9 +4,11 @@ var TupiqTools = require('../utils/TupiqTools');
 var LZString = require('lz-string');
 var Persist = require('../utils/Persist');
 var _ = require('underscore');
+var moment = require('moment');
 
 // Make console debugging easier.
 window.LZString = LZString;
+window.moment = moment;
 
 function loadBackground(backgroundItem) {
   var image = new Image();
@@ -54,18 +56,22 @@ function loadBackground(backgroundItem) {
 }
 
 function readJSON() {
-	var backgroundJSON = Persist.getItem(AppConstants.LOCAL_BACKGROUNDS_JSON);
+	var backgroundsJSON = Persist.getItem(AppConstants.LOCAL_BACKGROUNDS_JSON);
 
-	if (backgroundJSON === null) {
-		requestJSON(function(backgroundJSON) {
+	// Do we have a backgrounds item in local storage, and is it fresher than 10 days?
+	if (backgroundsJSON === null || backgroundsJSON.lastUpdated === null || moment().diff(moment.unix(backgroundsJSON.lastUpdated), 'days') > 10) {
+		requestJSON(function(backgrounds) {
 			// Compress produces invalid UTF-16 Strings therefore only good for Chrome.
 			// Read more: http://pieroxy.net/blog/pages/lz-string/index.html
-			Persist.setItem(AppConstants.LOCAL_BACKGROUNDS_JSON, backgroundJSON);
+			Persist.setItem(AppConstants.LOCAL_BACKGROUNDS_JSON, {
+				lastUpdated: moment().unix(),
+				backgrounds: backgrounds
+			});
 
-			shuffleBackground(backgroundJSON);
+			shuffleBackground(backgrounds);
 		});
 	} else {
-		shuffleBackground(backgroundJSON);
+		shuffleBackground(backgroundsJSON.backgrounds);
 	}
 }
 
