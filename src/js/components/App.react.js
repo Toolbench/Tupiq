@@ -50,7 +50,7 @@ var App = React.createClass({
   render: function() {
     return(
       <div className="app-wrapper">
-        <Background image={this.state.backgroundImage} />
+        <Background backgroundImage={this.state.backgroundImage} />
 
         <DragHintContainer />
 

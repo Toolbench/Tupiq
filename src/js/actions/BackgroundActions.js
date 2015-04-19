@@ -2,6 +2,8 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var TupiqTools = require('../utils/TupiqTools');
 var LZString = require('lz-string');
+var Persist = require('../utils/Persist');
+var _ = require('underscore');
 
 // Make console debugging easier.
 window.LZString = LZString;
@@ -35,17 +37,17 @@ function loadBackground(backgroundItem) {
     var usedBackgrounds;
 
     if (localStorage.getItem('usedBackgrounds') !== null) {
-			usedBackgrounds = JSON.parse(LZString.decompress(localStorage.getItem('usedBackgrounds')));
+			usedBackgrounds = Persist.getItem('usedBackgrounds');
 			usedBackgrounds.push(backgroundItem);
     } else {
     	usedBackgrounds = [backgroundItem];
     }
 
-    localStorage.setItem('usedBackgrounds', LZString.compress(JSON.stringify(usedBackgrounds)));
+    Persist.setItem('usedBackgrounds', usedBackgrounds);
 
     AppDispatcher.dispatch({
       actionType: AppConstants.BACKGROUND_SHUFFLE_SUCCESS,
-      imageData: data
+      backgroundImage: _.extend(backgroundItem, {data: data})
     });
   });
 
@@ -53,18 +55,18 @@ function loadBackground(backgroundItem) {
 }
 
 function readJSON() {
-	var backgroundJSON = localStorage.getItem('backgroundJSON');
+	var backgroundJSON = Persist.getItem('backgroundJSON');
 
-	if (localStorage.getItem('backgroundJSON') === null) {
+	if (backgroundJSON === null) {
 		requestJSON(function(backgroundJSON) {
 			// Compress produces invalid UTF-16 Strings therefore only good for Chrome.
 			// Read more: http://pieroxy.net/blog/pages/lz-string/index.html
-			localStorage.setItem('backgroundJSON', LZString.compress(JSON.stringify(backgroundJSON)));
+			Persist.setItem('backgroundJSON', backgroundJSON);
 
 			shuffleBackground(backgroundJSON);
 		});
 	} else {
-		shuffleBackground(JSON.parse(LZString.decompress(backgroundJSON)));
+		shuffleBackground(backgroundJSON);
 	}
 }
 
@@ -82,23 +84,23 @@ function requestJSON(callback) {
 function shuffleBackground(backgroundJSON) {
 	var random, backgrounds, backgroundItem;
 
-	if (localStorage.getItem('usedBackgrounds') !== null) {
+	if (Persist.getItem('usedBackgrounds') !== null) {
 		// Get all the used backgrounds
-		var usedBackgrounds = JSON.parse(LZString.decompress(localStorage.getItem('usedBackgrounds')));
+		var usedBackgrounds = Persist.getItem('usedBackgrounds');
 
 		// Get all unused backgrounds by comparing with latest backgrounds JSON
 		var unusedBackgrounds = TupiqTools.getUniqueObjects(usedBackgrounds, backgroundJSON, 'id');
 
 		// No more unused backgrounds left, reset and start again.
 		if (unusedBackgrounds.length === 0) {
-			localStorage.setItem('usedBackgrounds', LZString.compress(JSON.stringify([])));
+			Persist.setItem('usedBackgrounds', []);
 
 			backgrounds = backgroundJSON;
 		} else {
 			backgrounds = unusedBackgrounds;
 		}
 	} else {
-		localStorage.setItem('usedBackgrounds', LZString.compress(JSON.stringify([])));
+		Persist.setItem('usedBackgrounds', []);
 
 		backgrounds = backgroundJSON;
 	}

@@ -25,6 +25,7 @@ var CalendarActions = require('../actions/CalendarActions');
  */
 function getStateFromStores() {
   return {
+  	backgroundImage: BackgroundStore.getCurrent(),
     isBackgroundLoading: BackgroundStore.getLoading(),
     isCalendarConnected: CalendarStore.getConnected(),
     isCalendarConnecting: CalendarStore.getConnecting(),
@@ -68,11 +69,18 @@ var TupiqFooterContainer = React.createClass({
     }
   },
 
+  onDownloadBackgroundClick: function() {
+  	chrome.tabs.create({
+  		url: this.state.backgroundImage.post_url
+  	});
+  },
+
   render: function(){
     return (
       <TupiqFooter
         onToggleCalendarClick={this.onToggleCalendarClick}
         onShuffleBackgroundClick={this.onShuffleBackgroundClick}
+        onDownloadBackgroundClick={this.onDownloadBackgroundClick}
         isCalendarConnecting={this.state.isCalendarConnecting}
         isCalendarRefreshing={this.state.isCalendarRefreshing}
         isCalendarConnected={this.state.isCalendarConnected}

@@ -4,11 +4,7 @@ var Background = React.createClass({
   render: function(){
     var style = {};
 
-    if (this.props.image !== null) {
-    	style.backgroundImage = 'url(' + this.props.image + ')';
-    } else {
-    	style.backgroundImage = 'url(images/bg.jpg)';
-    }
+    style.backgroundImage = 'url(' + this.props.backgroundImage.data + ')';
 
     return (
       <div className="background" style={style}></div>

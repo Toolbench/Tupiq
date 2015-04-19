@@ -10,14 +10,18 @@ var classNames = require('classnames');
 var TupiqBody = React.createClass({
   render: function(){
     var tupiqBodyClass = classNames({
-    	'tupiq__body': true,
-    	'connected': this.props.isCalendarConnected
+    	'tupiq__body': true
+    });
+    var addCalendarLabel = (this.props.isCalendarConnecting) ? 'Connecting...' : 'Add calendar';
+
+    var tupiqConnectPromptClass = classNames({
+		'tupiq__body__connect-prompt': true,
+		'connecting': this.props.isCalendarConnecting
     });
 
-    return (
+  	return (
       <div className={tupiqBodyClass}>
-        <p className="primary">{this.props.primaryNote}</p>
-        <p className="secondary">{this.props.secondaryNote}</p>
+        <span className={tupiqConnectPromptClass} onClick={this.props.onAddCalendarClick}>{addCalendarLabel}</span>
       </div>
     )
   }

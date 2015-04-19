@@ -29,7 +29,7 @@ var TupiqFooter = React.createClass({
 
     return (
       <div className="tupiq__footer">
-        <span className={calendarButtonClass} onClick={this.props.onToggleCalendarClick}>{calendarButtonLabel}</span>
+        <span className="tupiq__footer__download-background" onClick={this.props.onDownloadBackgroundClick}>Download background</span>
         <span className={shuffleButtonClass} onClick={this.props.onShuffleBackgroundClick}>{shuffleButtonLabel}</span>
       </div>
     )

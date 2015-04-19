@@ -18,6 +18,7 @@ var CalendarActions = require('../actions/CalendarActions');
  * Pure component
  */
 var TupiqBody = require('./TupiqBody');
+var TupiqCalendar = require('./TupiqCalendar');
 
 /**
  * Private
@@ -87,17 +88,30 @@ var TupiqBodyContainer = React.createClass({
     }
   },
 
+  onAddCalendarClick: function() {
+  	if (!this.state.isCalendarConnected && !this.state.isCalendarConnecting) {
+  		CalendarActions.connect();
+  	}
+  },
+
   render: function() {
     var agenda = TupiqTools.agenda(this.state.upcomingEvents);
 
-    return (
-      <TupiqBody
-      	isCalendarConnected={this.state.isCalendarConnected && this.state.upcomingEvents !== null}
-      	isCalendarConnecting={this.state.isCalendarConnecting}
-      	isCalendarRefreshing={this.state.isCalendarRefreshing}
-      	primaryNote={agenda.primaryNote}
-        secondaryNote={agenda.secondaryNote} />
-    )
+    // If we're connected and not awaiting events
+    if (this.state.isCalendarConnected && this.state.upcomingEvents !== null) {
+	    return (
+	      <TupiqCalendar
+	      	primaryNote={agenda.primaryNote}
+	        secondaryNote={agenda.secondaryNote} />
+	    )
+    } else {
+	    return (
+	      <TupiqBody
+	      	// If we're connecting, or already connected but still awaiting events
+	      	isCalendarConnecting={this.state.isCalendarConnecting || (this.state.isCalendarConnected && this.state.upcomingEvents === null)}
+	      	onAddCalendarClick={this.onAddCalendarClick} />
+	    )
+    }
   }
 });
 
