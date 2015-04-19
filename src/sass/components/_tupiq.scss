@@ -37,7 +37,7 @@
 
     &__connect-prompt {
     	text-align: center;
-    	color: $secondary-text-color;
+    	color: rgba(0, 0, 0, .54);
     	cursor: pointer;
 
     	&.connecting {
@@ -45,7 +45,7 @@
     	}
 
     	&:hover:not(.connecting) {
-    		color: $primary-text-color;
+    		color: rgba(0, 0, 0, .87);
     	}
     }
   }
@@ -58,12 +58,12 @@
     }
 
     .primary {
-      color: $primary-text-color;
+      color: rgba(0, 0, 0, .87);
       widows: 2;
     }
 
     .secondary {
-      color: $secondary-text-color;
+      color: rgba(0, 0, 0, .54);
       font-size: 14px;
       margin-top: 5px;
     }
@@ -76,7 +76,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: rgba(255, 255, 255, 1);
-    color: $secondary-text-color;
+    color: rgba(0, 0, 0, .54);
     font-size: 13px;
     padding: 10px;
 
@@ -86,7 +86,7 @@
     }
 
     span:not(.loading):hover {
-      color: $primary-text-color;
+      color: rgba(0, 0, 0, .87);
     }
 
     &__shuffle-background {
