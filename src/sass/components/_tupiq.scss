@@ -40,7 +40,7 @@
     	//color: rgba(0, 0, 0, .54);
     	color: $hint-disabled-text-color;
     	cursor: pointer;
-    	background-color: $border-color;
+    	border: 1px solid $border-color;
     	padding: 8px 16px;
     	border-radius: 4px;
 
@@ -53,11 +53,12 @@
 
     	&.connecting {
     		cursor: default;
-    		background-color: transparent;
+    		border: none;
     	}
 
     	&:hover:not(.connecting) {
     		color: $secondary-text-color;
+    		border: 1px solid $border-dark-color;
     	}
     }
   }
