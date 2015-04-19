@@ -37,7 +37,7 @@
 
     &__connect-prompt {
     	text-align: center;
-    	//color: rgba(0, 0, 0, .54);
+    	transition: $regular-transition-duration;
     	color: $hint-disabled-text-color;
     	cursor: pointer;
     	border: 1px solid $border-color;
@@ -84,7 +84,7 @@
 
     &__close-btn {
     	opacity: 0;
-    	transition: 0.2s;
+    	transition: $regular-transition-duration;
     	position: absolute;
     	top: 0;
     	right: 4px;
@@ -121,6 +121,7 @@
     span {
       display: block;
       cursor: pointer;
+      transition: $regular-transition-duration;
     }
 
     span:not(.loading):hover {

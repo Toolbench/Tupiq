@@ -14,7 +14,7 @@
 		height: 450px;
 		position: relative;
 		opacity: 0;
-		transition: 0.4s;
+		transition: $regular-transition-duration;
 
 		&:before, &:after {
 			content: "";
