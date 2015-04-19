@@ -12,7 +12,7 @@ var TupiqBody = React.createClass({
     var tupiqBodyClass = classNames({
     	'tupiq__body': true
     });
-    var addCalendarLabel = (this.props.isCalendarConnecting) ? 'Connecting...' : 'Add calendar';
+    var addCalendarLabel = (this.props.isCalendarConnecting) ? 'Connecting...' : 'Connect your calendar';
 
     var tupiqConnectPromptClass = classNames({
 		'tupiq__body__connect-prompt': true,
