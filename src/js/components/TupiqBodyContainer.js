@@ -112,7 +112,8 @@ var TupiqBodyContainer = React.createClass({
 	      <TupiqCalendar
 	      	onCloseButtonClick={this.onCloseButtonClick}
 	      	primaryNote={agenda.primaryNote}
-	        secondaryNote={agenda.secondaryNote} />
+	        secondaryNote={agenda.secondaryNote}
+	        upcomingEvents={this.state.upcomingEvents} />
 	    )
     } else {
 	    return (

@@ -106,7 +106,7 @@ var TupiqTools = {
 
 			  // The event is happening right now
 			  if (isNextEventRightNow) {
-			    primaryNote = `${nextEvent.summary} started about ${nextEvent.fromNow}${nextEvent.actualLocation}.`;
+			    primaryNote = `${nextEvent.summary} started ${nextEvent.fromNow}${nextEvent.actualLocation}.`;
 			    secondaryNote = `Plus ${eventsRemainingToday} other upcoming events today.`;
 
 			  // The event is yet to happen
