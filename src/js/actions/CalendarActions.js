@@ -106,7 +106,7 @@ function fetchToken (interactive, callback) {
   });
 }
 
-serialize = function(obj, prefix) {
+function serialize (obj, prefix) {
   var str = [];
   for(var p in obj) {
     if (obj.hasOwnProperty(p)) {

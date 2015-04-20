@@ -17,14 +17,17 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "babel": "^5.1.11",
+    "babelify": "^6.0.2",
     "browserify": "^9.0.3",
     "envify": "^3.2.0",
+    "jsxhint": "^0.14.0",
+    "node-sass": "^2.0.1",
+    "parallelshell": "^1.0.4",
     "reactify": "^1.0.0",
     "uglify-js": "^2.4.16",
-    "watchify": "^2.4.0",
-    "node-sass": "^2.0.1",
     "watch": "^0.14.0",
-    "parallelshell": "^1.0.4"
+    "watchify": "^2.4.0"
   },
   "scripts": {
     "postinstall": "cp node_modules/normalize.css/normalize.css src/sass/_normalize.scss",
@@ -35,10 +38,12 @@
     "build:css": "node-sass src/sass/main.scss bin/css/main.css",
     "build": "npm run build:css && npm run build:js",
     "package": "./scripts/package",
+    "lint": "jsxhint src/js/**/* --babel",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserify": {
     "transform": [
+    	"babelify",
       "reactify",
       "envify"
     ]
