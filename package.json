@@ -1,6 +1,6 @@
 {
   "name": "Tupiq",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "",
   "main": "src/js/app.js",
   "dependencies": {
@@ -38,12 +38,13 @@
     "build:css": "node-sass src/sass/main.scss bin/css/main.css",
     "build": "npm run build:css && npm run build:js",
     "package": "./scripts/package",
+    "release:patch": "./scripts/release patch",
     "lint": "jsxhint src/js/**/* --babel",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserify": {
     "transform": [
-    	"babelify",
+      "babelify",
       "reactify",
       "envify"
     ]
