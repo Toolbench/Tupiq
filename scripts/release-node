@@ -2,7 +2,7 @@
 
 var release = process.argv[2];
 
-if (release !== 'patch' || release !== 'minor' || release !== 'major') {
+if (release !== 'patch' && release !== 'minor' && release !== 'major') {
 	console.log('Invalid release type. Please supply either patch, minor, or major.');
 	return;
 }
