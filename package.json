@@ -23,6 +23,7 @@
     "envify": "^3.2.0",
     "jsxhint": "^0.14.0",
     "node-sass": "^2.0.1",
+    "npm": "^2.8.3",
     "parallelshell": "^1.0.4",
     "reactify": "^1.0.0",
     "uglify-js": "^2.4.16",
@@ -39,9 +40,9 @@
     "build": "npm run build:css && npm run build:js",
     "lint": "jsxhint src/js/**/* --babel",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release:patch": "./scripts/release patch",
-    "release:minor": "./scripts/release minor",
-    "release:major": "./scripts/release major"
+    "release:patch": "./scripts/release-node patch",
+    "release:minor": "./scripts/release-node minor",
+    "release:major": "./scripts/release-node major"
   },
   "browserify": {
     "transform": [

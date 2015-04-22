@@ -1,10 +1,14 @@
 #!/bin/bash
 
+node ./scripts/release.js
+
 if [ -z "$(git status --porcelain)" ]; then
+	# Bump package.json with patch, minor, or major
 	npm version $1 --git-tag-version=false
 
 	cd "$(dirname "$0")/.."
 
+	# Get the current version
 	version=$(./scripts/version)
 
 	echo Packaging version $version
@@ -25,6 +29,3 @@ if [ -z "$(git status --porcelain)" ]; then
 else
 	echo Working directory is not clean. Commit or stash and try again.
 fi
-
-
-
