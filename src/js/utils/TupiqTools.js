@@ -128,7 +128,12 @@ var TupiqTools = {
 			// If upcoming event is tomorrow...
 			} else if (isNextEventTomorrow) {
 			  primaryNote = `Tomorrow your day starts at ${nextEvent.momentStart.format('h:mma')} with ${nextEvent.summary}${nextEvent.actualLocation}.`;
-			  secondaryNote = `Plus ${eventsRemainingTomorrow} other events.`;
+
+			  if (eventsRemainingTomorrowNumber > 0) {
+			  	secondaryNote = `Plus ${eventsRemainingTomorrow} other events.`;
+			  } else {
+			  	secondaryNote = `After that you're clear for the rest of the day.`;
+			  }
 
 			// If upcoming event is in the future...
 			} else {
