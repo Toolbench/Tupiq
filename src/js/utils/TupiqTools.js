@@ -83,6 +83,8 @@ var TupiqTools = {
 				isNextEventToday,
 				isNextEventTomorrow,
 				isNextEventRightNow,
+				eventsRemainingTodayNumber,
+				eventsRemainingTomorrowNumber,
 				eventsRemainingToday = 'zero',
 				eventsRemainingTomorrow = 'zero';
 
@@ -97,8 +99,10 @@ var TupiqTools = {
 					return moment(event.start.dateTime || event.start.date).isSame(momentNow, 'day');
 				});
 
-				eventsRemainingToday = NumbersToWords(eventsRemaining.length);
-				eventsRemainingTomorrow = NumbersToWords(upcomingEvents.length - 1);
+				eventsRemainingTodayNumber = eventsRemaining.length;
+				eventsRemainingTomorrowNumber = upcomingEvents.length - 1;
+				eventsRemainingToday = NumbersToWords(eventsRemainingTodayNumber);
+				eventsRemainingTomorrow = NumbersToWords(eventsRemainingTomorrowNumber);
 			}
 
 			// If upcoming event is today...
@@ -107,12 +111,18 @@ var TupiqTools = {
 			  // The event is happening right now
 			  if (isNextEventRightNow) {
 			    primaryNote = `${nextEvent.summary} started ${nextEvent.fromNow}${nextEvent.actualLocation}.`;
-			    secondaryNote = `Plus ${eventsRemainingToday} other upcoming events today.`;
 
 			  // The event is yet to happen
 			  } else {
 			    primaryNote = `You've got ${nextEvent.summary} ${nextEvent.fromNow}${nextEvent.actualLocation}.`;
-			    secondaryNote = `Plus ${eventsRemainingToday} other upcoming events today.`;
+			  }
+
+			  if (eventsRemainingTodayNumber > 0) {
+			  	secondaryNote = `Plus ${eventsRemainingToday} other upcoming events today.`;
+			  } else if (eventsRemainingTomorrowNumber > 0) {
+			  	secondaryNote = `And then you're clear till tomorrow.`;
+			  } else {
+			  	secondaryNote = `After that you're clear for the next few days.`;
 			  }
 
 			// If upcoming event is tomorrow...
