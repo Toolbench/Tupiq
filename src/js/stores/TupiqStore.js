@@ -7,7 +7,7 @@ var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
 
 var isDragging = false;
-var coordinates = Persist.getItem(AppConstants.LOCAL_TUPIQ_COORDINATES) || { x: '50%', y: '50%', transform: 'translate(-50%, -50%)' };
+var coordinates = Persist.getItem(AppConstants.LOCAL_TUPIQ_COORDINATES, false) || { x: '50%', y: '50%', transform: 'translate(-50%, -50%)' };
 var dragOriginData = { scrollOriginX: null, scrollOriginY: null, elementOriginX: null, elementOriginY: null };
 
 var TupiqStore = assign({}, EventEmitter.prototype, {
@@ -51,7 +51,7 @@ AppDispatcher.register(function(action) {
 
     case AppConstants.TUPIQ_REPOSITION:
       coordinates = action.coordinates;
-      Persist.setItem(AppConstants.LOCAL_TUPIQ_COORDINATES, coordinates);
+      Persist.setItem(AppConstants.LOCAL_TUPIQ_COORDINATES, coordinates, false);
       TupiqStore.emitChange();
       break;
 

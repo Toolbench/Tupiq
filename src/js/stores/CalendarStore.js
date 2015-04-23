@@ -6,14 +6,14 @@ var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
 
-var upcomingEvents = Persist.getItem(AppConstants.LOCAL_UPCOMING_EVENTS);
+var upcomingEvents = Persist.getItem(AppConstants.LOCAL_UPCOMING_EVENTS, false);
 var isConnected = upcomingEvents !== null;
 var isConnecting = false;
 var isRefreshing = false;
 var refreshedTime = null;
 
 function reset() {
-  Persist.removeItem(AppConstants.LOCAL_UPCOMING_EVENTS);
+  Persist.removeItem(AppConstants.LOCAL_UPCOMING_EVENTS, false);
   upcomingEvents = refreshedTime = null;
   isConnecting = isConnected = isRefreshing = false;
 }
@@ -82,7 +82,7 @@ AppDispatcher.register(function(action) {
       break;
 
     case AppConstants.CALENDAR_REFRESH_SUCCESS:
-      Persist.setItem(AppConstants.LOCAL_UPCOMING_EVENTS, action.upcomingEvents);
+      Persist.setItem(AppConstants.LOCAL_UPCOMING_EVENTS, action.upcomingEvents, false);
       upcomingEvents = action.upcomingEvents;
       isRefreshing = false;
       CalendarStore.emitChange();
