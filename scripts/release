@@ -11,6 +11,7 @@ if (release !== 'patch' && release !== 'minor' && release !== 'major') {
 	return;
 }
 
+npm.config.set('git-tag-version', false);
 npm.load(function (err, npm) {
 	npm.commands.version([release], function (err) {
 		if (err) {
