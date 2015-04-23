@@ -40,9 +40,9 @@
     "build": "npm run build:css && npm run build:js",
     "lint": "jsxhint src/js/**/* --babel",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release:patch": "./scripts/release-node patch",
-    "release:minor": "./scripts/release-node minor",
-    "release:major": "./scripts/release-node major"
+    "release:patch": "./scripts/release patch",
+    "release:minor": "./scripts/release minor",
+    "release:major": "./scripts/release major"
   },
   "browserify": {
     "transform": [
