@@ -1,6 +1,8 @@
 var React = require('react');
 
 var App = require('./components/App.react');
+var Persist = require('./utils/Persist');
+var AppConstants = require('./constants/AppConstants');
 
 /**
  * Save app to localstorage?
@@ -16,9 +18,12 @@ var App = require('./components/App.react');
  */
 
 /**
- * Save version number
- * chrome.runtime.getManifest().version
+ * Clear localStorage is no version is set.
  */
+ if (Persist.getItem(AppConstants.LOCAL_VERSION, false) === null) {
+ 	Persist.clear();
+ 	Persist.setItem(AppConstants.LOCAL_VERSION, chrome.runtime.getManifest().version, false);
+ }
 
  React.render(
  	<App />,

@@ -19,6 +19,10 @@ var Persist = {
 
 	removeItem: function(key) {
 		localStorage.removeItem(key);
+	},
+
+	clear: function() {
+		localStorage.clear();
 	}
 };
 
