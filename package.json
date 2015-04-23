@@ -1,6 +1,6 @@
 {
   "name": "Tupiq",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "src/js/app.js",
   "dependencies": {
@@ -13,10 +13,10 @@
     "normalize.css": "^3.0.2",
     "object-assign": "^2.0.0",
     "react": "^0.12.2",
-    "react-dnd": "^0.9.8",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "archiver": "^0.14.3",
     "babel": "^5.1.11",
     "babelify": "^6.0.2",
     "browserify": "^9.0.3",
