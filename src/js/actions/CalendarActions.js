@@ -71,6 +71,10 @@ function requestEvents(token, callback, searchFuture) {
     orderBy: 'startTime',
     alt: 'json',
     access_token: token
+  };
+
+  if (searchFuture) {
+  	params.maxResults = 3;
   }
 
   var req = new XMLHttpRequest();
