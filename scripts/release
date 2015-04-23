@@ -1,31 +1,107 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-node ./scripts/release.js
+var npm = require('npm'),
+	fs = require('fs'),
+	archiver = require('archiver');
 
-if [ -z "$(git status --porcelain)" ]; then
-	# Bump package.json with patch, minor, or major
-	npm version $1 --git-tag-version=false
+var release = process.argv[2];
 
-	cd "$(dirname "$0")/.."
+if (release !== 'patch' && release !== 'minor' && release !== 'major') {
+	console.log('Invalid release type. Please supply either patch, minor, or major.');
+	return;
+}
 
-	# Get the current version
-	version=$(./scripts/version)
+npm.load(function (err, npm) {
+	npm.commands.version([release], function (err) {
+		if (err) {
+			console.log(err);
+		} else {
+			var packageJSON = require('../package.json');
+			var targetVersion = packageJSON.version;
 
-	echo Packaging version $version
+			// Start off by updating bin's version of manifest.json
+			updateManifest(targetVersion, function(err, manifestJSON) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log('manifest.json updated.');
 
-	zipfile=releases/tupiq-$version.zip
+					// Now zip up the release
+					doPackage(targetVersion, manifestJSON, function(err) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log('Release ' + targetVersion + ' has been zipped.');
 
-	files="bin"
+							console.log('Release ' + targetVersion + ' is ready for commit, tag, and push!');
+						}
+					});
+				}
+			});
+		}
+	});
+});
 
-	zip -FSr -X $zipfile $files -x \*bower.json \*.bowerrc
+function updateManifest(version, callback) {
+	console.log('Updating manifest.json to version ' + version + '...');
 
-	echo Packaged $zipfile
+	var manifestJSON = require('../bin/manifest.json');
 
-	git add .
+	// Bump the manifest version
+	manifestJSON.version = version;
 
-	git commit -m "Version $version"
+	// Save it to bin
+	fs.writeFile('./bin/manifest.json', JSON.stringify(manifestJSON, null, 4), function(err) {
+	    if(err) {
+	      callback(err);
+	    } else {
+	      callback(null, manifestJSON);
+	    }
+	});
+}
 
-	git tag -a v$version -m "Version $version"
-else
-	echo Working directory is not clean. Commit or stash and try again.
-fi
+
+function doPackage(version, manifestJSON, callback) {
+	console.log('Zipping...');
+
+	var output = fs.createWriteStream(__dirname + '/../releases/' + version + '.zip');
+	var archive = archiver('zip');
+
+	output.on('close', function() {
+		callback(null);
+	});
+
+	archive.on('error', function(err) {
+		callback(err);
+	});
+
+	archive.pipe(output);
+
+	// Grab contents from bin but exclude manifest as we'll write our own
+	archive.bulk([
+		{
+			expand: true,
+			cwd: 'bin',
+			src: ['**'],
+			filter: function (filePath) {
+				return filePath !== 'bin/manifest.json';
+			}
+		}
+	]);
+
+	// Delete the extension key which is only used for local dev
+	// The key for production which will get added automagically via the Chrome Web Store is:
+	// MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmQLlJ04mcTm33+ZIn//p1jN/786fZogVew4yL1keA82xLnB4aK0i5bl8ZhueRf8EtvAer8TZ3w6nbTRbINrkPe8Ml/+wfIr7oikWKSiCYTooj5Ree/l9ixrR7URru1RyfU4E2zX0f/2F1lIoqaphvpWwZJbjOBsmUybHy3drh/con0SyFJl50PgefvtCP2WWmD82sOK2QTSMsCObA0gvUoJBxr6ah/pQadiICcwX9DH0ij4LyPx2CEbZoJXqdVJ6f3TJCJL/6IcXxEzRhaXRtNMKcw5t7xgbWZVBBJVLI6MAZ9KKYsaTUAQQee0pWqFKOGV09FZ+1azmDCJWhxJ+RQIDAQAB
+	delete manifestJSON['key'];
+
+	// Update the name
+	manifestJSON.name = 'Tupiq';
+
+	// Add the production Google API ID
+	manifestJSON.oauth2.client_id = '51141367093-4sc06mfr2u50apnhhpaooterd3nk7rbo.apps.googleusercontent.com';
+
+	// Append the shiny new manifest
+	archive.append(JSON.stringify(manifestJSON, null, 4), { name:'manifest.json' });
+
+	archive.finalize();
+}
