@@ -6,3 +6,6 @@ $color-base: rgba(0, 0, 0, .87);
 @import 'components/background';
 @import 'components/tupiq';
 @import 'components/drag-hint';
+@import 'components/cards/base';
+@import 'components/cards/weather';
+@import 'components/cards/calendar';

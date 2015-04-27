@@ -6,7 +6,9 @@
     },
     "permissions": [
         "identity",
-        "https://unsplash.it/"
+        "geolocation",
+        "https://unsplash.it/",
+        "https://query.yahooapis.com/"
     ],
     "oauth2": {
         "client_id": "1022186080812-fpgbc34rns8pdtnkefat2jmac9fatdt2.apps.googleusercontent.com",
