@@ -2,6 +2,10 @@
 	height: 100%;
 	width: 100%;
 
+	&__message {
+		color: $hint-disabled-text-color;
+	}
+
 	ul {
 		list-style-type: none;
 		margin: 0;
@@ -11,29 +15,41 @@
 		width: 100%;
 
 		li {
-			flex-grow: 1;
+			flex: 1;
 			-webkit-flex-direction: column;
 			text-align: center;
 			border-right: 1px solid $border-color;
 
-			span {
+			.day,
+			.temp,
+			.summary,
+			.icon {
 				display: block;
 			}
 
 			.day {
-				font-size: 13px;
+				font-size: 15px;
 				color: $hint-disabled-text-color;
 				margin-bottom: 4px;
 			}
 
-			.wi {
+			.temp {
+				font-size: 13px;
+				i {
+					display: inline-block;
+				}
+			}
+
+			.icon {
 				font-size: 32px;
 				line-height: normal;
 				color: $secondary-text-color;
 			}
 
 			.summary {
+				margin-top: 5px;
 				font-size: 13px;
+				color: $secondary-text-color;
 			}
 		}
 

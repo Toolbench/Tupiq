@@ -21,8 +21,8 @@ var TupiqBody = React.createClass({
 
   	return (
       <div className={tupiqBodyClass}>
-      <CalendarCardContainer />
-        <WeatherCardContainer />
+      	<CalendarCardContainer />
+      	<WeatherCardContainer />
       </div>
     )
   }

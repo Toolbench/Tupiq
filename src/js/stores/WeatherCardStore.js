@@ -7,10 +7,20 @@ var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
 
 var forecast = Persist.getItem(AppConstants.LOCAL_WEATHER_FORECAST, false);
+var isRefreshing = false;
+var error = null;
 
 var WeatherCardStore = assign({}, EventEmitter.prototype, {
 	getForecast: function() {
 		return forecast;
+	},
+
+	getRefreshing: function() {
+		return isRefreshing;
+	},
+
+	getError: function() {
+		return error;
 	},
 
 	emitChange: function() {
@@ -28,11 +38,26 @@ var WeatherCardStore = assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register(function(action) {
 	switch(action.actionType) {
+		case AppConstants.WEATHER_REFRESH:
+			isRefreshing = true;
+			error = null;
+			WeatherCardStore.emitChange();
+			break;
+
 		case AppConstants.WEATHER_REFRESH_SUCCESS:
 			forecast = action.forecast;
+			isRefreshing = false;
+			error = null;
 			Persist.setItem(AppConstants.LOCAL_WEATHER_FORECAST, forecast, false);
 			WeatherCardStore.emitChange();
 			break;
+
+		case AppConstants.WEATHER_REFRESH_ERROR:
+			forecast = null;
+			isRefreshing = false;
+			error = action.error;
+			Persist.removeItem(AppConstants.LOCAL_WEATHER_FORECAST, forecast, false);
+			WeatherCardStore.emitChange();
 	}
 });
 

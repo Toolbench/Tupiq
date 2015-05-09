@@ -7,9 +7,13 @@
     "permissions": [
         "identity",
         "geolocation",
+        "contextMenus",
         "https://unsplash.it/",
         "https://query.yahooapis.com/"
     ],
+ 	"background": {
+		"scripts": ["context.js"]
+	},
     "oauth2": {
         "client_id": "1022186080812-fpgbc34rns8pdtnkefat2jmac9fatdt2.apps.googleusercontent.com",
         "scopes": []

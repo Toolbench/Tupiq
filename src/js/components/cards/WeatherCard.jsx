@@ -61,27 +61,55 @@ var icons = {
  */
 var WeatherCard = React.createClass({
 	render: function(){
-		var itemClassName;
+		var itemClassName,
+			message;
 
 		var cardClassName = classNames({
 			'card weather': true
 		});
 
-		var forecasts = (this.props.forecast!== null) ? this.props.forecast.forecasts.slice(0, 3) : [];
+		var forecasts = (this.props.forecast !== null) ? this.props.forecast.forecasts.slice(0, 3) : null;
 
-		return (
-			<div className={cardClassName}>
-				<ul>
-					{forecasts.map(function(forecast) {
-			          forecast = forecast.item.forecast;
+		if (forecasts !== null) {
+			return (
+				<div className={cardClassName}>
+					<ul>
+						{forecasts.map(function(forecast) {
+							forecast = forecast.item.forecast;
 
-			          itemClassName = 'wi wi-' + icons[forecast.code];
+							itemClassName = 'icon wi wi-' + icons[forecast.code];
 
-			          return <li key={forecast.date.replace(' ', '')}><span className="day">{forecast.day}</span><span className={itemClassName}></span></li>;
-			        })}
-				</ul>
-			</div>
-		)
+							// <span className="summary">{forecast.text}</span>
+
+							return(
+								<li key={forecast.date.replace(' ', '')}>
+									<span className="day">
+										{forecast.day}
+										<span className="temp">
+											{forecast.low}-{forecast.high}
+											<i className="wi wi-celsius"></i>
+										</span>
+									</span>
+									<span className={itemClassName}></span>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+			)
+		} else {
+			message = (this.props.isRefreshing === true) ? 'Getting your local forecast...' : '';
+
+			if (this.props.error !== null) {
+				message = "Couldn't retrieve forecast.";
+			}
+
+			return (
+				<div className={cardClassName}>
+					<p className="weather__message">{message}</p>
+				</div>
+			)
+		}
 	}
 });
 

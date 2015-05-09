@@ -10,7 +10,8 @@ var classNames = require('classnames');
  */
 var TupiqHeaderContainer = require('./TupiqHeaderContainer');
 var TupiqBodyContainer = require('./TupiqBodyContainer');
-var TupiqFooterContainer = require('./TupiqFooterContainer');
+// Not using this for now
+// var TupiqFooterContainer = require('./TupiqFooterContainer');
 
 /**
  * Tupiq
@@ -32,7 +33,6 @@ var Tupiq = React.createClass({
       <div className={tupiqClassName} style={style}>
         <TupiqHeaderContainer onMouseDown={this.props.onMouseDown} />
         <TupiqBodyContainer />
-        <TupiqFooterContainer />
       </div>
     )
   }

@@ -26,7 +26,9 @@ var WeatherCard = require('./WeatherCard.jsx');
  */
 function getStateFromStores() {
 	return {
-		forecast: WeatherCardStore.getForecast()
+		forecast: WeatherCardStore.getForecast(),
+		isRefreshing: WeatherCardStore.getRefreshing(),
+		error: WeatherCardStore.getError()
 	}
 }
 
@@ -56,7 +58,10 @@ var WeatherCardContainer = React.createClass({
 
 	render: function() {
 		return (
-			<WeatherCard forecast={this.state.forecast} />
+			<WeatherCard
+				forecast={this.state.forecast}
+				isRefreshing={this.state.isRefreshing}
+				error={this.state.error} />
 		)
 	}
 });

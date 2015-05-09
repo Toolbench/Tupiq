@@ -6,11 +6,11 @@ var moment = require('moment');
 function refresh() {
 	getCoordinates(function(err, coords) {
 		if (err) {
-
+			dispatchError(err);
 		} else {
 			getLocationID(coords, function(err, res) {
 				if (err) {
-
+					dispatchError(err);
 				} else {
 					var query = res.body.query;
 
@@ -21,7 +21,7 @@ function refresh() {
 
 						getForecast(location, function(err, res) {
 							if (err) {
-
+								dispatchError(err);
 							} else {
 								var query = res.body.query;
 
@@ -45,6 +45,13 @@ function refresh() {
 				}
 			});
 		}
+	});
+}
+
+function dispatchError(err) {
+	AppDispatcher.dispatch({
+		actionType: AppConstants.WEATHER_REFRESH_ERROR,
+		error: err
 	});
 }
 

@@ -22,6 +22,16 @@
     img {
       opacity: .87;
       user-select: none;
+      cursor: pointer;
+
+      &:not(.loading):hover {
+      	opacity: .54;
+      }
+
+      &.loading {
+      	opacity: .26;
+      	cursor: default;
+      }
     }
   }
 
