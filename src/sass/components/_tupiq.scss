@@ -18,11 +18,13 @@
     border-bottom: 1px solid $border-color;
     user-select: none;
     cursor: move;
+    padding: 10px 0;
 
     img {
       opacity: .87;
       user-select: none;
       cursor: pointer;
+      transition: $regular-transition-duration;
 
       &:not(.loading):hover {
       	opacity: .54;
