@@ -1,7 +1,9 @@
 function onContextClick() {
-	console.log('click');
+	var url = JSON.parse(localStorage.getItem('LOCAL_BACKGROUND_IMAGE')).post_url;
 
-	debugger;
+	chrome.tabs.create({
+  		url: url
+  	});
 };
 
 chrome.contextMenus.create({
