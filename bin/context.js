@@ -4,6 +4,10 @@ function onContextClick() {
 	chrome.tabs.create({
   		url: url
   	});
+
+  	chrome.runtime.sendMessage({
+  		getBackgroundInfo: true
+  	});
 };
 
 chrome.contextMenus.create({

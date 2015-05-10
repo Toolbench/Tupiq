@@ -39,6 +39,13 @@ var App = React.createClass({
   componentDidMount: function() {
     BackgroundStore.addChangeListener(this._onChange);
 
+    // This will be fired from the context menu background script.
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  		if ('getBackgroundInfo' in request) {
+				Analytics.trackEvent('button', 'click', 'download background');
+  		}
+  	});
+
     Analytics.trackPageview('/');
   },
 
