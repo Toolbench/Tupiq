@@ -42,9 +42,13 @@ var App = React.createClass({
     // This will be fired from the context menu background script.
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   		if ('getBackgroundInfo' in request) {
+				chrome.tabs.create({
+					url: this.state.backgroundImage.post_url
+				});
+
 				Analytics.trackEvent('button', 'click', 'download background');
   		}
-  	});
+  	}.bind(this));
 
     Analytics.trackPageview('/');
   },
