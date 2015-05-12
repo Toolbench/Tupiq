@@ -6,12 +6,12 @@ var classNames = require('classnames');
 var moment = require('moment');
 
 /**
- * TupiqBody
+ * CalendarCard
  */
-var TupiqCalendar = React.createClass({
+var CalendarCard = React.createClass({
   render: function(){
     var tupiqCalendarClass = classNames({
-    	'tupiq__body--calendar': true,
+    	'card tupiq__body--calendar': true,
     });
 
     // Trial event list
@@ -41,4 +41,4 @@ var TupiqCalendar = React.createClass({
   }
 });
 
-module.exports = TupiqCalendar;
+module.exports = CalendarCard;
