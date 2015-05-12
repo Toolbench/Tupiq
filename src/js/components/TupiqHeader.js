@@ -9,14 +9,16 @@ var classNames = require('classnames');
  */
 var TupiqHeader = React.createClass({
   render: function(){
-    var logoClassName = classNames({
-    	'tupiq__header__tupiq-logo': true,
+    var logoContainerClassName = classNames({
+    	'tupiq__header__logo-container': true,
     	'loading': this.props.isBackgroundLoading
     });
 
     return (
       <div className="tupiq__header" onMouseDown={this.props.onMouseDown}>
-        <img src="images/tupiq-v3.svg" className={logoClassName} onClick={this.props.onClick} />
+        <div className={logoContainerClassName}>
+	        <img src="images/tupiq-v3.svg" className="tupiq__header__logo-container__tupiq-logo" onClick={this.props.onClick} />
+	      </div>
       </div>
     )
   }

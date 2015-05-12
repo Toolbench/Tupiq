@@ -19,20 +19,52 @@
     user-select: none;
     cursor: move;
     padding: 10px 0;
+    flex-direction: column;
 
-    img {
-      opacity: .87;
-      user-select: none;
-      cursor: pointer;
-      transition: $regular-transition-duration;
+    &__logo-container {
+    	display: flex;
+    	align-items: center;
+    	justify-content: center;
+    	flex-direction: column;
+    	cursor: pointer;
 
-      &:not(.loading):hover {
-      	opacity: .54;
+	    &:after {
+	    	font-size: 12px;
+	    	color: $secondary-text-color;
+	    	display: none;
+	    	transition: $long-transition-duration;
+	    	content: "Shuffle";
+	    	margin-top: 4px;
+	    }
+
+	    img {
+	      opacity: .87;
+	      user-select: none;
+	      transition: margin-top .05s;
+	    }
+
+    	&:not(.loading):hover {
+      	img {
+      		margin-top: -4px;
+      	}
+
+      	&:after {
+      		display: block;
+      		margin-top: 2px;
+      	}
       }
 
       &.loading {
-      	opacity: .26;
       	cursor: default;
+
+      	img {
+      		opacity: .26;
+      	}
+
+      	&:after {
+      		display: none;
+      		margin-top: 4px;
+      	}
       }
     }
   }
