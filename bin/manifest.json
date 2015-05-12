@@ -1,6 +1,6 @@
 {
     "name": "Tupiq Dev",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
@@ -11,9 +11,11 @@
         "https://unsplash.it/",
         "https://query.yahooapis.com/"
     ],
- 	"background": {
-		"scripts": ["context.js"]
-	},
+    "background": {
+        "scripts": [
+            "context.js"
+        ]
+    },
     "oauth2": {
         "client_id": "1022186080812-fpgbc34rns8pdtnkefat2jmac9fatdt2.apps.googleusercontent.com",
         "scopes": []
