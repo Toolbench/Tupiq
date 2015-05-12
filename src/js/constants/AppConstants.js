@@ -15,6 +15,9 @@ module.exports = keyMirror({
   TUPIQ_DRAG_START: null,
   TUPIQ_DRAG_STOP: null,
   TUPIQ_REPOSITION: null,
+  WEATHER_REFRESH: null,
+  WEATHER_REFRESH_SUCCESS: null,
+  WEATHER_REFRESH_ERROR: null,
 
   // Local Storage
   LOCAL_UPCOMING_EVENTS: null,
@@ -22,5 +25,6 @@ module.exports = keyMirror({
   LOCAL_TUPIQ_COORDINATES: null,
   LOCAL_USED_BACKGROUNDS: null,
   LOCAL_BACKGROUNDS_JSON: null,
-  LOCAL_VERSION: null
+  LOCAL_VERSION: null,
+  LOCAL_WEATHER_FORECAST: null
 });
