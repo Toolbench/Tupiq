@@ -89,7 +89,7 @@ var TupiqContainer = React.createClass({
   },
 
   onMouseDown: function(event) {
-    if (event.target.className === 'tupiq__header__tupiq-logo') {
+    if (event.target.className === 'tupiq__header__logo-container' || event.target.className === 'tupiq__header__logo-container__tupiq-logo') {
     	event.preventDefault();
 
     	return;
