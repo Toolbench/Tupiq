@@ -17,7 +17,7 @@ var TupiqHeader = React.createClass({
     return (
       <div className="tupiq__header" onMouseDown={this.props.onMouseDown}>
         <div className={logoContainerClassName}>
-	        <img src="images/tupiq-v3.svg" className="tupiq__header__logo-container__tupiq-logo" onClick={this.props.onClick} />
+	        <img src="images/tupiq-logo.svg" className="tupiq__header__logo-container__tupiq-logo" onClick={this.props.onClick} />
 	      </div>
       </div>
     )
