@@ -1,6 +1,6 @@
 {
   "name": "Tupiq",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "src/js/app.js",
   "dependencies": {
