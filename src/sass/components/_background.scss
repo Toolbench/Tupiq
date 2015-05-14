@@ -5,4 +5,9 @@
 	height: 100%;
 	width: 100%;
 	background-size: cover;
+	transition: $long-transition-duration;
+
+	&.loading {
+		opacity: .6;
+	}
 }
