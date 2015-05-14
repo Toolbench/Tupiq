@@ -4,19 +4,28 @@
 	text-align: center;
 
 	p {
-		margin: 10px 0;
-		line-height: 1.4;
+		margin: 0;
+		line-height: 1.8;
 	}
 
 	.primary {
 		color: $primary-text-color;
+		font-size: 15px;
 		widows: 2;
+		margin-top: 0;
+
+		.highlight {
+			background-color: #eee;
+			display: inline-block;
+			padding: 2px 6px;
+			color: $secondary-text-color;
+		}
 	}
 
 	.secondary {
 		color: $secondary-text-color;
 		font-size: 14px;
-		margin-top: 5px;
+		margin-bottom: 0;
 	}
 
 	&__close-btn {
@@ -50,8 +59,6 @@
 		transition: $regular-transition-duration;
 		color: $hint-disabled-text-color;
 		cursor: pointer;
-		/*border: 1px solid $border-color;*/
-		padding: 8px 16px;
 		border-radius: 4px;
 
 		/*

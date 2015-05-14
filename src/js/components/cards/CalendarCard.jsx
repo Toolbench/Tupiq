@@ -34,7 +34,7 @@ var CalendarCard = React.createClass({
     return (
       <div className={tupiqCalendarClass}>
       	<span className="tupiq__body--calendar__close-btn" onClick={this.props.onCloseButtonClick}></span>
-        <p className="primary">{this.props.primaryNote}</p>
+        <p className="primary" dangerouslySetInnerHTML={{__html: this.props.primaryNote}}></p>
         <p className="secondary">{this.props.secondaryNote}</p>
       </div>
     )
