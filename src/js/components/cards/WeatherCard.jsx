@@ -3,6 +3,7 @@
  */
 var React = require('react');
 var classNames = require('classnames');
+var moment = require('moment');
 
 var icons = {
 	0: 'tornado', // tornado
@@ -70,6 +71,12 @@ var WeatherCard = React.createClass({
 
 		var forecasts = (this.props.forecast !== null) ? this.props.forecast.forecasts.slice(0, 3) : null;
 
+		var firstForecast = moment(forecasts[0].item.forecast.date, 'D MMM YYYY');
+
+		if (firstForecast.isSame(moment(), 'day')) {
+			forecasts[0].item.forecast.day = 'Today';
+		}
+
 		if (forecasts !== null) {
 			return (
 				<div className={cardClassName}>
@@ -83,14 +90,17 @@ var WeatherCard = React.createClass({
 
 							return(
 								<li key={forecast.date.replace(' ', '')}>
-									<span className="day">
-										{forecast.day}
+									<span className={itemClassName}></span>
+
+									<span className="wrap">
+										<span className="day">
+											{forecast.day}
+										</span>
 										<span className="temp">
-											{forecast.low}-{forecast.high}
+											{forecast.low}/{forecast.high}
 											<i className="wi wi-celsius"></i>
 										</span>
 									</span>
-									<span className={itemClassName}></span>
 								</li>
 							);
 						})}

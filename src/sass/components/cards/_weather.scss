@@ -15,10 +15,16 @@
 		width: 100%;
 
 		li {
+			display: flex;
 			flex: 1;
-			-webkit-flex-direction: column;
+			-webkit-flex-direction: row;
 			text-align: center;
 			border-right: 1px solid $border-color;
+			align-items: center;
+
+			&:not(:first-child) {
+				padding-left: 15px;
+			}
 
 			.day,
 			.temp,
@@ -28,28 +34,38 @@
 			}
 
 			.day {
-				font-size: 15px;
+				font-size: 14px;
 				color: $hint-disabled-text-color;
-				margin-bottom: 4px;
+				text-align: left;
+				margin-bottom: 2px;
+			}
+
+			.wrap {
+				display: flex;
+				-webkit-flex-direction: column;
+				justify-content: center;
+				margin-left: 10px;
 			}
 
 			.temp {
-				font-size: 13px;
+				align-self: center;
+				font-size: 12px;
+				color: $hint-disabled-text-color;
 				i {
 					display: inline-block;
 				}
 			}
 
 			.icon {
-				font-size: 32px;
+				font-size: 28px;
 				line-height: normal;
-				color: $secondary-text-color;
+				color: $hint-disabled-text-color;
 			}
 
 			.summary {
 				margin-top: 5px;
 				font-size: 13px;
-				color: $secondary-text-color;
+				color: $hint-disabled-text-color;
 			}
 		}
 

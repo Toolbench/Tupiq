@@ -110,11 +110,11 @@ var TupiqTools = {
 
 			  // The event is happening right now
 			  if (isNextEventRightNow) {
-			    primaryNote = `${nextEvent.summary} started ${nextEvent.fromNow}${nextEvent.actualLocation}.`;
+			    primaryNote = `<span class="highlight">${nextEvent.summary}</span> started ${nextEvent.fromNow}.`;
 
 			  // The event is yet to happen
 			  } else {
-			    primaryNote = `You've got ${nextEvent.summary} ${nextEvent.fromNow}${nextEvent.actualLocation}.`;
+			    primaryNote = `You've got <span class="highlight">${nextEvent.summary}</span> ${nextEvent.fromNow}.`;
 			  }
 
 			  if (eventsRemainingTodayNumber > 0) {
@@ -127,7 +127,7 @@ var TupiqTools = {
 
 			// If upcoming event is tomorrow...
 			} else if (isNextEventTomorrow) {
-			  primaryNote = `Tomorrow your day starts at ${nextEvent.momentStart.format('h:mma')} with ${nextEvent.summary}${nextEvent.actualLocation}.`;
+			  primaryNote = `Tomorrow your day starts with <span class="highlight">${nextEvent.summary}</span> at ${nextEvent.momentStart.format('h:mma')}.`;
 
 			  if (eventsRemainingTomorrowNumber > 0) {
 			  	secondaryNote = `Plus ${eventsRemainingTomorrow} other events.`;
