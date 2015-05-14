@@ -61,13 +61,6 @@
 		cursor: pointer;
 		border-radius: 4px;
 
-		/*
-		&:before {
-			display: inline-block;
-			content: "\2795";
-		}
-		*/
-
 		&.connecting {
 			cursor: default;
 			border: none;
@@ -75,30 +68,6 @@
 
 		&:hover:not(.connecting) {
 			color: $secondary-text-color;
-			/*border: 1px solid $border-dark-color;*/
-		}
-	}
-
-	&__event-list {
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
-
-		li {
-			padding: 4px 4px;
-
-			span {
-				display: block;
-			}
-
-			.from-now {
-				font-size: 14px;
-				color: $secondary-text-color;
-			}
-		}
-
-		li:not(:last-child) {
-			border-bottom: 1px dotted $border-dark-color;
 		}
 	}
 }
