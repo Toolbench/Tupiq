@@ -103,6 +103,17 @@ var CalendarCardContainer = React.createClass({
   	Analytics.trackEvent('button', 'click', 'disconnect calendar');
   },
 
+  onEventClick: function(event) {
+  	// Rough way to determine we're clicking on the event name
+  	if(event.target.classList.contains('event-name')) {
+			chrome.tabs.create({
+				url: this.state.upcomingEvents[0].htmlLink
+			});
+
+			Analytics.trackEvent('button', 'click', 'upcoming event info');
+  	}
+  },
+
   render: function() {
     // If we're connected and not awaiting events
     if (this.state.isCalendarConnected && this.state.upcomingEvents !== null) {
@@ -111,6 +122,7 @@ var CalendarCardContainer = React.createClass({
 	    return (
 	      <CalendarCard
 	      	onCloseButtonClick={this.onCloseButtonClick}
+	      	onEventClick={this.onEventClick}
 	      	primaryNote={agenda.primaryNote}
 	        secondaryNote={agenda.secondaryNote}
 	        upcomingEvents={this.state.upcomingEvents} />

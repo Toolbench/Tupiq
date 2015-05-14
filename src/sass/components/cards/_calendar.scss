@@ -14,11 +14,16 @@
 		widows: 2;
 		margin-top: 0;
 
-		.highlight {
+		.event-name {
 			background-color: #eee;
 			display: inline-block;
 			padding: 2px 6px;
 			color: $secondary-text-color;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #f5f5f5;
+			}
 		}
 	}
 
