@@ -2,6 +2,12 @@ var React = require('react');
 var classNames = require('classnames');
 
 var Background = React.createClass({
+  componentDidMount: function() {
+    // Background is mounted, switch body BG to black
+    // for a nicer transition.
+    document.body.style.backgroundColor = '#000000';
+  },
+
   render: function(){
     var style = {};
 

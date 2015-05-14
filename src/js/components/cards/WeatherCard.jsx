@@ -71,13 +71,13 @@ var WeatherCard = React.createClass({
 
 		var forecasts = (this.props.forecast !== null) ? this.props.forecast.forecasts.slice(0, 3) : null;
 
-		var firstForecast = moment(forecasts[0].item.forecast.date, 'D MMM YYYY');
+		if (forecasts !== null && forecasts.length > 0) {
+			var firstForecast = moment(forecasts[0].item.forecast.date, 'D MMM YYYY');
 
-		if (firstForecast.isSame(moment(), 'day')) {
-			forecasts[0].item.forecast.day = 'Today';
-		}
+			if (firstForecast.isSame(moment(), 'day')) {
+				forecasts[0].item.forecast.day = 'Today';
+			}
 
-		if (forecasts !== null) {
 			return (
 				<div className={cardClassName}>
 					<ul>
