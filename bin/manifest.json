@@ -4,6 +4,7 @@
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
+    "description": "Enhance your New Tab Page with curated backgrounds, your upcoming calendar events, and the local weather forecast.",
     "permissions": [
         "identity",
         "geolocation",
