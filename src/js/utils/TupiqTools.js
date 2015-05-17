@@ -138,7 +138,7 @@ var TupiqTools = {
 			// If upcoming event is in the future...
 			} else {
 				primaryNote = `Today and tomorrow look clear.`,
-				secondaryNote = `Your next event is ${nextEvent.summary} ${nextEvent.fromNow}.`;
+				secondaryNote = `Your next event is <span class="event-name">${nextEvent.summary}</span> ${nextEvent.fromNow}.`;
 			}
 
 		// No upcoming events today or tomorrow
