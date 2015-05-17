@@ -2,8 +2,9 @@
 	height: 100%;
 	width: 100%;
 
-	&__message {
+	.weather__message {
 		color: $hint-disabled-text-color;
+		margin: 0;
 	}
 
 	ul {
