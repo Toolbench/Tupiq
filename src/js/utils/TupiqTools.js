@@ -1,4 +1,5 @@
-var moment = require('moment');
+var moment = require('moment'),
+	_ = require('underscore');
 
 function NumbersToWords(num) {
 	var ones = new Array('', ' one', ' two', ' three', ' four', ' five', ' six', ' seven', ' eight', ' nine', ' ten', ' eleven', ' twelve', ' thirteen', ' fourteen', ' fifteen', ' sixteen', ' seventeen', ' eighteen', ' nineteen');
@@ -79,6 +80,7 @@ var TupiqTools = {
 				primaryNote,
 				secondaryNote,
 				nextEvent = upcomingEvents[0],
+				nextEventName,
 				eventsRemaining,
 				isNextEventToday,
 				isNextEventTomorrow,
@@ -89,6 +91,7 @@ var TupiqTools = {
 				eventsRemainingTomorrow = 'zero';
 
 			nextEvent = prepNextEvent(nextEvent, moment);
+			nextEventName = _.escape(nextEvent.summary);
 
 			isNextEventToday = nextEvent.momentStart.isSame(momentNow, 'day');
 			isNextEventTomorrow = nextEvent.momentStart.isAfter(momentNow, 'day') && nextEvent.momentStart.isBefore(momentTomorrow);
@@ -110,11 +113,11 @@ var TupiqTools = {
 
 			  // The event is happening right now
 			  if (isNextEventRightNow) {
-			    primaryNote = `<span class="event-name">${nextEvent.summary}</span> started ${nextEvent.fromNow} and goes until ${nextEvent.momentEnd.format('h:mma')}.`;
+			    primaryNote = `<span class="event-name">${nextEventName}</span> started ${nextEvent.fromNow} and goes until ${nextEvent.momentEnd.format('h:mma')}.`;
 
 			  // The event is yet to happen
 			  } else {
-			    primaryNote = `You've got <span class="event-name">${nextEvent.summary}</span> ${nextEvent.fromNow}.`;
+			    primaryNote = `You've got <span class="event-name">${nextEventName}</span> ${nextEvent.fromNow}.`;
 			  }
 
 			  if (eventsRemainingTodayNumber > 0) {
@@ -127,7 +130,7 @@ var TupiqTools = {
 
 			// If upcoming event is tomorrow...
 			} else if (isNextEventTomorrow) {
-			  primaryNote = `Tomorrow your day starts with <span class="event-name">${nextEvent.summary}</span> at ${nextEvent.momentStart.format('h:mma')}.`;
+			  primaryNote = `Tomorrow your day starts with <span class="event-name">${nextEventName}</span> at ${nextEvent.momentStart.format('h:mma')}.`;
 
 			  if (eventsRemainingTomorrowNumber > 0) {
 			  	secondaryNote = `Plus ${eventsRemainingTomorrow} other events.`;
@@ -138,7 +141,7 @@ var TupiqTools = {
 			// If upcoming event is in the future...
 			} else {
 				primaryNote = `Today and tomorrow look clear.`,
-				secondaryNote = `Your next event is <span class="event-name">${nextEvent.summary}</span> ${nextEvent.fromNow}.`;
+				secondaryNote = `Your next event is <span class="event-name">${nextEventName}</span> ${nextEvent.fromNow}.`;
 			}
 
 		// No upcoming events today or tomorrow

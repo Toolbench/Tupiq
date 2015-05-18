@@ -1,6 +1,7 @@
 .card.weather {
 	height: 100%;
 	width: 100%;
+	padding: 20px 0;
 
 	.weather__message {
 		color: $secondary-text-color;
@@ -22,10 +23,7 @@
 			text-align: center;
 			border-right: 1px solid $border-color;
 			align-items: center;
-
-			&:not(:first-child) {
-				padding-left: 15px;
-			}
+			justify-content: center;
 
 			.day,
 			.temp,
