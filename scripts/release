@@ -2,7 +2,8 @@
 
 var npm = require('npm'),
 	fs = require('fs'),
-	archiver = require('archiver');
+	archiver = require('archiver'),
+	rimraf = require('rimraf');
 
 var release = process.argv[2];
 
@@ -28,14 +29,20 @@ npm.load(function (err, npm) {
 				} else {
 					console.log('manifest.json updated.');
 
-					// Now zip up the release
-					doPackage(targetVersion, manifestJSON, function(err) {
+					rimraf(__dirname + '/../releases', function(err) {
 						if (err) {
 							console.log(err);
 						} else {
-							console.log('Release ' + targetVersion + ' has been zipped.');
+							// Now zip up the release
+							doPackage(targetVersion, manifestJSON, function(err) {
+								if (err) {
+									console.log(err);
+								} else {
+									console.log('Release ' + targetVersion + ' has been zipped.');
 
-							console.log('Release ' + targetVersion + ' is ready for commit, tag, and push!');
+									console.log('Release ' + targetVersion + ' is ready for commit, tag, and push!');
+								}
+							});
 						}
 					});
 				}
