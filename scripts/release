@@ -3,7 +3,9 @@
 var npm = require('npm'),
 	fs = require('fs'),
 	archiver = require('archiver'),
-	rimraf = require('rimraf');
+	rimraf = require('rimraf'),
+	mkdirp = require('mkdirp'),
+	releaseDir = __dirname + '/../releases';
 
 var release = process.argv[2];
 
@@ -29,18 +31,27 @@ npm.load(function (err, npm) {
 				} else {
 					console.log('manifest.json updated.');
 
-					rimraf(__dirname + '/../releases', function(err) {
+					// Remove current release directory
+					rimraf(releaseDir, function(err) {
 						if (err) {
 							console.log(err);
 						} else {
-							// Now zip up the release
-							doPackage(targetVersion, manifestJSON, function(err) {
+
+							// Make new release directory
+							mkdirp(releaseDir, function(err) {
 								if (err) {
 									console.log(err);
 								} else {
-									console.log('Release ' + targetVersion + ' has been zipped.');
+									// Now zip up the release
+									doPackage(targetVersion, manifestJSON, function(err) {
+										if (err) {
+											console.log(err);
+										} else {
+											console.log('Release ' + targetVersion + ' has been zipped.');
 
-									console.log('Release ' + targetVersion + ' is ready for commit, tag, and push!');
+											console.log('Release ' + targetVersion + ' is ready for commit, tag, and push!');
+										}
+									});
 								}
 							});
 						}
@@ -73,7 +84,7 @@ function updateManifest(version, callback) {
 function doPackage(version, manifestJSON, callback) {
 	console.log('Zipping...');
 
-	var output = fs.createWriteStream(__dirname + '/../releases/' + version + '.zip');
+	var output = fs.createWriteStream(releaseDir + '/' + version + '.zip');
 	var archive = archiver('zip');
 
 	output.on('close', function() {
