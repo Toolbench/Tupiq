@@ -18,14 +18,24 @@ var AppConstants = require('./constants/AppConstants');
  */
 
 /**
- * Clear localStorage is no version is set.
+ * Clear localStorage if no version is set.
  */
- if (Persist.getItem(AppConstants.LOCAL_VERSION, false) === null) {
- 	Persist.clear();
- 	Persist.setItem(AppConstants.LOCAL_VERSION, chrome.runtime.getManifest().version, false);
- }
+var installedVersion = Persist.getItem(AppConstants.LOCAL_VERSION, false);
+var currentVersion = chrome.runtime.getManifest().version;
 
- React.render(
- 	<App />,
- 	document.getElementById('app')
- );
+if (installedVersion === null) {
+	Persist.clear();
+}
+
+/**
+ * Perform any updates to localStorage data when bumping versions.
+ * For now just update it.
+ */
+if (installedVersion !== currentVersion) {
+	Persist.setItem(AppConstants.LOCAL_VERSION, currentVersion, false);
+}
+
+React.render(
+	<App />,
+	document.getElementById('app')
+);
