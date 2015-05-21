@@ -1,4 +1,5 @@
 var React = require('react');
+var keymaster = require('keymaster');
 
 var App = require('./components/App.react');
 var Persist = require('./utils/Persist');
@@ -35,6 +36,16 @@ if (installedVersion !== currentVersion) {
 	Persist.setItem(AppConstants.LOCAL_VERSION, currentVersion, false);
 }
 
+/**
+ * Register shortcuts
+ */
+keymaster('⌘+e, ctrl+e', function(event, handler) {
+	Persist.clear();
+});
+
+/**
+ * Start it up
+ */
 React.render(
 	<App />,
 	document.getElementById('app')
