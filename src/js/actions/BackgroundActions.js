@@ -1,14 +1,11 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var TupiqTools = require('../utils/TupiqTools');
-var LZString = require('lz-string');
 var Persist = require('../utils/Persist');
+
 var _ = require('underscore');
 var moment = require('moment');
-
-// Make console debugging easier.
-window.LZString = LZString;
-window.moment = moment;
+var request = require('superagent');
 
 function loadBackground(backgroundItem) {
   var image = new Image();
@@ -60,15 +57,23 @@ function readJSON() {
 
 	// Do we have a backgrounds item in local storage, and is it fresher than 10 days?
 	if (backgroundsJSON === null || backgroundsJSON.lastUpdated === null || moment().diff(moment.unix(backgroundsJSON.lastUpdated), 'days') > 10) {
-		requestJSON(function(backgrounds) {
-			// Compress produces invalid UTF-16 Strings therefore only good for Chrome.
-			// Read more: http://pieroxy.net/blog/pages/lz-string/index.html
-			Persist.setItem(AppConstants.LOCAL_BACKGROUNDS_JSON, {
-				lastUpdated: moment().unix(),
-				backgrounds: backgrounds
-			});
+		requestJSON(function(err, res) {
+			if (err) {
+				AppDispatcher.dispatch({
+					actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
+				});
+			} else {
+				var backgrounds = res.body;
 
-			shuffleBackground(backgrounds);
+				// Compress produces invalid UTF-16 Strings therefore only good for Chrome.
+				// Read more: http://pieroxy.net/blog/pages/lz-string/index.html
+				Persist.setItem(AppConstants.LOCAL_BACKGROUNDS_JSON, {
+					lastUpdated: moment().unix(),
+					backgrounds: backgrounds
+				});
+
+				shuffleBackground(backgrounds);
+			}
 		});
 	} else {
 		shuffleBackground(backgroundsJSON.backgrounds);
@@ -76,14 +81,9 @@ function readJSON() {
 }
 
 function requestJSON(callback) {
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', 'https://unsplash.it/list', true);
-	xhr.onreadystatechange = function() {
-	  if (xhr.readyState == 4) {
-	    callback(JSON.parse(xhr.responseText));
-	  }
-	}
-	xhr.send();
+	request
+		.get('https://unsplash.it/list')
+		.end(callback);
 }
 
 function shuffleBackground(backgroundJSON) {

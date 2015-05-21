@@ -1,5 +1,7 @@
 var React = require('react');
 var keymaster = require('keymaster');
+var moment = require('moment');
+var LZString = require('lz-string');
 
 var App = require('./components/App.react');
 var Persist = require('./utils/Persist');
@@ -42,6 +44,12 @@ if (installedVersion !== currentVersion) {
 keymaster('⌘+e, ctrl+e', function(event, handler) {
 	Persist.clear();
 });
+
+/**
+ * Make console debugging easier.
+ */
+window.LZString = LZString;
+window.moment = moment;
 
 /**
  * Start it up
