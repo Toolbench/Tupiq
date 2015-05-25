@@ -10,7 +10,10 @@ var backgroundImage = Persist.getItem(AppConstants.LOCAL_BACKGROUND_IMAGE, false
 	post_url: 'https://www.flickr.com/photos/ilovegreenland/13187636953/in/set-72157632226028027',
 	data: 'images/bg.jpg'
 };
+
 var isLoading = false;
+
+var hasErrored = false;
 
 var BackgroundStore = assign({}, EventEmitter.prototype, {
   getCurrent: function() {
@@ -19,6 +22,10 @@ var BackgroundStore = assign({}, EventEmitter.prototype, {
 
   getLoading: function() {
     return isLoading;
+  },
+
+  getErrored: function() {
+  	return hasErrored;
   },
 
   emitChange: function() {
@@ -38,6 +45,7 @@ AppDispatcher.register(function(action) {
   switch(action.actionType) {
     case AppConstants.BACKGROUND_SHUFFLE:
       isLoading = true;
+      hasErrored = false;
       BackgroundStore.emitChange();
       break;
 
@@ -45,11 +53,13 @@ AppDispatcher.register(function(action) {
       Persist.setItem(AppConstants.LOCAL_BACKGROUND_IMAGE, action.backgroundImage, false);
       backgroundImage = action.backgroundImage;
       isLoading = false;
+      hasErrored = false;
       BackgroundStore.emitChange();
       break;
 
     case AppConstants.BACKGROUND_SHUFFLE_FAIL:
       isLoading = false;
+      hasErrored = true;
       BackgroundStore.emitChange();
       break;
 

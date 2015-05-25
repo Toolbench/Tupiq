@@ -11,7 +11,8 @@ var TupiqHeader = React.createClass({
   render: function(){
     var logoContainerClassName = classNames({
     	'tupiq__header__logo-container': true,
-    	'loading': this.props.isBackgroundLoading
+    	'loading': this.props.isBackgroundLoading,
+    	'errored': this.props.hasBackgroundErrored
     });
 
     return (

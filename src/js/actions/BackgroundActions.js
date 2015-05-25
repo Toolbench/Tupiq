@@ -10,7 +10,7 @@ var request = require('superagent');
 function loadBackground(backgroundItem) {
 	// http://stackoverflow.com/questions/20035615/using-raw-image-data-from-ajax-request-for-data-uri
 	var xmlHTTP = new XMLHttpRequest();
-	xmlHTTP.open('GET', 'https://unsplashe.it/2560/1600/?image=' + backgroundItem.id + '&gravity=center', true);
+	xmlHTTP.open('GET', 'https://unsplash.it/2560/1600/?image=' + backgroundItem.id + '&gravity=center', true);
 	xmlHTTP.responseType = 'arraybuffer';
 
 	xmlHTTP.onload = function(event) {

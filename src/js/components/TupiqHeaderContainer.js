@@ -24,7 +24,8 @@ var BackgroundActions = require('../actions/BackgroundActions');
  */
 function getStateFromStores() {
   return {
-  	isBackgroundLoading: BackgroundStore.getLoading()
+  	isBackgroundLoading: BackgroundStore.getLoading(),
+  	hasBackgroundErrored: BackgroundStore.getErrored()
   }
 }
 
@@ -51,7 +52,7 @@ var TupiqHeaderContainer = React.createClass({
   onClick: function(event) {
   	Analytics.trackEvent('button', 'click', 'shuffle background');
 
-    if (this.state.isBackgroundLoading === false) {
+    if (this.state.isBackgroundLoading === false && this.state.hasBackgroundErrored === false) {
       BackgroundActions.backgroundShuffle();
     }
   },
@@ -61,7 +62,8 @@ var TupiqHeaderContainer = React.createClass({
       <TupiqHeader
       	onMouseDown={this.props.onMouseDown}
       	onClick={this.onClick}
-      	isBackgroundLoading={this.state.isBackgroundLoading} />
+      	isBackgroundLoading={this.state.isBackgroundLoading}
+      	hasBackgroundErrored={this.state.hasBackgroundErrored} />
     )
   }
 });

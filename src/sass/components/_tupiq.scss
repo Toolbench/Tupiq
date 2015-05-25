@@ -41,16 +41,27 @@
 	      transition: .05s;
 	    }
 
-    	&:not(.loading):hover {
+    	&:not(.loading):not(.errored):hover {
       	img {
       		opacity: 0.06;
-      		/*
-      		margin-top: 12px;
-      		transform: scale(1, 1);
-      		*/
       	}
 
       	&:after {
+      		opacity: 1;
+      		margin-top: -30px;
+      		margin-bottom: 0;
+      	}
+      }
+
+      &.errored {
+      	cursor: default;
+
+      	img {
+      		opacity: 0.06;
+      	}
+
+      	&:after {
+      		content: "Shuffle failed, try again soon.";
       		opacity: 1;
       		margin-top: -30px;
       		margin-bottom: 0;
