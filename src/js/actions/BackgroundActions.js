@@ -57,13 +57,17 @@ function readJSON() {
 
 	// Do we have a backgrounds item in local storage, and is it fresher than 10 days?
 	if (backgroundsJSON === null || backgroundsJSON.lastUpdated === null || moment().diff(moment.unix(backgroundsJSON.lastUpdated), 'days') > 10) {
-		requestJSON(function(err, res) {
+		// If this is the initial request lets just use the local JSON
+		var localJSON = backgroundsJSON === null;
+
+		requestJSON(localJSON, function(err, res) {
 			if (err) {
 				AppDispatcher.dispatch({
 					actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
 				});
 			} else {
-				var backgrounds = res.body;
+				// If request was remote use res.body, if local res.text
+				var backgrounds = res.body || JSON.parse(res.text);
 
 				// Compress produces invalid UTF-16 Strings therefore only good for Chrome.
 				// Read more: http://pieroxy.net/blog/pages/lz-string/index.html
@@ -80,9 +84,11 @@ function readJSON() {
 	}
 }
 
-function requestJSON(callback) {
+function requestJSON(localJSON, callback) {
+	debugger;
+
 	request
-		.get('https://unsplash.it/list')
+		.get(localJSON ? 'json/initial-backgrounds.json' : 'https://unsplash.it/list')
 		.end(callback);
 }
 
