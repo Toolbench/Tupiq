@@ -4,7 +4,7 @@
 	"chrome_url_overrides": {
 		"newtab": "index.html"
 	},
-	"description": "Enhance your New Tab Page with curated backgrounds, your upcoming calendar events, and more.",
+	"description": "Plan your day with Tupiq, a beautiful New Tab page.",
 	"permissions": [
 		"identity",
 		"geolocation",
@@ -24,15 +24,6 @@
 	},
 	"icons": {
 		"128": "icons/icon-128.png"
-	},
-	"commands": {
-		"reset-settings": {
-			"suggested_key": {
-				"default": "Ctrl+Shift+X",
-				"mac": "Command+Shift+X"
-			},
-			"description": "Reset to factory settings"
-		}
 	},
 	"manifest_version": 2,
 	"content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
