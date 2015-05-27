@@ -1,39 +1,40 @@
 {
-    "name": "Tupiq Dev",
-    "version": "0.0.11",
-    "chrome_url_overrides": {
-        "newtab": "index.html"
-    },
-    "description": "Enhance your New Tab Page with curated backgrounds, your upcoming calendar events, and more.",
-    "permissions": [
-        "identity",
-        "geolocation",
-        "contextMenus",
-        "https://unsplash.it/",
-        "https://query.yahooapis.com/"
-    ],
-    "background": {
-        "scripts": [
-            "context.js"
-        ]
-    },
-    "oauth2": {
-        "client_id": "1022186080812-fpgbc34rns8pdtnkefat2jmac9fatdt2.apps.googleusercontent.com",
-        "scopes": []
-    },
-    "icons": {
-        "128": "icons/icon-128.png"
-    },
-    "commands": {
-        "reset-settings": {
-            "suggested_key": {
-                "default": "Ctrl+Shift+X",
-                "mac": "Command+Shift+X"
-            },
-            "description": "Reset to factory settings"
-        }
-    },
-    "manifest_version": 2,
-    "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
-    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGm6qZn9jRSkIfqVhQhGFZ2TDKXqSFBzuAAM7Vt672u00I7fTRUuj0euy8TTkm6HYuMqi29dWxkjuWwz0brUWmMIQUqZEesE8MTnIXDPS/pROkuOuXtA57ab0Qgw5WA5o0VsSKLrg3sBJG9lQZAV45rTPS/VglcNvVf9di9moIN98jecPis8CYokObjrOhILCbS1B5oi4sSOkV/2J2NHIqf5Bg4ymY/lyVzBSKh448sP4Ti3B8RFI9fl5aKKiA0f6MoOvwwu3pbsQgXokfwUFrSDPq/0lhlq4l4o5vfC22Z0OupOqoNvQlLEkzkO9VVRVOxoITjrsWFLB66hMDN9OwIDAQAB"
+	"name": "Tupiq Dev",
+	"version": "0.0.11",
+	"chrome_url_overrides": {
+		"newtab": "index.html"
+	},
+	"description": "Enhance your New Tab Page with curated backgrounds, your upcoming calendar events, and more.",
+	"permissions": [
+		"identity",
+		"geolocation",
+		"contextMenus",
+		"https://unsplash.it/",
+		"https://download.unsplash.com/",
+		"https://query.yahooapis.com/"
+	],
+	"background": {
+		"scripts": [
+			"context.js"
+		]
+	},
+	"oauth2": {
+		"client_id": "1022186080812-fpgbc34rns8pdtnkefat2jmac9fatdt2.apps.googleusercontent.com",
+		"scopes": []
+	},
+	"icons": {
+		"128": "icons/icon-128.png"
+	},
+	"commands": {
+		"reset-settings": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+X",
+				"mac": "Command+Shift+X"
+			},
+			"description": "Reset to factory settings"
+		}
+	},
+	"manifest_version": 2,
+	"content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
+	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGm6qZn9jRSkIfqVhQhGFZ2TDKXqSFBzuAAM7Vt672u00I7fTRUuj0euy8TTkm6HYuMqi29dWxkjuWwz0brUWmMIQUqZEesE8MTnIXDPS/pROkuOuXtA57ab0Qgw5WA5o0VsSKLrg3sBJG9lQZAV45rTPS/VglcNvVf9di9moIN98jecPis8CYokObjrOhILCbS1B5oi4sSOkV/2J2NHIqf5Bg4ymY/lyVzBSKh448sP4Ti3B8RFI9fl5aKKiA0f6MoOvwwu3pbsQgXokfwUFrSDPq/0lhlq4l4o5vfC22Z0OupOqoNvQlLEkzkO9VVRVOxoITjrsWFLB66hMDN9OwIDAQAB"
 }

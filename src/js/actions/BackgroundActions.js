@@ -8,48 +8,48 @@ var moment = require('moment');
 var request = require('superagent');
 
 function loadBackground(backgroundItem) {
-	// http://stackoverflow.com/questions/20035615/using-raw-image-data-from-ajax-request-for-data-uri
-	var xmlHTTP = new XMLHttpRequest();
-	xmlHTTP.open('GET', 'https://unsplash.it/2560/1600/?image=' + backgroundItem.id + '&gravity=center', true);
-	xmlHTTP.responseType = 'arraybuffer';
+	var image = new Image();
 
-	xmlHTTP.onload = function(event) {
-		var arr = new Uint8Array(this.response);
-
-		var raw = '';
-		var i,j,subArray,chunk = 5000;
-
-		for (i=0,j=arr.length; i<j; i+=chunk) {
-			subArray = arr.subarray(i,i+chunk);
-			raw += String.fromCharCode.apply(null, subArray);
-		}
-
-		var b64 = btoa(raw);
-		var data = "data:image/png;base64," + b64;
-
-		var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
-
-	    if (usedBackgrounds !== null) {
-			usedBackgrounds.push(backgroundItem);
-	    } else {
-	    	usedBackgrounds = [backgroundItem];
-	    }
-
-	    Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, usedBackgrounds);
-
-	    AppDispatcher.dispatch({
-	      actionType: AppConstants.BACKGROUND_SHUFFLE_SUCCESS,
-	      backgroundImage: _.extend(backgroundItem, {data: data})
-	    });
-	}
-
-	xmlHTTP.ontimeout = xmlHTTP.onerror = function(event) {
+	image.addEventListener('error', function() {
 		AppDispatcher.dispatch({
 			actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
 		});
-	}
+	});
 
-	xmlHTTP.send();
+	image.addEventListener('load', function() {
+		var canvas = document.createElement('canvas'),
+			image = event.target,
+			compress = 2;
+
+		canvas.width = image.width;
+		canvas.height = image.height;
+
+		document.body.appendChild(canvas);
+
+		var context = canvas.getContext('2d');
+		context.drawImage(image, 0, 0, image.width, image.height);
+
+		var data = canvas.toDataURL('image/webp');
+
+		canvas.parentNode.removeChild(canvas);
+
+		var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
+
+		if (usedBackgrounds !== null) {
+			usedBackgrounds.push(backgroundItem);
+		} else {
+			usedBackgrounds = [backgroundItem];
+		}
+
+		Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, usedBackgrounds);
+
+		AppDispatcher.dispatch({
+			actionType: AppConstants.BACKGROUND_SHUFFLE_SUCCESS,
+			backgroundImage: _.extend(backgroundItem, {data: data})
+		});
+	});
+
+	image.src = 'https://unsplash.com/photos/' + backgroundItem.post_url.substring(backgroundItem.post_url.lastIndexOf('/') + 1) + '/download';
 }
 
 function readJSON() {
@@ -85,8 +85,6 @@ function readJSON() {
 }
 
 function requestJSON(localJSON, callback) {
-	debugger;
-
 	request
 		.get(localJSON ? 'json/initial-backgrounds.json' : 'https://unsplash.it/list')
 		.end(callback);
