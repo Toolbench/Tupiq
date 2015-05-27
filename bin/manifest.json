@@ -1,6 +1,6 @@
 {
     "name": "Tupiq Dev",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
