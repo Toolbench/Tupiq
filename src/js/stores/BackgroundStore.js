@@ -50,7 +50,6 @@ AppDispatcher.register(function(action) {
       break;
 
     case AppConstants.BACKGROUND_SHUFFLE_SUCCESS:
-      Persist.setItem(AppConstants.LOCAL_BACKGROUND_IMAGE, action.backgroundImage, false);
       backgroundImage = action.backgroundImage;
       isLoading = false;
       hasErrored = false;

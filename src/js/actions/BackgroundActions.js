@@ -16,40 +16,64 @@ function loadBackground(backgroundItem) {
 		});
 	});
 
-	image.addEventListener('load', function() {
-		var canvas = document.createElement('canvas'),
-			image = event.target,
-			compress = 2;
-
-		canvas.width = image.width;
-		canvas.height = image.height;
-
-		document.body.appendChild(canvas);
-
-		var context = canvas.getContext('2d');
-		context.drawImage(image, 0, 0, image.width, image.height);
-
-		var data = canvas.toDataURL('image/webp');
-
-		canvas.parentNode.removeChild(canvas);
-
-		var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
-
-		if (usedBackgrounds !== null) {
-			usedBackgrounds.push(backgroundItem);
-		} else {
-			usedBackgrounds = [backgroundItem];
-		}
-
-		Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, usedBackgrounds);
-
-		AppDispatcher.dispatch({
-			actionType: AppConstants.BACKGROUND_SHUFFLE_SUCCESS,
-			backgroundImage: _.extend(backgroundItem, {data: data})
-		});
+	image.addEventListener('load', function(event) {
+		persistBackground(backgroundItem, event.target, 1);
 	});
 
+	// Super big image for testing
+	// image.src = 'https://unsplash.com/photos/-mNvCsNlsSE/download';
 	image.src = 'https://unsplash.com/photos/' + backgroundItem.post_url.substring(backgroundItem.post_url.lastIndexOf('/') + 1) + '/download';
+}
+
+function persistBackground(backgroundItem, image, compress) {
+	var data = getBackgroundDataURL(image, compress);
+
+	var backgroundImage = _.clone(backgroundItem);
+	backgroundImage.data = data;
+
+	try {
+		Persist.setItem(AppConstants.LOCAL_BACKGROUND_IMAGE, backgroundImage, false);
+	} catch (err) {
+		compress -= 0.4;
+
+		if (compress > 0) {
+			persistBackground(backgroundItem, image, compress);
+		}
+	}
+
+	var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
+
+	if (usedBackgrounds !== null) {
+		usedBackgrounds.push(backgroundItem);
+	} else {
+		usedBackgrounds = [backgroundItem];
+	}
+
+	Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, usedBackgrounds);
+
+	AppDispatcher.dispatch({
+		actionType: AppConstants.BACKGROUND_SHUFFLE_SUCCESS,
+		backgroundImage: backgroundImage
+	});
+}
+
+function getBackgroundDataURL(image, compress) {
+	var canvas = document.createElement('canvas'),
+		backgroundImage;
+
+	canvas.width = compress ? image.width * compress : image.width;
+	canvas.height = compress ? image.height * compress : image.height;
+
+	document.body.appendChild(canvas);
+
+	var context = canvas.getContext('2d');
+	context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+	var data = canvas.toDataURL('image/webp');
+
+	canvas.parentNode.removeChild(canvas);
+
+	return data;
 }
 
 function readJSON() {
