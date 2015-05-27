@@ -1,5 +1,6 @@
 var moment = require('moment'),
-	_ = require('underscore');
+	_ = require('underscore'),
+	pluralize = require('pluralize');
 
 function NumbersToWords(num) {
 	var ones = new Array('', ' one', ' two', ' three', ' four', ' five', ' six', ' seven', ' eight', ' nine', ' ten', ' eleven', ' twelve', ' thirteen', ' fourteen', ' fifteen', ' sixteen', ' seventeen', ' eighteen', ' nineteen');
@@ -91,7 +92,7 @@ var TupiqTools = {
 				eventsRemainingTomorrow = 'zero';
 
 			nextEvent = prepNextEvent(nextEvent, moment);
-			nextEventName = _.escape(nextEvent.summary);
+			nextEventName = nextEvent.summary === undefined ? 'Untitled' : _.escape(nextEvent.summary);
 
 			isNextEventToday = nextEvent.momentStart.isSame(momentNow, 'day');
 			isNextEventTomorrow = nextEvent.momentStart.isAfter(momentNow, 'day') && nextEvent.momentStart.isBefore(momentTomorrow);
@@ -121,7 +122,7 @@ var TupiqTools = {
 			  }
 
 			  if (eventsRemainingTodayNumber > 0) {
-			  	secondaryNote = `Plus ${eventsRemainingToday} other upcoming events today.`;
+			  	secondaryNote = `Plus ${eventsRemainingToday} other upcoming ${pluralize('event', eventsRemainingTodayNumber)} today.`;
 			  } else if (eventsRemainingTomorrowNumber > 0) {
 			  	secondaryNote = `And then you're clear till tomorrow.`;
 			  } else {
@@ -133,7 +134,7 @@ var TupiqTools = {
 			  primaryNote = `Tomorrow your day starts with <span class="event-name">${nextEventName}</span> at ${nextEvent.momentStart.format('h:mma')}.`;
 
 			  if (eventsRemainingTomorrowNumber > 0) {
-			  	secondaryNote = `Plus ${eventsRemainingTomorrow} other events.`;
+			  	secondaryNote = `Plus ${eventsRemainingTomorrow} other ${pluralize('event', eventsRemainingTomorrowNumber)}.`;
 			  } else {
 			  	secondaryNote = `After that you're clear for the rest of the day.`;
 			  }
