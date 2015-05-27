@@ -104,7 +104,7 @@ function doPackage(version, manifestJSON, callback) {
 			cwd: 'bin',
 			src: ['**'],
 			filter: function (filePath) {
-				return filePath !== 'bin/manifest.json' && filePath !== 'bin/js/bundle.js';
+				return filePath !== 'bin/manifest.json';
 			}
 		}
 	]);

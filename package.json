@@ -39,7 +39,7 @@
     "start": "parallelshell 'npm run watch:js' 'npm run watch:css'",
     "watch:js": "watchify -o bin/js/bundle.js -v -d .",
     "watch:css": "watch 'node-sass src/sass/main.scss bin/css/main.css' src/sass",
-    "build:js": "NODE_ENV=production browserify . | uglifyjs -cm > bin/js/bundle.min.js",
+    "build:js": "NODE_ENV=production browserify . | uglifyjs -cm > bin/js/bundle.js",
     "build:css": "node-sass src/sass/main.scss bin/css/main.css",
     "build": "npm run build:css && npm run build:js",
     "lint": "jsxhint src/js/**/* --babel",
