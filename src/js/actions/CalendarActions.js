@@ -1,6 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var moment = require('moment');
+var _ = require('underscore');
 
 function calendarConnect() {
   fetchToken(true, function(err, token) {
@@ -51,6 +52,16 @@ function calendarRefresh(retry) {
         return;
       }
 
+      // Filter out cancelled events or ones user has declined
+      upcomingEvents = upcomingEvents.filter(function(event) {
+      	var selfDeclined = _.findWhere(event.attendees, {
+      		self: true,
+      		responseStatus: 'declined'
+      	});
+
+      	return event.status !== 'cancelled' && selfDeclined === undefined;
+      });
+
       // Dispatch upcoming events
       AppDispatcher.dispatch({
         actionType: AppConstants.CALENDAR_REFRESH_SUCCESS,
@@ -66,7 +77,7 @@ function requestEvents(token, callback, searchFuture) {
   var params = {
     timeMin: today.format('YYYY-MM-DD[T]HH:mm:ssZ'),
     timeMax: (!searchFuture) ? today.add(1, 'days').endOf('day').format('YYYY-MM-DD[T]HH:mm:ssZ') : today.add(1, 'year').endOf('day').format('YYYY-MM-DD[T]HH:mm:ssZ'),
-    fields: 'items(status,description,htmlLink,hangoutLink,summary,location,start,end,id)',
+    fields: 'items(status,description,attendees,htmlLink,hangoutLink,summary,location,start,end,id)',
     singleEvents: true,
     orderBy: 'startTime',
     alt: 'json',
