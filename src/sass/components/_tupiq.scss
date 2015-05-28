@@ -64,10 +64,11 @@
       	}
 
       	&:after {
-      		content: "Shuffle failed, try again soon.";
+      		content: "Shuffle failed, try again soon";
       		opacity: 1;
-      		margin-top: -30px;
+      		margin-top: -25px;
       		margin-bottom: 0;
+      		color: $secondary-text-color;
       	}
       }
 
@@ -75,12 +76,15 @@
       	cursor: default;
 
       	img {
-      		opacity: .26;
+      		opacity: 0.06;
       	}
 
       	&:after {
-      		opacity: 0;
-      		margin-top: 0;
+      		content: "Shuffling, hang tight";
+      		opacity: 1;
+      		margin-top: -25px;
+      		margin-bottom: 0;
+      		color: $secondary-text-color;
       	}
       }
     }
