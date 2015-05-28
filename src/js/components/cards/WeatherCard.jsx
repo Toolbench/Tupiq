@@ -108,7 +108,7 @@ var WeatherCard = React.createClass({
 				</div>
 			)
 		} else {
-			message = (this.props.isRefreshing === true) ? 'Fetching your local forecast...' : '';
+			message = (this.props.isRefreshing === true) ? 'Fetching your local forecast, hang tight.' : '';
 
 			if (this.props.error !== null) {
 				message = "Couldn't retrieve forecast.";
