@@ -27,17 +27,19 @@
     	cursor: pointer;
 
 	    &:after {
-	    	font-size: 15px;
-	    	color: $secondary-text-color;
-	    	opacity: 0;
+	    	font-size: 14px;
+	    	color: $hint-disabled-text-color;
+	    	opacity: 1;
 	    	transition: $long-transition-duration;
 	    	content: "Shuffle Background";
-	    	margin-bottom: -20px;
+	    	margin-bottom: -5px;
+	    	margin-top: 5px;
 	    }
 
 	    img {
 	      opacity: .87;
 	      user-select: none;
+	      width: 36px;
 	      transition: .05s;
 	    }
 
@@ -48,8 +50,9 @@
 
       	&:after {
       		opacity: 1;
-      		margin-top: -30px;
+      		margin-top: -25px;
       		margin-bottom: 0;
+      		color: $secondary-text-color;
       	}
       }
 
