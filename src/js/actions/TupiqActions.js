@@ -20,6 +20,12 @@ var TupiqActions = {
       actionType: AppConstants.TUPIQ_REPOSITION,
       coordinates: coordinates
     });
+  },
+
+  minimise: function() {
+  	AppDispatcher.dispatch({
+      actionType: AppConstants.TUPIQ_MINIMISE
+    });
   }
 };
 

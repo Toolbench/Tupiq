@@ -28,6 +28,7 @@ var padding = 10;
 function getStateFromStores() {
   return {
     isDragging: TupiqStore.getDragging(),
+    isMinimised: TupiqStore.getMinimised(),
     coordinates: TupiqStore.getCoordinates(),
     dragOriginData: TupiqStore.getDragOriginData()
   }
@@ -45,6 +46,15 @@ var TupiqContainer = React.createClass({
     TupiqStore.addChangeListener(this._onChange);
 
     window.addEventListener('resize', this.onWindowResize);
+
+    // This will be fired from the context menu background script.
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  		if ('minimisePanel' in request) {
+				TupiqActions.minimise();
+
+				Analytics.trackEvent('button', 'click', 'minimisePanel');
+  		}
+  	}.bind(this));
   },
 
   componentWillUnmount: function() {
@@ -76,6 +86,10 @@ var TupiqContainer = React.createClass({
   },
 
   onWindowResize: function(event) {
+    if (this.state.isMinimised === true) {
+    	return;
+    }
+
     var targetX = this.respectWidth(this.state.coordinates.x);
     var targetY = this.respectHeight(this.state.coordinates.y);
 
@@ -89,7 +103,7 @@ var TupiqContainer = React.createClass({
   },
 
   onMouseDown: function(event) {
-    if (event.target.className === 'tupiq__header__logo-container' || event.target.className === 'tupiq__header__logo-container__tupiq-logo') {
+    if (this.state.isMinimised === true || event.target.className === 'tupiq__header__logo-container' || event.target.className === 'tupiq__header__logo-container__tupiq-logo') {
     	event.preventDefault();
 
     	return;
@@ -160,6 +174,7 @@ var TupiqContainer = React.createClass({
   render: function(){
     return (
       <Tupiq
+      	isMinimised={this.state.isMinimised}
         isDragging={this.state.isDragging}
         coordinates={this.state.coordinates}
         onMouseDown={this.onMouseDown} />

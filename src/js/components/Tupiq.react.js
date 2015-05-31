@@ -20,10 +20,11 @@ var Tupiq = React.createClass({
   render: function(){
     var tupiqClassName = classNames({
     	'tupiq': true,
-    	'is-dragging': this.props.isDragging
+    	'is-dragging': this.props.isDragging,
+    	'is-minimised': this.props.isMinimised
     });
 
-    var style = {
+    var style = this.props.isMinimised ? {} : {
       left: this.props.coordinates.x,
       top: this.props.coordinates.y,
       transform: this.props.coordinates.transform
