@@ -86,7 +86,8 @@ var TupiqContainer = React.createClass({
   },
 
   onWindowResize: function(event) {
-    if (this.state.isMinimised === true) {
+  	// If we're minimised, or it's the initial x position of 50%
+    if (this.state.isMinimised === true || this.state.coordinates.x === '50%') {
     	return;
     }
 

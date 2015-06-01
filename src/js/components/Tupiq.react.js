@@ -4,6 +4,7 @@
 var React = require('react');
 var objectAssign = require('object-assign');
 var classNames = require('classnames');
+var PureMixin = require('react-pure-render/mixin');
 
 /**
  * Child components
@@ -16,6 +17,8 @@ var TupiqWelcomeContainer = require('./TupiqWelcomeContainer.react');
  * Tupiq
  */
 var Tupiq = React.createClass({
+	mixins: [PureMixin],
+
   render: function(){
     var tupiqClassName = classNames({
     	'tupiq': true,

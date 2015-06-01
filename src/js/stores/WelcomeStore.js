@@ -29,7 +29,7 @@ var WelcomeStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
 	switch(action.actionType) {
 		case AppConstants.WELCOME_PROGRESS:
-			stage ++;
+			stage = action.forceStage !== undefined ? action.forceStage : stage + 1;
 			Persist.setItem(AppConstants.LOCAL_WELCOME_STAGE, stage, false);
 			WelcomeStore.emitChange();
 			break;

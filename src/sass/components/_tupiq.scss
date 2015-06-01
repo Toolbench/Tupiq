@@ -9,7 +9,7 @@
   	left: -10px;
   	width: 370px;
   	background-color: rgba(40, 51, 56, 1);
-  	height: 100px;
+  	height: 110px;
   	display: flex;
   	align-items: center;
   	justify-content: center;
@@ -21,26 +21,31 @@
 		transition: top $long-transition-duration;
 
   	&.stage-0 {
-  		top: -20px;
+  		top: -30px;
   	}
 
-  	&.stage-1, &.stage-2, &.stage-3 {
-  		top: -100px;
+  	&.stage-1, &.stage-2, &.stage-3, &.stage-4 {
+  		top: -110px;
   	}
 
-  	&.stage-3 {
-  		-webkit-animation: fade-out .5s;
-  		-webkit-animation-fill-mode: forwards;
+  	&.stage-2, &.stage-3 {
+  		-webkit-animation: none;
   	}
 
   	&.stage-4 {
   		display: none;
+
+  		/*
+  		-webkit-animation: fade-out 2s;
+  		-webkit-animation-fill-mode: forwards;
+  		*/
   	}
 
   	h1 {
   		font-size: 16px;
   		color: #fff;
-  		margin-bottom: 0;
+  		margin-bottom: 4px;
+  		margin-top: 0;
   	}
 
   	p {

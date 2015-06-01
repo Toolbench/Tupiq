@@ -4,6 +4,7 @@
 var React = require('react');
 var AppConstants = require('../constants/AppConstants');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
+var WelcomeStages = require('../utils/WelcomeStages');
 
 /**
  * Stores
@@ -38,16 +39,10 @@ var TupiqWelcomeContainer = React.createClass({
 		return getStateFromStores();
 	},
 
-	componentWillMount: function() {
-		if (this.state.stage === 3) {
-			return;
-		}
-	},
-
 	componentDidMount: function() {
 		WelcomeStore.addChangeListener(this._onChange);
 
-		document.addEventListener('mouseup', this.onDismissClick);
+		document.addEventListener('mousedown', this.onDismiss);
 
 		// Welcome needs to progress at specific user interaction,
 		// this seems to be the easiest.
@@ -65,6 +60,13 @@ var TupiqWelcomeContainer = React.createClass({
 						setTimeout(WelcomeActions.progress);
 					}
 					break;
+
+				case AppConstants.BACKGROUND_SHUFFLE_SUCCESS:
+				case AppConstants.BACKGROUND_SHUFFLE_FAIL:
+					if (this.state.stage === 2) {
+						setTimeout(WelcomeActions.progress);
+					}
+					break;
 			}
 		}.bind(this));
 	},
@@ -72,21 +74,26 @@ var TupiqWelcomeContainer = React.createClass({
 	componentWillUnmount: function() {
 		WelcomeStore.removeChangeListener(this._onChange);
 
-		document.removeEventListener('click', this.onDismissClick);
+		document.removeEventListener('mousedown', this.onDismiss);
 	},
 
 	_onChange: function() {
 		this.setState(getStateFromStores());
 	},
 
-	onDismissClick: function() {
-		if (this.state.stage === 2) {
+	onDismiss: function() {
+		if (this.state.stage === WelcomeStages.length - 1) {
 			WelcomeActions.progress();
 		}
 	},
 
 	onButtonClick: function() {
-		setTimeout(WelcomeActions.progress);
+		// If we are on stage 1 (shuffle) and skip, go straight to 3!
+		if (this.state.stage === 1) {
+			WelcomeActions.progress(3);
+		} else {
+			WelcomeActions.progress();
+		}
 	},
 
 	render: function() {
