@@ -93,14 +93,10 @@ function getBackgroundDataURL(image, compress) {
 	canvas.width = image.width;
 	canvas.height = image.height;
 
-	document.body.appendChild(canvas);
-
 	var context = canvas.getContext('2d');
 	context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
 	var data = canvas.toDataURL('image/webp', compress);
-
-	canvas.parentNode.removeChild(canvas);
 
 	return data;
 }
