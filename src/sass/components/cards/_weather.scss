@@ -1,7 +1,12 @@
 .card.weather {
 	height: 100%;
+	// So there's no jumping around between loading message and content
+	min-height: 72px;
 	width: 100%;
-	padding: 20px 0;
+	padding: 15px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	.weather__message {
 		color: $hint-disabled-text-color;
