@@ -8,8 +8,10 @@ var moment = require('moment');
 var request = require('superagent');
 
 function loadBackground(backgroundItem) {
-	var image = new Image();
+	var image = new Image(),
+		xmlHTTP = new XMLHttpRequest();
 
+	// Image listeners
 	image.addEventListener('error', function() {
 		AppDispatcher.dispatch({
 			actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
@@ -20,9 +22,30 @@ function loadBackground(backgroundItem) {
 		persistBackground(backgroundItem, event.target, 1);
 	});
 
-	// Super big image for testing
-	// image.src = 'https://unsplash.com/photos/-mNvCsNlsSE/download';
-	image.src = 'https://unsplash.com/photos/' + backgroundItem.post_url.substring(backgroundItem.post_url.lastIndexOf('/') + 1) + '/download';
+    // Ajax listeners
+    xmlHTTP.onload = function(e) {
+        AppDispatcher.dispatch({
+			actionType: AppConstants.BACKGROUND_SHUFFLE_PROGRESS,
+			shuffleProgress: 100
+		});
+
+        var blob = new Blob([this.response]);
+        image.src = window.URL.createObjectURL(blob);
+    };
+
+    xmlHTTP.onprogress = function(e) {
+        var percentage = parseInt((e.loaded / e.total) * 100);
+
+       	AppDispatcher.dispatch({
+			actionType: AppConstants.BACKGROUND_SHUFFLE_PROGRESS,
+			shuffleProgress: percentage
+		});
+    };
+
+    // Initiate request
+    xmlHTTP.open('GET', 'https://unsplash.com/photos/' + backgroundItem.post_url.substring(backgroundItem.post_url.lastIndexOf('/') + 1) + '/download', true);
+    xmlHTTP.responseType = 'arraybuffer';
+    xmlHTTP.send();
 }
 
 function persistBackground(backgroundItem, image, compress) {
@@ -61,15 +84,15 @@ function getBackgroundDataURL(image, compress) {
 	var canvas = document.createElement('canvas'),
 		backgroundImage;
 
-	canvas.width = compress ? image.width * compress : image.width;
-	canvas.height = compress ? image.height * compress : image.height;
+	canvas.width = image.width;
+	canvas.height = image.height;
 
 	document.body.appendChild(canvas);
 
 	var context = canvas.getContext('2d');
 	context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-	var data = canvas.toDataURL('image/webp');
+	var data = canvas.toDataURL('image/webp', compress);
 
 	canvas.parentNode.removeChild(canvas);
 

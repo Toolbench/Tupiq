@@ -3,6 +3,7 @@ var keyMirror = require('keymirror');
 module.exports = keyMirror({
   // Actions
   BACKGROUND_SHUFFLE: null,
+  BACKGROUND_SHUFFLE_PROGRESS: null,
   BACKGROUND_SHUFFLE_SUCCESS: null,
   BACKGROUND_SHUFFLE_FAIL: null,
 
@@ -23,6 +24,8 @@ module.exports = keyMirror({
   WEATHER_REFRESH_SUCCESS: null,
   WEATHER_REFRESH_ERROR: null,
 
+  WELCOME_PROGRESS: null,
+
   // Local Storage
   LOCAL_UPCOMING_EVENTS: null,
   LOCAL_BACKGROUND_IMAGE: null,
@@ -30,5 +33,6 @@ module.exports = keyMirror({
   LOCAL_USED_BACKGROUNDS: null,
   LOCAL_BACKGROUNDS_JSON: null,
   LOCAL_VERSION: null,
-  LOCAL_WEATHER_FORECAST: null
+  LOCAL_WEATHER_FORECAST: null,
+  LOCAL_WELCOME_STAGE: null
 });

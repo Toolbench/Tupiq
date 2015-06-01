@@ -4,6 +4,72 @@
   z-index: 2;
   background-color: rgba(255, 255, 255, .98);
 
+  .welcome {
+  	position: absolute;
+  	left: -10px;
+  	width: 370px;
+  	background-color: rgba(40, 51, 56, 1);
+  	height: 100px;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	flex-direction: column;
+  	text-align: center;
+  	padding: 0 20px;
+  	box-sizing: border-box;
+		-webkit-animation: bounce 5s infinite .5s;
+		transition: top $long-transition-duration;
+
+  	&.stage-0 {
+  		top: -20px;
+  	}
+
+  	&.stage-1, &.stage-2, &.stage-3 {
+  		top: -100px;
+  	}
+
+  	&.stage-3 {
+  		-webkit-animation: fade-out .5s;
+  		-webkit-animation-fill-mode: forwards;
+  	}
+
+  	&.stage-4 {
+  		display: none;
+  	}
+
+  	h1 {
+  		font-size: 16px;
+  		color: #fff;
+  		margin-bottom: 0;
+  	}
+
+  	p {
+  		color: rgba(170, 180, 186, 1);
+  		margin-top: 0;
+  		font-size: 14px;
+  		margin-bottom: 10px;
+  	}
+
+  	a {
+  		font-size: 12px;
+  		color: rgba(94, 180, 225, 1);
+  		text-decoration: none;
+  	}
+
+		.arrow {
+			display: block;
+			position: absolute;
+			bottom: -10px;
+			left: 50%;
+			margin-left: -10px;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 10px 10px 0 10px;
+			border-color: rgba(40, 51, 56, 1) transparent transparent transparent;
+		}
+  }
+
   &.is-dragging {
   	-webkit-user-select: none;
   }
@@ -25,6 +91,17 @@
     cursor: move;
     padding: 10px 0;
     flex-direction: column;
+    position: relative;
+
+    .shuffle-progress-indicator {
+    	display: block;
+    	height: 2px;
+    	position: absolute;
+    	bottom: -1px;
+    	left: 0;
+    	background-color: #2baaed;
+    	transition: width $regular-transition-duration;
+    }
 
 	  .is-minimised & {
   		cursor: default;
@@ -82,7 +159,7 @@
       	&:after {
       		content: "Shuffle failed, try again soon";
       		opacity: 1;
-      		margin-top: -25px;
+      		margin-top: -30px;
       		margin-bottom: 0;
       	}
       }
@@ -97,7 +174,7 @@
       	&:after {
       		content: "Shuffling, hang tight";
       		opacity: 1;
-      		margin-top: -25px;
+      		margin-top: -30px;
       		margin-bottom: 0;
       	}
       }
@@ -105,7 +182,6 @@
   }
 
   &__body {
-    border-bottom: 1px solid $border-color;
     display: flex;
     align-items: center;
     justify-content: center;

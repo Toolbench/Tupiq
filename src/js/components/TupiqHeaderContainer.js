@@ -25,6 +25,7 @@ var BackgroundActions = require('../actions/BackgroundActions');
 function getStateFromStores() {
   return {
   	isBackgroundLoading: BackgroundStore.getLoading(),
+  	backgroundShuffleProgress: BackgroundStore.getShuffleProgress(),
   	hasBackgroundErrored: BackgroundStore.getErrored()
   }
 }
@@ -63,6 +64,7 @@ var TupiqHeaderContainer = React.createClass({
       	onMouseDown={this.props.onMouseDown}
       	onClick={this.onClick}
       	isBackgroundLoading={this.state.isBackgroundLoading}
+      	backgroundShuffleProgress={this.state.backgroundShuffleProgress}
       	hasBackgroundErrored={this.state.hasBackgroundErrored} />
     )
   }

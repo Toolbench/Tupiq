@@ -12,7 +12,7 @@ var CalendarCardBody = React.createClass({
     var tupiqBodyClass = classNames({
     	'card tupiq__body--calendar': true
     });
-    var addCalendarLabel = (this.props.isCalendarConnecting) ? 'Connecting...' : 'Connect your calendar';
+    var addCalendarLabel = (this.props.isCalendarConnecting) ? 'Connecting...' : 'Connect to your Google Calendar';
 
     var tupiqConnectPromptClass = classNames({
 		'tupiq__body--calendar__connect-prompt': true,

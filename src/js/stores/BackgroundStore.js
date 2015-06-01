@@ -11,6 +11,8 @@ var backgroundImage = Persist.getItem(AppConstants.LOCAL_BACKGROUND_IMAGE, false
 	data: 'images/bg.jpg'
 };
 
+var shuffleProgress = 0;
+
 var isLoading = false;
 
 var hasErrored = false;
@@ -26,6 +28,10 @@ var BackgroundStore = assign({}, EventEmitter.prototype, {
 
   getErrored: function() {
   	return hasErrored;
+  },
+
+  getShuffleProgress: function() {
+  	return shuffleProgress;
   },
 
   emitChange: function() {
@@ -46,6 +52,12 @@ AppDispatcher.register(function(action) {
     case AppConstants.BACKGROUND_SHUFFLE:
       isLoading = true;
       hasErrored = false;
+      shuffleProgress = 0;
+      BackgroundStore.emitChange();
+      break;
+
+    case AppConstants.BACKGROUND_SHUFFLE_PROGRESS:
+      shuffleProgress = action.shuffleProgress;
       BackgroundStore.emitChange();
       break;
 
@@ -53,12 +65,14 @@ AppDispatcher.register(function(action) {
       backgroundImage = action.backgroundImage;
       isLoading = false;
       hasErrored = false;
+      shuffleProgress = 0;
       BackgroundStore.emitChange();
       break;
 
     case AppConstants.BACKGROUND_SHUFFLE_FAIL:
       isLoading = false;
       hasErrored = true;
+      shuffleProgress = 0;
       BackgroundStore.emitChange();
       break;
 
