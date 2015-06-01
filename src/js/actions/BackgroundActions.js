@@ -23,7 +23,13 @@ function loadBackground(backgroundItem) {
 	});
 
     // Ajax listeners
-    xmlHTTP.onload = function(e) {
+    xmlHTTP.onerror = function(event) {
+    	AppDispatcher.dispatch({
+			actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
+		});
+    }
+
+    xmlHTTP.onload = function(event) {
         AppDispatcher.dispatch({
 			actionType: AppConstants.BACKGROUND_SHUFFLE_PROGRESS,
 			shuffleProgress: 100
@@ -33,8 +39,8 @@ function loadBackground(backgroundItem) {
         image.src = window.URL.createObjectURL(blob);
     };
 
-    xmlHTTP.onprogress = function(e) {
-        var percentage = parseInt((e.loaded / e.total) * 100);
+    xmlHTTP.onprogress = function(event) {
+        var percentage = parseInt((event.loaded / event.total) * 100);
 
        	AppDispatcher.dispatch({
 			actionType: AppConstants.BACKGROUND_SHUFFLE_PROGRESS,
