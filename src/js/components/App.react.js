@@ -3,6 +3,7 @@
  */
 var React = require('react');
 var Analytics = require('../utils/Analytics');
+var Persist = require('../utils/Persist');
 
 /**
  * Components
@@ -47,6 +48,12 @@ var App = React.createClass({
 				});
 
 				Analytics.trackEvent('button', 'click', 'download background');
+  		} else if ('reset' in request) {
+  			Persist.clear();
+
+  			window.location.reload();
+
+  			Analytics.trackEvent('button', 'click', 'reset');
   		}
   	}.bind(this));
 

@@ -43,6 +43,8 @@ if (installedVersion !== currentVersion) {
  */
 keymaster('⌘+e, ctrl+e', function(event, handler) {
 	Persist.clear();
+
+	window.location.reload();
 });
 
 /**

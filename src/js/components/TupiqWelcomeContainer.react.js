@@ -48,22 +48,29 @@ var TupiqWelcomeContainer = React.createClass({
 		// this seems to be the easiest.
 		AppDispatcher.register(function(action) {
 			switch(action.actionType) {
-				case AppConstants.CALENDAR_CONNECT_SUCCESS:
-				case AppConstants.CALENDAR_CONNECT_ERROR:
+				case AppConstants.CALENDAR_CONNECT:
 					if (this.state.stage === 0) {
 						setTimeout(WelcomeActions.progress);
 					}
 					break;
 
-				case AppConstants.BACKGROUND_SHUFFLE:
+				case AppConstants.CALENDAR_CONNECT_ERROR:
+				case AppConstants.CALENDAR_REFRESH_SUCCESS:
+				case AppConstants.CALENDAR_REFRESH_ERROR:
 					if (this.state.stage === 1) {
+						setTimeout(WelcomeActions.progress);
+					}
+					break;
+
+				case AppConstants.BACKGROUND_SHUFFLE:
+					if (this.state.stage === 2) {
 						setTimeout(WelcomeActions.progress);
 					}
 					break;
 
 				case AppConstants.BACKGROUND_SHUFFLE_SUCCESS:
 				case AppConstants.BACKGROUND_SHUFFLE_FAIL:
-					if (this.state.stage === 2) {
+					if (this.state.stage === 3) {
 						setTimeout(WelcomeActions.progress);
 					}
 					break;
@@ -88,9 +95,10 @@ var TupiqWelcomeContainer = React.createClass({
 	},
 
 	onButtonClick: function() {
-		// If we are on stage 1 (shuffle) and skip, go straight to 3!
-		if (this.state.stage === 1) {
-			WelcomeActions.progress(3);
+		if (this.state.stage === 0) {
+			WelcomeActions.progress(2);
+		} else if (this.state.stage === 2) {
+			WelcomeActions.progress(4);
 		} else {
 			WelcomeActions.progress();
 		}

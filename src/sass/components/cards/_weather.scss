@@ -40,7 +40,7 @@
 
 			.day {
 				font-size: 14px;
-				color: $hint-disabled-text-color;
+				color: $weather-primary-font-color;
 				text-align: left;
 				margin-bottom: 2px;
 			}
@@ -55,7 +55,7 @@
 			.temp {
 				align-self: center;
 				font-size: 12px;
-				color: $hint-disabled-text-color;
+				color: $weather-secondary-font-color;
 				i {
 					display: inline-block;
 				}
@@ -64,7 +64,7 @@
 			.icon {
 				font-size: 28px;
 				line-height: normal;
-				color: $hint-disabled-text-color;
+				color: $weather-icon-font-color;
 			}
 
 			.summary {

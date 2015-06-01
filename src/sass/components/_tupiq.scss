@@ -1,5 +1,5 @@
 .tupiq {
-  width: 350px;
+  width: 380px;
   position: absolute;
   z-index: 2;
   background-color: rgba(255, 255, 255, .98);
@@ -7,8 +7,8 @@
   .welcome {
   	position: absolute;
   	left: -10px;
-  	width: 370px;
-  	background-color: rgba(40, 51, 56, 1);
+  	width: 400px;
+  	background-color: $welcome-background-color;
   	height: 110px;
   	display: flex;
   	align-items: center;
@@ -18,21 +18,21 @@
   	padding: 0 20px;
   	box-sizing: border-box;
 		-webkit-animation: bounce 5s infinite .5s;
-		transition: top $long-transition-duration;
+		transition: top $extra-long-transition-duration;
 
-  	&.stage-0 {
+  	&.stage-0, &.stage-1 {
   		top: -30px;
   	}
 
-  	&.stage-1, &.stage-2, &.stage-3, &.stage-4 {
+  	&.stage-2, &.stage-3, &.stage-4, &.stage-5 {
   		top: -110px;
   	}
 
-  	&.stage-2, &.stage-3 {
+  	&.stage-1, &.stage-3, &.stage-4 {
   		-webkit-animation: none;
   	}
 
-  	&.stage-4 {
+  	&.stage-5 {
   		display: none;
 
   		/*
@@ -42,23 +42,28 @@
   	}
 
   	h1 {
-  		font-size: 16px;
-  		color: #fff;
-  		margin-bottom: 4px;
+  		font-size: $big-font-size;
+  		color: $welcome-primary-font-color;
+  		margin-bottom: 6px;
   		margin-top: 0;
   	}
 
   	p {
-  		color: rgba(170, 180, 186, 1);
+  		color: $welcome-secondary-font-color;
   		margin-top: 0;
-  		font-size: 14px;
+  		font-size: $secondary-font-size;
   		margin-bottom: 10px;
+  		line-height: 1.6;
   	}
 
   	a {
-  		font-size: 12px;
-  		color: rgba(94, 180, 225, 1);
+  		font-size: $small-font-size;
+  		color: $link-font-color;
   		text-decoration: none;
+
+  		&:hover {
+  			text-decoration: underline;
+  		}
   	}
 
 		.arrow {
@@ -120,10 +125,10 @@
     	cursor: pointer;
 
 	    &:after {
-	    	font-size: 14px;
+	    	font-size: $primary-font-size;
 	    	color: $secondary-text-color;
 	    	opacity: 0;
-	    	transition: $long-transition-duration;
+	    	transition: $regular-transition-duration;
 	    	content: "Shuffle Background";
 	    	margin-bottom: -20px;
 
@@ -173,14 +178,11 @@
       	cursor: default;
 
       	img {
-      		opacity: 0.06;
+      		opacity: 0.26;
       	}
 
       	&:after {
-      		content: "Shuffling, hang tight";
-      		opacity: 1;
-      		margin-top: -30px;
-      		margin-bottom: 0;
+      		opacity: 0;
       	}
       }
     }

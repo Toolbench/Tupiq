@@ -9,26 +9,29 @@
 	}
 
 	.primary {
-		color: $primary-text-color;
-		font-size: 15px;
+		color: $calendar-primary-font-color;
+		font-size: $primary-font-size;
 		widows: 2;
 		margin-top: 0;
+		margin-bottom: 5px;
 	}
 
 	.event-name {
-		background-color: #eee;
+		background-color: #eceff1;
 		padding: 2px 6px;
-		color: $secondary-text-color;
+		-webkit-box-decoration-break: clone;
+		color: $calendar-hightlight-font-color;
 		cursor: pointer;
 
 		&:hover {
-			background-color: #f5f5f5;
+			background-color: $link-font-color;
+			color: #fff;
 		}
 	}
 
 	.secondary {
-		color: $secondary-text-color;
-		font-size: 14px;
+		color: $calendar-secondary-font-color;
+		font-size: $secondary-font-size;
 		margin-bottom: 0;
 	}
 

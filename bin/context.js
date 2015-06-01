@@ -10,6 +10,12 @@ function onMinimiseClick() {
   	});
 };
 
+function onResetClick() {
+  	chrome.runtime.sendMessage({
+  		reset: true
+  	});
+};
+
 chrome.contextMenus.create({
 	"title": 'About this Background',
 	"contexts":["page"],
@@ -21,5 +27,12 @@ chrome.contextMenus.create({
 	"title": 'Toggle Panel',
 	"contexts":["page"],
     "onclick": onMinimiseClick,
+    documentUrlPatterns: ['chrome-extension://*/index.html']
+});
+
+chrome.contextMenus.create({
+	"title": 'Reset',
+	"contexts":["page"],
+    "onclick": onResetClick,
     documentUrlPatterns: ['chrome-extension://*/index.html']
 });

@@ -1,9 +1,38 @@
-$primary-text-color: rgba(0, 0, 0, .87);
-$secondary-text-color: rgba(0, 0, 0, .54);
-$hint-disabled-text-color: rgba(0, 0, 0, .26);
+/**
+ * Colors
+ */
+$primary-text-color: #445a64;
+$secondary-text-color: #8fa4af;
+$hint-disabled-text-color: #b0bec5;
+$link-font-color: #2baaed;
 
-$border-color: rgba(0, 0, 0, .06);
-$border-dark-color: rgba(0, 0, 0, .16);
+$welcome-primary-font-color: #fff;
+$welcome-secondary-font-color: #b0bec5;
 
+$weather-primary-font-color: #77909d;
+$weather-secondary-font-color: $secondary-text-color;
+$weather-icon-font-color: #cfd8dc;
+
+$calendar-primary-font-color: $primary-text-color;
+$calendar-secondary-font-color: $secondary-text-color;
+$calendar-hightlight-font-color: #36474f;
+
+$border-color: #e6ebf0;
+
+$welcome-background-color: #263238;
+
+/**
+ * Font Sizes
+ */
+$big-font-size: 18px;
+$primary-font-size: 16px;
+$secondary-font-size: 14px;
+$small-font-size: 13px;
+$tiny-font-size: 12px;
+
+/**
+ * Transitions
+ */
 $regular-transition-duration: .1s;
-$long-transition-duration: .1s;
+$long-transition-duration: .2s;
+$extra-long-transition-duration: .3s;
