@@ -1,25 +1,39 @@
 /**
  * Colors
  */
-$primary-text-color: #445a64;
-$secondary-text-color: #8fa4af;
-$hint-disabled-text-color: #b0bec5;
+
+// Material Design Blue Gray Palette
+$blue-50: #ECEFF1;
+$blue-100: #CFD8DC;
+$blue-200: #B0BEC5;
+$blue-300: #90A4AE;
+$blue-400: #78909C;
+$blue-500: #607D8B;
+$blue-600: #546E7A;
+$blue-700: #455A64;
+$blue-800: #37474F;
+$blue-900: #263238;
+
+$primary-font-color: $blue-700;
+$secondary-font-color: #8fa4af;
+$hint-disabled-font-color: $blue-200;
 $link-font-color: #2baaed;
 
 $welcome-primary-font-color: #fff;
-$welcome-secondary-font-color: #b0bec5;
+$welcome-secondary-font-color: $blue-200;
+$welcome-skip-font-color: $blue-600;
 
-$weather-primary-font-color: #77909d;
-$weather-secondary-font-color: $secondary-text-color;
-$weather-icon-font-color: #cfd8dc;
+$weather-primary-font-color: $blue-400;
+$weather-secondary-font-color: $secondary-font-color;
+$weather-icon-font-color: $blue-100;
 
-$calendar-primary-font-color: $primary-text-color;
-$calendar-secondary-font-color: $secondary-text-color;
-$calendar-hightlight-font-color: #36474f;
+$calendar-primary-font-color: $primary-font-color;
+$calendar-secondary-font-color: $secondary-font-color;
+$calendar-hightlight-font-color: $blue-800;
 
 $border-color: #e6ebf0;
 
-$welcome-background-color: #263238;
+$welcome-background-color: $blue-900;
 
 /**
  * Font Sizes

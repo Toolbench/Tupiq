@@ -19,7 +19,7 @@ function loadBackground(backgroundItem) {
 	});
 
 	image.addEventListener('load', function(event) {
-		persistBackground(backgroundItem, event.target, 1);
+		persistBackground(backgroundItem, event.target, .3);
 	});
 
     // Ajax listeners
@@ -49,6 +49,7 @@ function loadBackground(backgroundItem) {
     };
 
     // Initiate request
+    //xmlHTTP.open('GET', 'https://unsplash.com/photos/-mNvCsNlsSE/download', true);
     xmlHTTP.open('GET', 'https://unsplash.com/photos/' + backgroundItem.post_url.substring(backgroundItem.post_url.lastIndexOf('/') + 1) + '/download', true);
     xmlHTTP.responseType = 'arraybuffer';
     xmlHTTP.send();
@@ -63,10 +64,14 @@ function persistBackground(backgroundItem, image, compress) {
 	try {
 		Persist.setItem(AppConstants.LOCAL_BACKGROUND_IMAGE, backgroundImage, false);
 	} catch (err) {
-		compress -= 0.4;
+		compress -= 0.1;
 
 		if (compress > 0) {
 			persistBackground(backgroundItem, image, compress);
+		} else {
+			AppDispatcher.dispatch({
+				actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
+			});
 		}
 	}
 

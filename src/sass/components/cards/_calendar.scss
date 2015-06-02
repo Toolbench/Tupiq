@@ -43,7 +43,7 @@
 		top: 0;
 		right: 4px;
 		line-height: 1;
-		color: $hint-disabled-text-color;
+		color: $hint-disabled-font-color;
 		cursor: pointer;
 
 		&:after {
@@ -53,7 +53,7 @@
 		}
 
 		&:hover {
-			color: $secondary-text-color;
+			color: $secondary-font-color;
 		}
 	}
 
@@ -62,10 +62,10 @@
 	}
 
 	&__connect-prompt {
-		display: block;
+		display: inline-block;
 		text-align: center;
 		transition: $regular-transition-duration;
-		color: $secondary-text-color;
+		color: $secondary-font-color;
 		cursor: pointer;
 		border-radius: 4px;
 
@@ -75,7 +75,7 @@
 		}
 
 		&:hover:not(.connecting) {
-			color: $primary-text-color;
+			color: $primary-font-color;
 		}
 	}
 }

@@ -9,7 +9,7 @@
 	justify-content: center;
 
 	.weather__message {
-		color: $hint-disabled-text-color;
+		color: $hint-disabled-font-color;
 		font-size: 14px;
 		margin: 0;
 	}
@@ -70,7 +70,7 @@
 			.summary {
 				margin-top: 5px;
 				font-size: 13px;
-				color: $hint-disabled-text-color;
+				color: $hint-disabled-font-color;
 			}
 		}
 
