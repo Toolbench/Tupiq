@@ -109,8 +109,8 @@ function getBackgroundDataURL(image, compress) {
 function readJSON() {
 	var backgroundsJSON = Persist.getItem(AppConstants.LOCAL_BACKGROUNDS_JSON);
 
-	// Do we have a backgrounds item in local storage, and is it fresher than 10 days?
-	if (backgroundsJSON === null || backgroundsJSON.lastUpdated === null || moment().diff(moment.unix(backgroundsJSON.lastUpdated), 'days') > 10) {
+	// Do we have a backgrounds item in local storage, and is it fresher than 4 days?
+	if (backgroundsJSON === null || backgroundsJSON.lastUpdated === null || moment().diff(moment.unix(backgroundsJSON.lastUpdated), 'days') > 4) {
 		// If this is the initial request lets just use the local JSON
 		var localJSON = backgroundsJSON === null;
 
