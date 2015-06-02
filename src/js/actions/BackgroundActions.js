@@ -19,7 +19,7 @@ function loadBackground(backgroundItem) {
 	});
 
 	image.addEventListener('load', function(event) {
-		persistBackground(backgroundItem, event.target, .3);
+		persistBackground(backgroundItem, event.target, .4);
 	});
 
     // Ajax listeners
