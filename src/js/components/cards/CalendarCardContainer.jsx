@@ -94,13 +94,13 @@ var CalendarCardContainer = React.createClass({
   		CalendarActions.connect();
   	}
 
-  	Analytics.trackEvent('button', 'click', 'connect calendar');
+  	Analytics.trackEvent('Button', 'Click', 'Connect Calendar');
   },
 
   onCloseButtonClick: function() {
   	CalendarActions.disconnect();
 
-  	Analytics.trackEvent('button', 'click', 'disconnect calendar');
+  	Analytics.trackEvent('Button', 'Click', 'Disconnect Calendar');
   },
 
   onEventClick: function(event) {
@@ -110,7 +110,7 @@ var CalendarCardContainer = React.createClass({
 				url: this.state.upcomingEvents[0].htmlLink
 			});
 
-			Analytics.trackEvent('button', 'click', 'upcoming event info');
+			Analytics.trackEvent('Button', 'Click', 'Upcoming Event Info');
   	}
   },
 

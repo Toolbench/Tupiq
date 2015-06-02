@@ -52,7 +52,7 @@ var TupiqContainer = React.createClass({
   		if ('minimisePanel' in request) {
 				TupiqActions.minimise();
 
-				Analytics.trackEvent('button', 'click', 'minimisePanel');
+				Analytics.trackEvent('Button', 'Click', 'Minimise Panel');
   		}
   	}.bind(this));
   },
@@ -124,7 +124,7 @@ var TupiqContainer = React.createClass({
         elementOriginY: pageOffset.top
       });
 
-      Analytics.trackEvent('tupiq', 'drag');
+      Analytics.trackEvent('Tupiq', 'Drag');
     }
   },
 

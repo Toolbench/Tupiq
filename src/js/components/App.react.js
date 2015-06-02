@@ -47,13 +47,13 @@ var App = React.createClass({
 					url: this.state.backgroundImage.post_url
 				});
 
-				Analytics.trackEvent('button', 'click', 'download background');
+				Analytics.trackEvent('Button', 'Click', 'Download Background');
   		} else if ('reset' in request) {
   			Persist.clear();
 
   			window.location.reload();
 
-  			Analytics.trackEvent('button', 'click', 'reset');
+  			Analytics.trackEvent('Button', 'Click', 'Reset');
   		}
   	}.bind(this));
 

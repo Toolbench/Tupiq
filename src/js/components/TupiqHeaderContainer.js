@@ -51,7 +51,7 @@ var TupiqHeaderContainer = React.createClass({
   },
 
   onClick: function(event) {
-  	Analytics.trackEvent('button', 'click', 'shuffle background');
+  	Analytics.trackEvent('Button', 'Click', 'Shuffle Background');
 
     if (this.state.isBackgroundLoading === false && this.state.hasBackgroundErrored === false) {
       BackgroundActions.backgroundShuffle();
