@@ -20,27 +20,6 @@
 		-webkit-animation: bounce 5s infinite .5s;
 		transition: top $extra-long-transition-duration;
 
-  	&.stage-0, &.stage-1 {
-  		top: -30px;
-  	}
-
-  	&.stage-2, &.stage-3, &.stage-4, &.stage-5 {
-  		top: -110px;
-  	}
-
-  	&.stage-1, &.stage-3, &.stage-4 {
-  		-webkit-animation: none;
-  	}
-
-  	&.stage-5 {
-  		display: none;
-
-  		/*
-  		-webkit-animation: fade-out 2s;
-  		-webkit-animation-fill-mode: forwards;
-  		*/
-  	}
-
   	h1 {
   		font-size: $big-font-size;
   		color: $welcome-primary-font-color;
@@ -56,14 +35,56 @@
   		line-height: 1.6;
   	}
 
-  	a {
+		a {
   		font-size: $small-font-size;
   		color: $welcome-skip-font-color;
   		text-decoration: none;
+  		display: block;
+  		text-align: right;
+  		width: 100%;
+  		position: relative;
+  		padding-right: 10px;
 
   		&:hover {
   			text-decoration: underline;
   		}
+
+  		&:after {
+  			content: "\25B8";
+  			right: 0;
+  			top: -2px;
+  			font-size: $secondary-font-size;
+  			position: absolute;
+  		}
+  	}
+
+		// Calendar stages
+  	&.stage-0, &.stage-1 {
+  		top: -30px;
+  	}
+
+  	// Background stages
+  	&.stage-2, &.stage-3, &.stage-4, &.stage-5 {
+  		top: -110px;
+  	}
+
+  	// Transition and final stages
+  	&.stage-1, &.stage-3, &.stage-4 {
+  		-webkit-animation: none;
+
+  		a {
+  			display: none;
+  		}
+  	}
+
+  	// Fade out stage
+  	&.stage-5 {
+  		display: none;
+
+  		/*
+  		-webkit-animation: fade-out 2s;
+  		-webkit-animation-fill-mode: forwards;
+  		*/
   	}
 
 		.arrow {

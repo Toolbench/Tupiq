@@ -2,17 +2,17 @@ var WelcomeStages = [
 	{
 		primary: 'Hello there and welcome!',
     	secondary: 'First off, lets see how your day is lining up...',
-    	button: 'Skip (you can always connect later)'
+    	button: 'Skip for now'
     },
     {
 		primary: 'Nice one!',
-    	secondary: "We're finding your calendar...",
+    	secondary: "We're searching for your calendar...",
     	button: ''
     },
     {
     	primary: 'Sweet!',
     	secondary: 'Now click on the Tupiq to shuffle your background.',
-    	button: 'Skip (you can shuffle at any time)'
+    	button: 'Skip for now'
     },
     {
 	    primary: 'Hang tight!',
