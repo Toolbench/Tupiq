@@ -1,12 +1,12 @@
-function onAboutBackgroundClick() {
-  	chrome.runtime.sendMessage({
-  		getBackgroundInfo: true
-  	});
-};
-
 function onMinimiseClick() {
   	chrome.runtime.sendMessage({
   		minimisePanel: true
+  	});
+};
+
+function onAboutBackgroundClick() {
+  	chrome.runtime.sendMessage({
+  		getBackgroundInfo: true
   	});
 };
 
