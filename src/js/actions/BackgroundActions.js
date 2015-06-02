@@ -2,6 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var TupiqTools = require('../utils/TupiqTools');
 var Persist = require('../utils/Persist');
+var Analytics = require('../utils/Analytics');
 
 var _ = require('underscore');
 var moment = require('moment');
@@ -13,9 +14,7 @@ function loadBackground(backgroundItem) {
 
 	// Image listeners
 	image.addEventListener('error', function() {
-		AppDispatcher.dispatch({
-			actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
-		});
+		dispatchError('BackgroundActions: Image Error');
 	});
 
 	image.addEventListener('load', function(event) {
@@ -24,9 +23,7 @@ function loadBackground(backgroundItem) {
 
     // Ajax listeners
     xmlHTTP.onerror = function(event) {
-    	AppDispatcher.dispatch({
-			actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
-		});
+    	dispatchError('BackgroundActions: Ajax Error');
     }
 
     xmlHTTP.onload = function(event) {
@@ -69,9 +66,7 @@ function persistBackground(backgroundItem, image, compress) {
 		if (compress > 0) {
 			persistBackground(backgroundItem, image, compress);
 		} else {
-			AppDispatcher.dispatch({
-				actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
-			});
+			dispatchError('BackgroundActions: Image Persist Error');
 		}
 	}
 
@@ -116,9 +111,7 @@ function readJSON() {
 
 		requestJSON(localJSON, function(err, res) {
 			if (err) {
-				AppDispatcher.dispatch({
-					actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
-				});
+				dispatchError('BackgroundActions: Request JSON Error');
 			} else {
 				// If request was remote use res.body, if local res.text
 				var backgrounds = res.body || JSON.parse(res.text);
@@ -142,6 +135,14 @@ function requestJSON(localJSON, callback) {
 	request
 		.get(localJSON ? 'json/initial-backgrounds.json' : 'https://unsplash.it/list')
 		.end(callback);
+}
+
+function dispatchError(desc, fatal) {
+    Analytics.trackException(desc, fatal);
+
+	AppDispatcher.dispatch({
+		actionType: AppConstants.BACKGROUND_SHUFFLE_FAIL
+	});
 }
 
 function shuffleBackground(backgroundJSON) {

@@ -2,14 +2,12 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var moment = require('moment');
 var _ = require('underscore');
+var Analytics = require('../utils/Analytics');
 
 function calendarConnect() {
   fetchToken(true, function(err, token) {
     if (err) {
-      AppDispatcher.dispatch({
-        actionType: AppConstants.CALENDAR_CONNECT_ERROR,
-        error: err
-      });
+      dispatchError(AppConstants.CALENDAR_CONNECT_ERROR, 'CalendarActions: Calendar Connect - Fetch Token Error');
       return;
     }
 
@@ -25,10 +23,7 @@ function calendarRefresh(retry) {
   // Fetch the token
   fetchToken(false, function(err, token) {
     if (err) {
-      AppDispatcher.dispatch({
-        actionType: AppConstants.CALENDAR_REFRESH_ERROR,
-        error: err
-      });
+      dispatchError(AppConstants.CALENDAR_REFRESH_ERROR, 'CalendarActions: Calendar Refresh - Fetch Token Error');
       return;
     }
 
@@ -44,9 +39,7 @@ function calendarRefresh(retry) {
             calendarRefresh(false);
           } else {
             // Give up
-            AppDispatcher.dispatch({
-              actionType: AppConstants.CALENDAR_REFRESH_ERROR
-            });
+            dispatchError(AppConstants.CALENDAR_REFRESH_ERROR, 'CalendarActions: Calendar Refresh - Request Events Error');
           }
         });
         return;
@@ -132,6 +125,14 @@ function serialize (obj, prefix) {
     }
   }
   return str.join("&");
+}
+
+function dispatchError(actionType, desc, fatal) {
+  Analytics.trackException(desc, fatal);
+
+  AppDispatcher.dispatch({
+    actionType: actionType
+  });
 }
 
 var CalendarActions = {

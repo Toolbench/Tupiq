@@ -21,6 +21,13 @@ var Analytics = {
 
 	trackEvent: function(category, action, label, value) {
 		ga('send', 'event', category, action, label, value);
+	},
+
+	trackException: function(desc, fatal) {
+		ga('send', 'exception', {
+			'exDescription': desc,
+			'exFatal': fatal || false
+		});
 	}
 };
 
