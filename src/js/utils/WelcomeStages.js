@@ -1,12 +1,12 @@
 var WelcomeStages = [
 	{
-		primary: 'Hello there and welcome!',
-    	secondary: 'First off, lets see how your day is lining up...',
+		primary: 'Hello there you!',
+    	secondary: "First off, let's see how your day is lining up...",
     	button: 'Skip for now'
     },
     {
 		primary: 'Nice one!',
-    	secondary: "We're searching for your calendar...",
+    	secondary: "We're firing up your calendar...",
     	button: ''
     },
     {
