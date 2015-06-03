@@ -45,6 +45,9 @@ var TupiqContainer = React.createClass({
   componentDidMount: function() {
     TupiqStore.addChangeListener(this._onChange);
 
+    // Listen to window resize so we can reposition if necessary
+    window.addEventListener('resize', this.onWindowResize);
+
     // Handcrafted DOM resize handler
     // http://www.backalleycoder.com/2013/03/18/cross-browser-event-based-element-resize-detection/
     var object = document.createElement('object');
@@ -103,6 +106,8 @@ var TupiqContainer = React.createClass({
   },
 
   onWindowResize: function(event) {
+  	console.log('resize');
+
   	// If we're minimised, or it's the initial x position of 50%
     if (this.state.isMinimised === true || this.state.coordinates.x === '50%') {
     	return;
