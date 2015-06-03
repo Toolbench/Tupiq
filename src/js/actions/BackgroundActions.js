@@ -18,7 +18,7 @@ function loadBackground(backgroundItem) {
 	});
 
 	image.addEventListener('load', function(event) {
-		persistBackground(backgroundItem, event.target, .4);
+		persistBackground(backgroundItem, event.target, .6);
 	});
 
     // Ajax listeners
@@ -34,6 +34,8 @@ function loadBackground(backgroundItem) {
 
         var blob = new Blob([this.response]);
         image.src = window.URL.createObjectURL(blob);
+
+        //console.log(((blob.size * 2)/1024/1024).toFixed(2)+" MB");
     };
 
     xmlHTTP.onprogress = function(event) {

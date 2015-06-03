@@ -75,7 +75,11 @@ var App = React.createClass({
 
         <DragHintContainer />
 
-        <TupiqContainer />
+        <div className="tupiq-wrapper">
+        	<div className="inner">
+        		<TupiqContainer />
+        	</div>
+        </div>
       </div>
     )
   }

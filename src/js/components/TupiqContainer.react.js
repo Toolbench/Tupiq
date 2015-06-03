@@ -45,7 +45,18 @@ var TupiqContainer = React.createClass({
   componentDidMount: function() {
     TupiqStore.addChangeListener(this._onChange);
 
-    window.addEventListener('resize', this.onWindowResize);
+    // Handcrafted DOM resize handler
+    // http://www.backalleycoder.com/2013/03/18/cross-browser-event-based-element-resize-detection/
+    var object = document.createElement('object');
+    object.setAttribute('style', 'display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;');
+    object.onload = function() {
+    	object.contentDocument.defaultView.addEventListener('resize', this.onDomNodeResize.bind(this));
+    }.bind(this);
+    object.type = 'text/html';
+    object.data = 'about:blank';
+
+    var domNode = this.getDOMNode();
+    domNode.appendChild(object);
 
     // This will be fired from the context menu background script.
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -68,21 +79,27 @@ var TupiqContainer = React.createClass({
   },
 
   respectWidth: function(targetX) {
-    var width = this.getDOMNode().offsetWidth;
+    var width = this.getDOMNode().offsetWidth,
+    		elementWidthCenter = width / 2;
 
-    targetX = Math.max(targetX, padding);
-    targetX = Math.min(targetX, window.innerWidth - width - padding);
+    targetX = Math.max(targetX - elementWidthCenter, padding);
+    targetX = Math.min(targetX + elementWidthCenter, window.innerWidth - elementWidthCenter - padding);
 
     return targetX;
   },
 
   respectHeight: function(targetY) {
-    var height = this.getDOMNode().offsetHeight;
+    var height = this.getDOMNode().offsetHeight,
+        elementHeightCenter = height / 2,
 
-    targetY = Math.max(targetY, padding);
-    targetY = Math.min(targetY, window.innerHeight - height - padding);
+    targetY = Math.max(targetY - elementHeightCenter, padding);
+    targetY = Math.min(targetY + elementHeightCenter, window.innerHeight - elementHeightCenter - padding);
 
     return targetY;
+  },
+
+  onDomNodeResize: function(event) {
+  	this.onWindowResize();
   },
 
   onWindowResize: function(event) {
@@ -98,7 +115,7 @@ var TupiqContainer = React.createClass({
       TupiqActions.reposition({
         x: targetX,
         y: targetY,
-        transform: 'none'
+        transform: 'translate(-50%, -50%)'
       });
     }
   },
@@ -129,29 +146,29 @@ var TupiqContainer = React.createClass({
   },
 
   onMouseMove: function(event) {
-    var deltaX = event.pageX - this.state.dragOriginData.scrollOriginX,
-				deltaY = event.pageY - this.state.dragOriginData.scrollOriginY,
-				targetX = this.state.dragOriginData.elementOriginX + deltaX,
-				targetY = this.state.dragOriginData.elementOriginY + deltaY,
-				elementWidthCenter = this.getDOMNode().offsetWidth / 2,
+    var elementWidthCenter = this.getDOMNode().offsetWidth / 2,
 				elementHeightCenter = this.getDOMNode().offsetHeight / 2,
 				windowWidthCenter = window.innerWidth / 2,
 				windowHeightCenter = window.innerHeight / 2,
+				deltaX = event.pageX - this.state.dragOriginData.scrollOriginX,
+				deltaY = event.pageY - this.state.dragOriginData.scrollOriginY,
+				targetX = this.state.dragOriginData.elementOriginX + deltaX + elementWidthCenter,
+				targetY = this.state.dragOriginData.elementOriginY + deltaY + elementHeightCenter,
 				snapBuffer = 15;
 
     if (this.state.isDragging) {
       targetX = this.respectWidth(targetX);
       targetY = this.respectHeight(targetY);
 
-      if (TupiqTools.isNumberBetween(targetX + elementWidthCenter, windowWidthCenter - snapBuffer, windowWidthCenter + snapBuffer) && TupiqTools.isNumberBetween(targetY + elementHeightCenter, windowHeightCenter - snapBuffer, windowHeightCenter + snapBuffer)) {
-      	targetX = windowWidthCenter - elementWidthCenter;
-      	targetY = windowHeightCenter - elementHeightCenter;
+      if (TupiqTools.isNumberBetween(targetX, windowWidthCenter - snapBuffer, windowWidthCenter + snapBuffer) && TupiqTools.isNumberBetween(targetY, windowHeightCenter - snapBuffer, windowHeightCenter + snapBuffer)) {
+      	targetX = windowWidthCenter;
+      	targetY = windowHeightCenter;
       }
 
       TupiqActions.reposition({
         x: targetX,
         y: targetY,
-        transform: 'none'
+        transform: 'translate(-50%, -50%)'
       });
     }
   },
