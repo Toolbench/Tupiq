@@ -148,31 +148,27 @@ function dispatchError(desc, fatal) {
 }
 
 function shuffleBackground(backgroundJSON) {
-	var random, backgrounds, backgroundItem;
+	var random, backgroundItem;
 
 	// Get all the used backgrounds
 	var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
 
 	if (usedBackgrounds !== null) {
-		// Get all unused backgrounds by comparing with latest backgrounds JSON
-		var unusedBackgrounds = TupiqTools.getUniqueObjects(usedBackgrounds, backgroundJSON, 'id');
-
 		// No more unused backgrounds left, reset and start again.
-		if (unusedBackgrounds.length === 0) {
+		if (usedBackgrounds.length === backgroundJSON.length) {
 			Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, []);
-
-			backgrounds = backgroundJSON;
 		} else {
-			backgrounds = unusedBackgrounds;
+			usedBackgrounds.forEach(function(background) {
+				backgroundJSON.splice(background.id, 1);
+			});
 		}
 	} else {
 		Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, []);
-
-		backgrounds = backgroundJSON;
 	}
 
-	random = TupiqTools.getRandomIntFromInterval(0, backgrounds.length - 1);
-	backgroundItem = backgrounds[random];
+	random = TupiqTools.getRandomIntFromInterval(0, backgroundJSON.length - 1);
+
+	backgroundItem = backgroundJSON[random];
 
 	loadBackground(backgroundItem);
 }

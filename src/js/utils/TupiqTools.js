@@ -58,22 +58,6 @@ var TupiqTools = {
         return Math.floor(Math.random() * (max - min + 1) + min);
     },
 
-    getUniqueObjects: function(arrayOne, arrayTwo, uniqueKey) {
-    	var uniqueArrayOne = arrayOne.filter(function(obj) {
-		    return !arrayTwo.some(function(obj2) {
-		        return obj[uniqueKey] === obj2[uniqueKey];
-		    });
-		});
-
-		var uniqueArrayTwo = arrayTwo.filter(function(obj) {
-		    return !arrayOne.some(function(obj2) {
-		        return obj[uniqueKey] === obj2[uniqueKey];
-		    });
-		});
-
-		return uniqueArrayOne.concat(uniqueArrayTwo);
-    },
-
 	agenda: function(upcomingEvents) {
 		if (upcomingEvents && upcomingEvents.length > 0) {
 			var momentNow = moment(),
