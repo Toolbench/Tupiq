@@ -14,6 +14,8 @@ function loadBackground(backgroundItem) {
 
 	// Image listeners
 	image.addEventListener('error', function() {
+		persistUsedBackground(backgroundItem);
+
 		dispatchError('BackgroundActions: Image Error');
 	});
 
@@ -23,6 +25,8 @@ function loadBackground(backgroundItem) {
 
     // Ajax listeners
     xmlHTTP.onerror = function(event) {
+    	persistUsedBackground(backgroundItem);
+
     	dispatchError('BackgroundActions: Ajax Error');
     }
 
@@ -57,21 +61,32 @@ function loadBackground(backgroundItem) {
 function persistBackground(backgroundItem, image, compress) {
 	var data = getBackgroundDataURL(image, compress);
 
-	var backgroundImage = _.clone(backgroundItem);
-	backgroundImage.data = data;
+	var backgroundItemWithData = _.clone(backgroundItem);
+	backgroundItemWithData.data = data;
 
 	try {
-		Persist.setItem(AppConstants.LOCAL_BACKGROUND_IMAGE, backgroundImage, false);
+		Persist.setItem(AppConstants.LOCAL_BACKGROUND_IMAGE, backgroundItemWithData, false);
 	} catch (err) {
-		compress -= 0.1;
+		compress -= 0.2;
 
 		if (compress > 0) {
 			persistBackground(backgroundItem, image, compress);
 		} else {
+			persistUsedBackground(backgroundItem);
+
 			dispatchError('BackgroundActions: Image Persist Error');
 		}
 	}
 
+	persistUsedBackground(backgroundItem);
+
+	AppDispatcher.dispatch({
+		actionType: AppConstants.BACKGROUND_SHUFFLE_SUCCESS,
+		backgroundImage: backgroundItemWithData
+	});
+}
+
+function persistUsedBackground(backgroundItem) {
 	var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
 
 	if (usedBackgrounds !== null) {
@@ -81,11 +96,6 @@ function persistBackground(backgroundItem, image, compress) {
 	}
 
 	Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, usedBackgrounds);
-
-	AppDispatcher.dispatch({
-		actionType: AppConstants.BACKGROUND_SHUFFLE_SUCCESS,
-		backgroundImage: backgroundImage
-	});
 }
 
 function getBackgroundDataURL(image, compress) {
