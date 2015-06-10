@@ -16,7 +16,9 @@ var DragHint = React.createClass({
 
     return (
       <div className={dragHintClassName}>
-      	<div className="drag-hint__crosshair"></div>
+      	<div className="drag-hint__boundaries">
+      		<div className="drag-hint__boundaries__crosshair"></div>
+      	</div>
       </div>
     );
   }
