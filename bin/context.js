@@ -17,16 +17,16 @@ function onResetClick() {
 };
 
 chrome.contextMenus.create({
-	"title": 'Toggle Panel',
+	"title": 'About this Background',
 	"contexts":["page"],
-    "onclick": onMinimiseClick,
+    "onclick": onAboutBackgroundClick,
     documentUrlPatterns: ['chrome-extension://*/index.html']
 });
 
 chrome.contextMenus.create({
-	"title": 'About this Background',
+	"title": 'Toggle Panel',
 	"contexts":["page"],
-    "onclick": onAboutBackgroundClick,
+    "onclick": onMinimiseClick,
     documentUrlPatterns: ['chrome-extension://*/index.html']
 });
 
