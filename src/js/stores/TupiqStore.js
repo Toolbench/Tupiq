@@ -8,7 +8,7 @@ var CHANGE_EVENT = 'change';
 
 var isDragging = false;
 var isMinimised = Persist.getItem(AppConstants.LOCAL_TUPIQ_MINIMISED, false) || false;
-var coordinates = Persist.getItem(AppConstants.LOCAL_TUPIQ_COORDINATES, false) || { x: '50%', y: '50%', transform: 'translate(-50%, -50%)' };
+var coordinates = Persist.getItem(AppConstants.LOCAL_TUPIQ_COORDINATES, false) || { x: .5, y: .5 };
 var dragOriginData = { scrollOriginX: null, scrollOriginY: null, elementOriginX: null, elementOriginY: null };
 
 var TupiqStore = assign({}, EventEmitter.prototype, {

@@ -81,48 +81,20 @@ var TupiqContainer = React.createClass({
     this.setState(getStateFromStores());
   },
 
-  respectWidth: function(targetX) {
-    var width = this.getDOMNode().offsetWidth,
-    		elementWidthCenter = width / 2;
-
-    targetX = Math.max(targetX - elementWidthCenter, padding);
-    targetX = Math.min(targetX + elementWidthCenter, window.innerWidth - elementWidthCenter - padding);
-
-    return targetX;
-  },
-
-  respectHeight: function(targetY) {
-    var height = this.getDOMNode().offsetHeight,
-        elementHeightCenter = height / 2,
-
-    targetY = Math.max(targetY - elementHeightCenter, padding);
-    targetY = Math.min(targetY + elementHeightCenter, window.innerHeight - elementHeightCenter - padding);
-
-    return targetY;
-  },
-
   onDomNodeResize: function(event) {
   	this.onWindowResize();
   },
 
   onWindowResize: function(event) {
-  	console.log('resize');
-
   	// If we're minimised, or it's the initial x position of 50%
-    if (this.state.isMinimised === true || this.state.coordinates.x === '50%') {
+    if (this.state.isMinimised === true) {
     	return;
     }
 
-    var targetX = this.respectWidth(this.state.coordinates.x);
-    var targetY = this.respectHeight(this.state.coordinates.y);
-
-    if (targetX !== this.state.coordinates.x || targetY !== this.state.coordinates.y) {
-      TupiqActions.reposition({
-        x: targetX,
-        y: targetY,
-        transform: 'translate(-50%, -50%)'
-      });
-    }
+    TupiqActions.reposition({
+      x: this.state.coordinates.x,
+      y: this.state.coordinates.y
+    });
   },
 
   onMouseDown: function(event) {
@@ -139,6 +111,11 @@ var TupiqContainer = React.createClass({
 
       var pageOffset = this.getDOMNode().getBoundingClientRect();
 
+      var elementWidth = this.getDOMNode().offsetWidth,
+				elementHeight = this.getDOMNode().offsetHeight,
+    		elementWidthCenter = this.getDOMNode().offsetWidth / 2,
+				elementHeightCenter = this.getDOMNode().offsetHeight / 2;
+
       TupiqActions.startDrag({
         scrollOriginX: event.pageX,
         scrollOriginY: event.pageY,
@@ -151,7 +128,9 @@ var TupiqContainer = React.createClass({
   },
 
   onMouseMove: function(event) {
-    var elementWidthCenter = this.getDOMNode().offsetWidth / 2,
+  	var elementWidth = this.getDOMNode().offsetWidth,
+				elementHeight = this.getDOMNode().offsetHeight,
+    		elementWidthCenter = this.getDOMNode().offsetWidth / 2,
 				elementHeightCenter = this.getDOMNode().offsetHeight / 2,
 				windowWidthCenter = window.innerWidth / 2,
 				windowHeightCenter = window.innerHeight / 2,
@@ -162,18 +141,25 @@ var TupiqContainer = React.createClass({
 				snapBuffer = 15;
 
     if (this.state.isDragging) {
-      targetX = this.respectWidth(targetX);
-      targetY = this.respectHeight(targetY);
+      var targetXRel = (targetX - elementWidthCenter - padding) / (window.innerWidth - elementWidth - (padding * 2));
+      var targetYRel = (targetY - elementHeightCenter - padding) / (window.innerHeight - elementHeight - (padding * 2));
+
+      targetXRel = Math.max(targetXRel, 0);
+      targetXRel = Math.min(targetXRel, 1);
+
+      targetYRel = Math.max(targetYRel, 0);
+      targetYRel = Math.min(targetYRel, 1);
+
+      console.log(targetXRel, targetYRel);
 
       if (TupiqTools.isNumberBetween(targetX, windowWidthCenter - snapBuffer, windowWidthCenter + snapBuffer) && TupiqTools.isNumberBetween(targetY, windowHeightCenter - snapBuffer, windowHeightCenter + snapBuffer)) {
-      	targetX = windowWidthCenter;
-      	targetY = windowHeightCenter;
+      	targetXRel = .5;
+      	targetYRel = .5;
       }
 
       TupiqActions.reposition({
-        x: targetX,
-        y: targetY,
-        transform: 'translate(-50%, -50%)'
+        x: targetXRel,
+        y: targetYRel
       });
     }
   },

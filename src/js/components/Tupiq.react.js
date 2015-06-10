@@ -19,6 +19,12 @@ var TupiqWelcomeContainer = require('./TupiqWelcomeContainer.react');
 var Tupiq = React.createClass({
 	mixins: [PureMixin],
 
+	componentDidMount: function() {
+		// Must call this so positioning is set based
+		// on dom node measurements.
+		this.forceUpdate();
+	},
+
   render: function(){
     var tupiqClassName = classNames({
     	'tupiq': true,
@@ -26,10 +32,21 @@ var Tupiq = React.createClass({
     	'is-minimised': this.props.isMinimised
     });
 
+    var xPos = 0;
+    var yPos = 0;
+
+    if (this.isMounted()) {
+    	var elementWidth = this.getDOMNode().offsetWidth,
+				elementHeight = this.getDOMNode().offsetHeight,
+				padding = 10;
+
+    	xPos = padding + ((window.innerWidth - (elementWidth) - (padding*2)) * this.props.coordinates.x);
+    	yPos = padding + ((window.innerHeight - (elementHeight) - (padding*2)) * this.props.coordinates.y);
+    }
+
     var style = this.props.isMinimised ? {} : {
-      left: this.props.coordinates.x,
-      top: this.props.coordinates.y,
-      transform: this.props.coordinates.transform
+      left: xPos,
+      top: yPos
     };
 
     return (
