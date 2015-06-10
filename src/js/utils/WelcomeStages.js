@@ -16,7 +16,7 @@ var WelcomeStages = [
     },
     {
 	    primary: 'Hang tight!',
-		secondary: "We're loading all those pretty pixels for you...",
+		secondary: "We're loading all those pretty pixels just for you...",
 		button: ''
 	},
 	{

@@ -98,6 +98,7 @@ var TupiqContainer = React.createClass({
   },
 
   onMouseDown: function(event) {
+    // Dodgy as.
     if (this.state.isMinimised === true || event.target.className === 'tupiq__header__logo-container' || event.target.className === 'tupiq__header__logo-container__tupiq-logo') {
     	event.preventDefault();
 
@@ -111,11 +112,6 @@ var TupiqContainer = React.createClass({
 
       var pageOffset = this.getDOMNode().getBoundingClientRect();
 
-      var elementWidth = this.getDOMNode().offsetWidth,
-				elementHeight = this.getDOMNode().offsetHeight,
-    		elementWidthCenter = this.getDOMNode().offsetWidth / 2,
-				elementHeightCenter = this.getDOMNode().offsetHeight / 2;
-
       TupiqActions.startDrag({
         scrollOriginX: event.pageX,
         scrollOriginY: event.pageY,
@@ -128,10 +124,11 @@ var TupiqContainer = React.createClass({
   },
 
   onMouseMove: function(event) {
-  	var elementWidth = this.getDOMNode().offsetWidth,
-				elementHeight = this.getDOMNode().offsetHeight,
-    		elementWidthCenter = this.getDOMNode().offsetWidth / 2,
-				elementHeightCenter = this.getDOMNode().offsetHeight / 2,
+  	var element = this.getDOMNode(),
+  			elementWidth = element.offsetWidth,
+				elementHeight = element.offsetHeight,
+    		elementWidthCenter = elementWidth / 2,
+				elementHeightCenter = elementHeight / 2,
 				windowWidthCenter = window.innerWidth / 2,
 				windowHeightCenter = window.innerHeight / 2,
 				deltaX = event.pageX - this.state.dragOriginData.scrollOriginX,
@@ -149,8 +146,6 @@ var TupiqContainer = React.createClass({
 
       targetYRel = Math.max(targetYRel, 0);
       targetYRel = Math.min(targetYRel, 1);
-
-      console.log(targetXRel, targetYRel);
 
       if (TupiqTools.isNumberBetween(targetX, windowWidthCenter - snapBuffer, windowWidthCenter + snapBuffer) && TupiqTools.isNumberBetween(targetY, windowHeightCenter - snapBuffer, windowHeightCenter + snapBuffer)) {
       	targetXRel = .5;
