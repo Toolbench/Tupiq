@@ -6,7 +6,7 @@ var WelcomeStages = [
     },
     {
 		primary: 'Nice one!',
-    	secondary: "We're firing up your calendar...",
+    	secondary: "We're locating your calendar...",
     	button: ''
     },
     {
