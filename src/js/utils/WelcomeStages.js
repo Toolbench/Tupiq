@@ -21,7 +21,7 @@ var WelcomeStages = [
 	},
 	{
 		primary: "That's it!",
-		secondary: "Have a go at dragging the panel around and right click the window for some other handy actions.",
+		secondary: "Have a go at dragging the panel around and right click for some other handy actions.",
 		button: ''
 	}
 ];
