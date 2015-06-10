@@ -91,6 +91,9 @@ var TupiqContainer = React.createClass({
     	return;
     }
 
+    // We could call forceUpdate here, but nested Tupiq component is "pure"
+    // and will ignore a forceUpdate. Better yet set window dimensions
+    // into state?
     TupiqActions.reposition({
       x: this.state.coordinates.x,
       y: this.state.coordinates.y
