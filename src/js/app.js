@@ -6,6 +6,7 @@ var LZString = require('lz-string');
 var App = require('./components/App.react');
 var Persist = require('./utils/Persist');
 var AppConstants = require('./constants/AppConstants');
+var TupiqTools = require('./utils/TupiqTools');
 
 /**
  * Save app to localstorage?
@@ -23,7 +24,7 @@ var AppConstants = require('./constants/AppConstants');
 /**
  * Clear localStorage if no version is set.
  */
-var installedVersion = Persist.getItem(AppConstants.LOCAL_VERSION, false);
+var installedVersion = Persist.getItem(AppConstants.LOCAL_VERSION, false) || '0.0.0';
 var currentVersion = chrome.runtime.getManifest().version;
 
 if (installedVersion === null) {
@@ -34,7 +35,11 @@ if (installedVersion === null) {
  * Perform any updates to localStorage data when bumping versions.
  * For now just update it.
  */
-if (installedVersion !== currentVersion) {
+if (TupiqTools.compareVersionNumbers(installedVersion, currentVersion) !== 0) {
+	if (TupiqTools.compareVersionNumbers(installedVersion, '1.0.0') === -1) {
+		Persist.clear();
+	}
+
 	Persist.setItem(AppConstants.LOCAL_VERSION, currentVersion, false);
 }
 
