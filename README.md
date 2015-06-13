@@ -1,7 +1,11 @@
 Tupiq
 =====
 
-A handy new tab extension for Chrome.
+A new tab extension for Chrome.
+
+https://chrome.google.com/webstore/detail/tupiq/ljhnalaggebnjcbhkmhojcpkifbcgcjb
+
+![Tupiq](https://raw.githubusercontent.com/Toolbench/toolbench.github.io/master/tupiq/screengrab-1.png)
 
 How to run locally
 ----------
