@@ -9,6 +9,7 @@ var classNames = require('classnames');
  */
 var WeatherCardContainer = require('./cards/WeatherCardContainer.jsx');
 var CalendarCardContainer = require('./cards/CalendarCardContainer.jsx');
+var TopSitesCardContainer = require('./cards/TopSitesCardContainer.jsx');
 
 /**
  * TupiqBody
@@ -23,6 +24,7 @@ var TupiqBody = React.createClass({
       <div className={tupiqBodyClass}>
       	<CalendarCardContainer />
       	<WeatherCardContainer />
+      	<TopSitesCardContainer />
       </div>
     )
   }
