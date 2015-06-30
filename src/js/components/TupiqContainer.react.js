@@ -53,7 +53,7 @@ var TupiqContainer = React.createClass({
     var object = document.createElement('object');
     object.setAttribute('style', 'display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;');
     object.onload = function() {
-    	object.contentDocument.defaultView.addEventListener('resize', this.onDomNodeResize.bind(this));
+    	object.contentDocument.defaultView.addEventListener('resize', this.onDomNodeResize);
     }.bind(this);
     object.type = 'text/html';
     object.data = 'about:blank';

@@ -23,8 +23,8 @@ var TopSitesCard = React.createClass({
     return (
 			<div className={tupiqTopSitesClass}>
 				<ul>
-					{this.props.topSites.map(function(result) {
-						return <li><a onClick={onClick} href={result.url} title={result.title}><img src={'http://www.google.com/s2/favicons?domain=' + result.url} /></a></li>;
+					{this.props.topSites.map(function(result, index) {
+						return <li key={index}><a onClick={onClick} href={result.url} title={result.title}><img src={'http://www.google.com/s2/favicons?domain=' + result.url} /></a></li>;
 					})}
 				</ul>
 			</div>
