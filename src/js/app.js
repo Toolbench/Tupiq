@@ -34,10 +34,23 @@ if (installedVersion === null) {
 /**
  * Perform any updates to localStorage data when bumping versions.
  * For now just update it.
+ *
+ *  0 if they're identical
+ *  negative if v1 < v2
+ *  positive if v1 > v2
+ *  Nan if they in the wrong format
  */
 if (TupiqTools.compareVersionNumbers(installedVersion, currentVersion) !== 0) {
 	if (TupiqTools.compareVersionNumbers(installedVersion, '1.0.0') === -1) {
 		Persist.clear();
+	} else if (TupiqTools.compareVersionNumbers(installedVersion, '1.2.0') === -1) {
+		// Update used backgrounds localStorage item to a simpler array
+		// using just the item IDs
+		var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
+		usedBackgrounds = usedBackgrounds.map(function(item) {
+			return item.id;
+		});
+		Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, usedBackgrounds);
 	}
 
 	Persist.setItem(AppConstants.LOCAL_VERSION, currentVersion, false);

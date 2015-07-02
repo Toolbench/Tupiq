@@ -8,6 +8,9 @@ var _ = require('underscore');
 var moment = require('moment');
 var request = require('superagent');
 
+// Array.from polyfill
+require('babel/polyfill');
+
 function loadBackground(backgroundItem) {
 	var image = new Image(),
 		xmlHTTP = new XMLHttpRequest();
@@ -90,9 +93,9 @@ function persistUsedBackground(backgroundItem) {
 	var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
 
 	if (usedBackgrounds !== null) {
-		usedBackgrounds.push(backgroundItem);
+		usedBackgrounds.push(backgroundItem.id);
 	} else {
-		usedBackgrounds = [backgroundItem];
+		usedBackgrounds = [backgroundItem.id];
 	}
 
 	Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, usedBackgrounds);
@@ -158,27 +161,50 @@ function dispatchError(desc, fatal) {
 }
 
 function shuffleBackground(backgroundJSON) {
-	var random, backgroundItem;
+	var randomId, backgroundItem, unusedBackgroundIds, backgroundJSONMap;
 
 	// Get all the used backgrounds
 	var usedBackgrounds = Persist.getItem(AppConstants.LOCAL_USED_BACKGROUNDS);
 
+	// Map out backgrounds to a simpler array
+	backgroundJSONMap = backgroundJSON.map(function(item) {
+		return item.id;
+	});
+
+	console.info('Total backgrounds:', backgroundJSON.length);
+
 	if (usedBackgrounds !== null) {
+		console.info('Used backgrounds:', usedBackgrounds.length);
+
 		// No more unused backgrounds left, reset and start again.
 		if (usedBackgrounds.length === backgroundJSON.length) {
 			Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, []);
 		} else {
-			usedBackgrounds.forEach(function(background) {
-				backgroundJSON.splice(background.id, 1);
+			// Filter out used backgrounds
+			unusedBackgroundIds = backgroundJSONMap.filter(function(item) {
+				return usedBackgrounds.indexOf(item) === -1;
 			});
 		}
 	} else {
 		Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, []);
 	}
 
-	random = TupiqTools.getRandomIntFromInterval(0, backgroundJSON.length - 1);
+	// If unused didn't get set, just assign to all backgrounds
+	if (unusedBackgroundIds === undefined) {
+		unusedBackgroundIds = backgroundJSONMap;
+	}
 
-	backgroundItem = backgroundJSON[random];
+	console.info('Unused backgrounds:', unusedBackgroundIds.length);
+
+	randomId = TupiqTools.getRandomIntFromInterval(0, unusedBackgroundIds.length - 1);
+
+	backgroundItem = backgroundJSON.find(function(item) {
+		return item.id === randomId;
+	});
+
+	if (backgroundItem === undefined) {
+		dispatchError('BackgroundActions: Couldn\'t find backgroundItem');
+	}
 
 	loadBackground(backgroundItem);
 }
