@@ -43,6 +43,9 @@ if (installedVersion === null) {
  *  positive if v1 > v2
  *  Nan if they in the wrong format
  */
+console.info('Installed version:', installedVersion);
+console.info('Current version:', currentVersion);
+
 if (TupiqTools.compareVersionNumbers(installedVersion, currentVersion) !== 0) {
 	if (TupiqTools.compareVersionNumbers(installedVersion, '1.0.0') === -1) {
 		Persist.clear();
