@@ -60,8 +60,6 @@ if (TupiqTools.compareVersionNumbers(installedVersion, currentVersion) !== 0) {
 
 		// Clear any current forecasts since units are now taken into account
 		Persist.removeItem(AppConstants.LOCAL_WEATHER_FORECAST);
-
-		console.info('Upgrade to 1.2.0 complete');
 	}
 
 	Persist.setItem(AppConstants.LOCAL_VERSION, currentVersion, false);
