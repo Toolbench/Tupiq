@@ -54,6 +54,9 @@ if (TupiqTools.compareVersionNumbers(installedVersion, currentVersion) !== 0) {
 			return item.id;
 		});
 		Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, usedBackgrounds);
+
+		// Clear any current forecasts since units are now taken into account
+		Persist.removeItem(AppConstants.LOCAL_WEATHER_FORECAST);
 	}
 
 	Persist.setItem(AppConstants.LOCAL_VERSION, currentVersion, false);
