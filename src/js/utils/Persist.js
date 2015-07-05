@@ -9,6 +9,10 @@ var Persist = {
 		return (item === '' || item === null) ? null : JSON.parse(item);
 	},
 
+	getChromeSyncItem: function(item, callback) {
+		chrome.storage.sync.get(item, callback);
+	},
+
 	setItem: function(key, item, compress) {
 		compress = (compress === undefined) ? true : compress;
 

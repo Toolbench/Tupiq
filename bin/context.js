@@ -16,6 +16,12 @@ function onResetClick() {
   	});
 };
 
+function onSettingsClick() {
+  	chrome.runtime.sendMessage({
+  		settings: true
+  	});
+};
+
 chrome.contextMenus.create({
 	"title": 'About this Background',
 	"contexts":["page"],
@@ -29,6 +35,14 @@ chrome.contextMenus.create({
     "onclick": onMinimiseClick,
     documentUrlPatterns: ['chrome-extension://*/index.html']
 });
+
+chrome.contextMenus.create({
+	"title": 'Settings',
+	"contexts":["page"],
+    "onclick": onSettingsClick,
+    documentUrlPatterns: ['chrome-extension://*/index.html']
+});
+
 
 chrome.contextMenus.create({
 	"title": 'Reset',

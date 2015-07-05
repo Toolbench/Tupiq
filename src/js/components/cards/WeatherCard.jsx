@@ -63,6 +63,7 @@ var icons = {
 var WeatherCard = React.createClass({
 	render: function(){
 		var itemClassName,
+			unitClassName,
 			message;
 
 		var cardClassName = classNames({
@@ -82,9 +83,12 @@ var WeatherCard = React.createClass({
 				<div className={cardClassName}>
 					<ul>
 						{forecasts.map(function(forecast) {
+							var units = forecast.units;
+
 							forecast = forecast.item.forecast;
 
 							itemClassName = 'icon wi wi-' + icons[forecast.code];
+							unitClassName = (units.temperature.toLowerCase() === 'c') ? 'wi wi-celsius' : 'wi wi-fahrenheit';
 
 							// <span className="summary">{forecast.text}</span>
 
@@ -98,7 +102,7 @@ var WeatherCard = React.createClass({
 										</span>
 										<span className="temp">
 											{forecast.low}/{forecast.high}
-											<i className="wi wi-celsius"></i>
+											<i className={unitClassName}></i>
 										</span>
 									</span>
 								</li>

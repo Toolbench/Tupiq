@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Test Extension Options</title>
+	<style>
+		body {
+			padding: 15px;
+			width: 400px;
+		}
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		li {
+			border-bottom: 1px solid #eee;
+			padding-bottom: 15px;
+			margin-top: 15px;
+		}
+
+		li:first-child {
+			margin-top: 0;
+		}
+
+		li:last-child {
+			border-bottom: none;
+			padding-bottom: 0;
+		}
+
+		#status {
+			margin-left: 5px;
+			font-weight: bold;
+			display: inline-block;
+		}
+
+		#save {
+			margin-top: 25px;
+			display: inline-block;
+		}
+	</style>
+</head>
+
+<body>
+	<ul>
+		<li>I'd prefer to view the temperature in
+			<select id="temp-unit">
+	 			<option value="celcius">Celcius</option>
+	 			<option value="fahrenheit">Fahrenheit</option>
+			</select>
+		</li>
+		<li><input id="hide-calendar" type="checkbox"> Don't show me the calendar</li>
+		<li><input id="hide-weather" type="checkbox"> Don't show me the weather</li>
+		<li><input id="hide-top-sites" type="checkbox"> Don't show me the top sites</li>
+	</ul>
+
+	<button id="save">Save</button> <div id="status"></div>
+
+	<script src="options.js"></script>
+</body>
+</html>

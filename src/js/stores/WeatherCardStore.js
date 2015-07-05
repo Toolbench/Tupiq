@@ -41,6 +41,10 @@ AppDispatcher.register(function(action) {
 		case AppConstants.WEATHER_REFRESH:
 			isRefreshing = true;
 			error = null;
+			if (action.unitChange) {
+				Persist.removeItem(AppConstants.LOCAL_WEATHER_FORECAST, forecast, false);
+				forecast = null;
+			}
 			WeatherCardStore.emitChange();
 			break;
 

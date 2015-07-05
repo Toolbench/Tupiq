@@ -1,5 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
+var Persist = require('../utils/Persist');
 var request = require('superagent');
 var moment = require('moment');
 
@@ -56,9 +57,11 @@ function dispatchError(err) {
 }
 
 function getForecast(location, callback) {
+	var unit = window.TupiqOptions.optsTempUnit === 'celcius' ? 'c' : 'f';
+
 	request
 		.get('https://query.yahooapis.com/v1/public/yql')
-		.query({ q: "select item.forecast from weather.forecast where woeid='" + location.woeid + "' and u='c'", format: 'json' })
+		.query({ q: "select units,item.forecast from weather.forecast where woeid='" + location.woeid + "' and u='" + unit + "'", format: 'json' })
 		.end(callback);
 }
 
@@ -78,11 +81,14 @@ function getCoordinates(callback) {
 }
 
 var WeatherCardActions = {
-	refresh: function() {
+	refresh: function(unitChange) {
+		unitChange = unitChange || false;
+
 		refresh();
 
 		AppDispatcher.dispatch({
-			actionType: AppConstants.WEATHER_REFRESH
+			actionType: AppConstants.WEATHER_REFRESH,
+			unitChange: unitChange
 		});
 	}
 };

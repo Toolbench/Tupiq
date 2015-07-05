@@ -9,18 +9,23 @@
         "identity",
         "geolocation",
         "contextMenus",
+        "storage",
         "topSites",
         "https://unsplash.it/",
         "https://unsplash.com/",
         "https://download.unsplash.com/",
         "https://query.yahooapis.com/"
     ],
-    "minimum_chrome_version": "37.0.0",
+    "minimum_chrome_version": "40.0.0",
     "background": {
         "scripts": [
             "context.js"
         ]
     },
+    "options_ui": {
+	    "page": "options.html",
+	    "chrome_style": true
+	},
     "oauth2": {
         "client_id": "1022186080812-fpgbc34rns8pdtnkefat2jmac9fatdt2.apps.googleusercontent.com",
         "scopes": []

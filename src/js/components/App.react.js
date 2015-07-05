@@ -4,6 +4,7 @@
 var React = require('react');
 var Analytics = require('../utils/Analytics');
 var Persist = require('../utils/Persist');
+var moment = require('moment');
 
 /**
  * Components
@@ -38,6 +39,9 @@ var App = React.createClass({
   },
 
   componentDidMount: function() {
+    var now = moment();
+  	console.info('App:componentDidMount:', now.diff(window.startTime));
+
     BackgroundStore.addChangeListener(this._onChange);
 
     // This will be fired from the context menu background script.
@@ -54,6 +58,16 @@ var App = React.createClass({
   			window.location.reload();
 
   			Analytics.trackEvent('Button', 'Click', 'Reset');
+  		} else if ('settings' in request) {
+				if (chrome.runtime.openOptionsPage) {
+					// New way to open options pages, if supported (Chrome 42+).
+					chrome.runtime.openOptionsPage();
+				} else {
+					// Reasonable fallback.
+					window.open(chrome.runtime.getURL('options.html'));
+				}
+
+  			Analytics.trackEvent('Button', 'Click', 'Settings');
   		}
   	}.bind(this));
 

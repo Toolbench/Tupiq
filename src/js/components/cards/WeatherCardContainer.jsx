@@ -43,8 +43,15 @@ var WeatherCardContainer = React.createClass({
 	componentDidMount: function() {
 		WeatherCardStore.addChangeListener(this._onChange);
 
-		if (this.state.forecast === null || moment().diff(moment.unix(this.state.forecast.lastUpdated), 'hours') > 1) {
+		if (this.state.forecast === null || moment().diff(moment.unix(this.state.forecast.lastUpdated), 'hours') > 2) {
 			WeatherCardActions.refresh();
+		} else if (this.state.forecast !== null) {
+			// If unit settings have changed, flag it in the refresh action so that current forecasts get wiped out
+			var unitChange = this.state.forecast.forecasts.length > 0 && this.state.forecast.forecasts[0].units.temperature.toLowerCase() !== window.TupiqOptions.optsTempUnit.charAt(0);
+
+			if (unitChange) {
+				WeatherCardActions.refresh(unitChange);
+			}
 		}
 	},
 

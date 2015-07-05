@@ -1,3 +1,6 @@
+// Used to measure elapsed time from now till App's componentDidMount
+window.startTime = Date.now();
+
 var React = require('react');
 var keymaster = require('keymaster');
 var moment = require('moment');
@@ -74,7 +77,18 @@ window.moment = moment;
 /**
  * Start it up
  */
-React.render(
-	<App />,
-	document.getElementById('app')
-);
+Persist.getChromeSyncItem({
+	optsTempUnit: 'celcius',
+	optsHideCalendar: false,
+	optsHideWeather: false,
+	optsHideTopSites: false
+}, function(items) {
+	// Not the best way to do this but eh.
+	// Possibly add this to a App level store?
+  	window.TupiqOptions = items;
+
+	React.render(
+		<App />,
+		document.getElementById('app')
+	);
+});
