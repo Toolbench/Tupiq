@@ -27,6 +27,7 @@ var Persist = {
 
 	clear: function() {
 		localStorage.clear();
+		chrome.storage.sync.clear();
 	}
 };
 
