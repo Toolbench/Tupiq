@@ -49,7 +49,7 @@ AppDispatcher.register(function(action) {
 		case AppConstants.WEATHER_REFRESH_SUCCESS:
 			isRefreshing = false;
 			error = null;
-			Persist.setItem(AppConstants.LOCAL_WEATHER_FORECAST, acton.forecast, false);
+			Persist.setItem(AppConstants.LOCAL_WEATHER_FORECAST, action.forecast, false);
 			WeatherCardStore.emitChange();
 			break;
 
