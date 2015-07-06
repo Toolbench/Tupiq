@@ -196,7 +196,7 @@ function shuffleBackground(backgroundJSON) {
 
 	console.info('Unused backgrounds:', unusedBackgroundIds.length);
 
-	randomId = TupiqTools.getRandomIntFromInterval(0, unusedBackgroundIds.length - 1);
+	randomId = unusedBackgroundIds[TupiqTools.getRandomIntFromInterval(0, unusedBackgroundIds.length - 1)];
 
 	backgroundItem = backgroundJSON.find(function(item) {
 		return item.id === randomId;
