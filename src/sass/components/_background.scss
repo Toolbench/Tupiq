@@ -7,7 +7,7 @@
 	background-size: cover;
 	background-position: center center;
 	transition: $regular-transition-duration;
-	-webkit-transform: translateZ(0);
+	//-webkit-transform: translateZ(0);
 
 	&.loading {
 		opacity: .5;

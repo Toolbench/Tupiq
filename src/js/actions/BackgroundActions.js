@@ -13,7 +13,8 @@ require('babel/polyfill');
 
 function loadBackground(backgroundItem) {
 	var image = new Image(),
-		xmlHTTP = new XMLHttpRequest();
+		xmlHTTP = new XMLHttpRequest(),
+		totalSize;
 
 	// Image listeners
 	image.addEventListener('error', function() {
@@ -23,7 +24,17 @@ function loadBackground(backgroundItem) {
 	});
 
 	image.addEventListener('load', function(event) {
-		persistBackground(backgroundItem, event.target, .6);
+		console.info('Background size:', totalSize);
+
+		var compress = .6;
+
+		if (totalSize > 10000000) {
+			compress = .2;
+		} else if (totalSize > 5000000) {
+			compress = .4;
+		}
+
+		persistBackground(backgroundItem, event.target, compress);
 	});
 
     // Ajax listeners
@@ -46,6 +57,10 @@ function loadBackground(backgroundItem) {
     };
 
     xmlHTTP.onprogress = function(event) {
+        if (totalSize === undefined) {
+        	totalSize = event.total;
+        }
+
         var percentage = parseInt((event.loaded / event.total) * 100);
 
        	AppDispatcher.dispatch({
@@ -66,6 +81,8 @@ function persistBackground(backgroundItem, image, compress) {
 
 	var backgroundItemWithData = _.clone(backgroundItem);
 	backgroundItemWithData.data = data;
+
+	console.info('Persisting background at:', compress);
 
 	try {
 		Persist.setItem(AppConstants.LOCAL_BACKGROUND_IMAGE, backgroundItemWithData, false);
