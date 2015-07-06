@@ -1,6 +1,6 @@
 {
     "name": "Tupiq Dev",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
@@ -23,9 +23,9 @@
         ]
     },
     "options_ui": {
-	    "page": "options.html",
-	    "chrome_style": true
-	},
+        "page": "options.html",
+        "chrome_style": true
+    },
     "oauth2": {
         "client_id": "1022186080812-fpgbc34rns8pdtnkefat2jmac9fatdt2.apps.googleusercontent.com",
         "scopes": []
