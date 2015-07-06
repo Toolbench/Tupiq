@@ -5,6 +5,7 @@ var React = require('react');
 var keymaster = require('keymaster');
 var moment = require('moment');
 var LZString = require('lz-string');
+var _ = require('underscore');
 
 var App = require('./components/App.react');
 var Persist = require('./utils/Persist');
@@ -56,6 +57,7 @@ if (TupiqTools.compareVersionNumbers(installedVersion, currentVersion) !== 0) {
 		usedBackgrounds = usedBackgrounds.map(function(item) {
 			return item.id;
 		});
+		usedBackgrounds = _.uniq(usedBackgrounds);
 		Persist.setItem(AppConstants.LOCAL_USED_BACKGROUNDS, usedBackgrounds);
 
 		// Clear any current forecasts since units are now taken into account
