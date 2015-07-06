@@ -10,11 +10,13 @@ function onAboutBackgroundClick() {
   	});
 };
 
+/*
 function onResetClick() {
   	chrome.runtime.sendMessage({
   		reset: true
   	});
 };
+*/
 
 function onSettingsClick() {
   	chrome.runtime.sendMessage({
@@ -44,9 +46,9 @@ chrome.contextMenus.create({
 });
 
 
-chrome.contextMenus.create({
-	"title": 'Reset',
-	"contexts":["page"],
-    "onclick": onResetClick,
-    documentUrlPatterns: ['chrome-extension://*/index.html']
-});
+//chrome.contextMenus.create({
+//	"title": 'Reset',
+//	"contexts":["page"],
+//    "onclick": onResetClick,
+//    documentUrlPatterns: ['chrome-extension://*/index.html']
+//});
