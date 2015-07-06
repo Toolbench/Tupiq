@@ -14,6 +14,13 @@ var WeatherCardStore = assign({}, EventEmitter.prototype, {
 		return Persist.getItem(AppConstants.LOCAL_WEATHER_FORECAST, false);
 	},
 
+	// This will be set to either '' if auto, 'c', or 'f'.
+	// Setting it at this level so we can check if settings have been
+	// changed since and/or a new forecast is required.
+	getUnitUsed: function() {
+		return Persist.getItem(AppConstants.LOCAL_WEATHER_FORECAST_UNIT, false) || '';
+	},
+
 	getRefreshing: function() {
 		return isRefreshing;
 	},
@@ -49,6 +56,7 @@ AppDispatcher.register(function(action) {
 		case AppConstants.WEATHER_REFRESH_SUCCESS:
 			isRefreshing = false;
 			error = null;
+			Persist.setItem(AppConstants.LOCAL_WEATHER_FORECAST_UNIT, action.unitUsed, false);
 			Persist.setItem(AppConstants.LOCAL_WEATHER_FORECAST, action.forecast, false);
 			WeatherCardStore.emitChange();
 			break;

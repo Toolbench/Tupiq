@@ -27,6 +27,7 @@ var WeatherCard = require('./WeatherCard.jsx');
 function getStateFromStores() {
 	return {
 		forecast: WeatherCardStore.getForecast(),
+		unitUsed: WeatherCardStore.getUnitUsed(),
 		isRefreshing: WeatherCardStore.getRefreshing(),
 		error: WeatherCardStore.getError()
 	}
@@ -47,7 +48,7 @@ var WeatherCardContainer = React.createClass({
 			WeatherCardActions.refresh();
 		} else if (this.state.forecast !== null) {
 			// If unit settings have changed, flag it in the refresh action so that current forecasts get wiped out
-			var unitChange = this.state.forecast.forecasts.length > 0 && this.state.forecast.forecasts[0].units.temperature.toLowerCase() !== window.TupiqOptions.optsTempUnit.charAt(0);
+			var unitChange = this.state.unitUsed !== window.TupiqOptions.optsTempUnit;
 
 			if (unitChange) {
 				WeatherCardActions.refresh(unitChange);

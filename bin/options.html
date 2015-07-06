@@ -28,14 +28,20 @@
 			padding-bottom: 0;
 		}
 
+		.desc {
+			margin-bottom: 0;
+		}
+
 		#status {
 			margin-left: 5px;
 			font-weight: bold;
-			display: inline-block;
 		}
 
-		#save {
+		.save {
 			margin-top: 25px;
+		}
+
+		.save button {
 			display: inline-block;
 		}
 	</style>
@@ -45,16 +51,20 @@
 	<ul>
 		<li>I'd prefer to view the temperature in
 			<select id="temp-unit">
+				<option value="">Auto</option>
 	 			<option value="celcius">Celcius</option>
 	 			<option value="fahrenheit">Fahrenheit</option>
 			</select>
+			<p class="desc">* Auto will use fahrenheit for the USA and celcius for everywhere else.</p>
 		</li>
-		<li><input id="hide-calendar" type="checkbox"> Don't show me the calendar</li>
-		<li><input id="hide-weather" type="checkbox"> Don't show me the weather</li>
-		<li><input id="hide-top-sites" type="checkbox"> Don't show me the top sites</li>
+		<li><input id="hide-calendar" type="checkbox"> <label for="hide-calendar">Don't show me the calendar</label></li>
+		<li><input id="hide-weather" type="checkbox"> <label for="hide-weather">Don't show me the weather</label></li>
+		<li><input id="hide-top-sites" type="checkbox"> <label for="hide-top-sites">Don't show me the top sites</label></li>
 	</ul>
 
-	<button id="save">Save</button> <div id="status"></div>
+	<div class="save">
+		<button id="save-button">Save settings</button> <span id="status"></span>
+	</div>
 
 	<script src="options.js"></script>
 </body>

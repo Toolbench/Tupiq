@@ -34,5 +34,6 @@ module.exports = keyMirror({
   LOCAL_BACKGROUNDS_JSON: null,
   LOCAL_VERSION: null,
   LOCAL_WEATHER_FORECAST: null,
+  LOCAL_WEATHER_FORECAST_UNIT: null,
   LOCAL_WELCOME_STAGE: null
 });

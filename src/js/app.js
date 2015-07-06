@@ -84,7 +84,7 @@ window.moment = moment;
  * Start it up
  */
 Persist.getChromeSyncItem({
-	optsTempUnit: 'celcius',
+	optsTempUnit: '',
 	optsHideCalendar: false,
 	optsHideWeather: false,
 	optsHideTopSites: false

@@ -37,6 +37,8 @@ function refresh() {
 
 									AppDispatcher.dispatch({
 										actionType: AppConstants.WEATHER_REFRESH_SUCCESS,
+										// Read the store's desc on why this is needed
+										unitUsed: window.TupiqOptions.optsTempUnit,
 										forecast: forecast
 									});
 								}
@@ -57,7 +59,14 @@ function dispatchError(err) {
 }
 
 function getForecast(location, callback) {
-	var unit = window.TupiqOptions.optsTempUnit === 'celcius' ? 'c' : 'f';
+	var unit;
+
+	// If no unit has been set assume auto and base on countrycode
+	if (window.TupiqOptions.optsTempUnit.length === 0) {
+		unit = location.countrycode === 'US' ? 'f' : 'c';
+	} else {
+		unit = window.TupiqOptions.optsTempUnit === 'celcius' ? 'c' : 'f';
+	}
 
 	request
 		.get('https://query.yahooapis.com/v1/public/yql')

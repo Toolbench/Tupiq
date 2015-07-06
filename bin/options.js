@@ -26,7 +26,7 @@ function restoreOptions() {
 	var hideTopSites = document.getElementById('hide-top-sites');
 
 	chrome.storage.sync.get({
-		optsTempUnit: 'celcius',
+		optsTempUnit: '',
 		optsHideCalendar: false,
 		optsHideWeather: false,
 		optsHideTopSites: false
@@ -39,4 +39,4 @@ function restoreOptions() {
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
-document.getElementById('save').addEventListener('click', saveOptions);
+document.getElementById('save-button').addEventListener('click', saveOptions);
