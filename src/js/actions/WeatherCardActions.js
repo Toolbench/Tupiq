@@ -18,7 +18,7 @@ function refresh() {
 					if (query.count === 0) {
 
 					} else {
-						var location = (query.results.isArray) ? query.results[0].Result : query.results.Result;
+						var location = (query.results.isArray) ? query.results[0].place : query.results.place;
 
 						getForecast(location, function(err, res) {
 							if (err) {
@@ -63,7 +63,7 @@ function getForecast(location, callback) {
 
 	// If no unit has been set assume auto and base on countrycode
 	if (window.TupiqOptions.optsTempUnit.length === 0) {
-		unit = location.countrycode === 'US' ? 'f' : 'c';
+		unit = location.country.code === 'US' ? 'f' : 'c';
 	} else {
 		unit = window.TupiqOptions.optsTempUnit === 'celcius' ? 'c' : 'f';
 	}
@@ -77,7 +77,7 @@ function getForecast(location, callback) {
 function getLocationID(coords, callback) {
 	request
 		.get('https://query.yahooapis.com/v1/public/yql')
-		.query({ q: "SELECT city,country,countrycode,latitude,longitude,woeid,woetype FROM geo.placefinder WHERE text='" + coords.latitude + "," + coords.longitude + "' and gflags='R'", format: 'json' })
+		.query({ q: "SELECT city,country,countrycode,latitude,longitude,woeid,woetype FROM geo.places WHERE text='(" + coords.latitude + "," + coords.longitude + ")'", format: 'json' })
 		.end(callback);
 }
 
