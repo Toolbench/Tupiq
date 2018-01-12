@@ -1,61 +1,30 @@
 {
   "name": "Tupiq",
-  "version": "1.2.3",
+  "version": "2.0.0",
   "description": "",
   "main": "src/js/app.js",
   "dependencies": {
-    "classnames": "^1.2.0",
-    "flux": "^2.0.1",
-    "keymaster": "^1.6.2",
-    "keymirror": "^0.1.1",
-    "lz-string": "^1.4.1",
-    "moment": "^2.9.0",
-    "moment-range": "^1.0.7",
-    "normalize.css": "^3.0.2",
-    "object-assign": "^2.0.0",
-    "pluralize": "^1.1.2",
-    "react": "^0.12.2",
-    "react-pure-render": "^1.0.1",
-    "superagent": "^1.2.0",
-    "underscore": "^1.8.3"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
-    "archiver": "^0.14.3",
-    "babel": "^5.1.11",
-    "babelify": "^6.0.2",
-    "browserify": "^9.0.3",
-    "envify": "^3.2.0",
-    "jsxhint": "^0.14.0",
-    "mkdirp": "^0.5.1",
-    "node-sass": "^2.0.1",
-    "npm": "^2.8.3",
-    "parallelshell": "^1.0.4",
-    "reactify": "^1.0.0",
-    "rimraf": "^2.3.3",
-    "uglify-js": "^2.4.16",
-    "watch": "^0.14.0",
-    "watchify": "^2.4.0"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.10.1"
   },
   "scripts": {
-    "postinstall": "cp node_modules/normalize.css/normalize.css src/sass/_normalize.scss",
-    "start": "parallelshell 'npm run watch:js' 'npm run watch:css'",
-    "watch:js": "watchify -o bin/js/bundle.js -v -d .",
-    "watch:css": "watch 'node-sass src/sass/main.scss bin/css/main.css' src/sass",
-    "build:js": "NODE_ENV=production browserify . | uglifyjs -m -c drop_console > bin/js/bundle.js",
-    "build:css": "node-sass src/sass/main.scss bin/css/main.css",
-    "build": "npm run build:css && npm run build:js",
-    "lint": "jsxhint src/js/**/* --babel",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "release:patch": "npm run build && ./scripts/release patch",
-    "release:minor": "npm run build && ./scripts/release minor",
-    "release:major": "npm run build && ./scripts/release major"
-  },
-  "browserify": {
-    "transform": [
-      "babelify",
-      "reactify",
-      "envify"
-    ]
+    "start:dev": "webpack-dev-server --config conf/webpack.config.js",
+    "build": "webpack --config conf/webpack.config.js"
   },
   "author": "Toolbench",
   "license": "MIT"
