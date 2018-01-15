@@ -23,7 +23,7 @@
     "webpack-dev-server": "^2.10.1"
   },
   "scripts": {
-    "start:dev": "webpack-dev-server --config conf/webpack.config.js",
+    "start": "webpack --watch --config conf/webpack.config.js",
     "build": "webpack --config conf/webpack.config.js"
   },
   "author": "Toolbench",
