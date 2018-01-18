@@ -1,11 +1,30 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import App from './components/App';
+import createSagaMiddleware from 'redux-saga';
+import logger from 'redux-logger';
+import App from './areas/app';
 import reducer from './reducers';
+import sagas from './sagas';
 
-const store = createStore(reducer);
+const persistMiddleware = store => next => (action) => {
+  next(action);
+  localStorage.setItem('state', JSON.stringify(store.getState()));
+};
+
+const persistedState = localStorage.getItem('state');
+const serializedState = (persistedState) ? JSON.parse(persistedState) : {};
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(
+  reducer,
+  serializedState,
+  applyMiddleware(sagaMiddleware, persistMiddleware, logger)
+);
+
+sagaMiddleware.run(sagas);
 
 render(
   <Provider store={store}>

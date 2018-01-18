@@ -1,5 +1,4 @@
 const path = require('path');
-const ChromeExtensionReloader = require('webpack-chrome-extension-reloader');
 
 module.exports = {
   entry: './src/js/index.js',
@@ -16,11 +15,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new ChromeExtensionReloader({
-      reloadPage: true
-    })
-  ],
   devServer: {
     contentBase: path.resolve(__dirname, '../bin/'),
     publicPath: 'http://localhost:8080/js/'
