@@ -14,8 +14,6 @@ class Background extends Component {
 
   onLoadClick() {
     this.props.shuffleBackground();
-
-    debugger;
   }
 
   render() {

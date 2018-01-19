@@ -14,7 +14,7 @@ const persistMiddleware = store => next => (action) => {
 };
 
 const persistedState = localStorage.getItem('state');
-const serializedState = (persistedState) ? JSON.parse(persistedState) : {};
+const serializedState = (persistedState) ? JSON.parse(persistedState) : undefined;
 
 const sagaMiddleware = createSagaMiddleware();
 

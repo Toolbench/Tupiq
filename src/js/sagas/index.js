@@ -1,11 +1,19 @@
+/* eslint-disable */
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import * as actions from '../actions';
-import { getAllBackgrounds } from '../selectors';
+import { getAllBackgrounds, getUsedBackgrounds } from '../selectors';
+import { picsum } from '../services';
 
 function* fetchBackground(action) {
   try {
-    const allBackgrounds = yield select(getAllBackgrounds);
-    console.log(allBackgrounds);
+    let allBackgrounds = yield select(getAllBackgrounds);
+    let usedBackgrounds = yield select(getUsedBackgrounds);
+
+    if (allBackgrounds.length === 0) {
+      allBackgrounds = yield call(picsum.fetchList, action).response;
+      yield put({ type: actions.UPDATE_ALL_BACKGROUNDS, payload: allBackgrounds });
+    }
+
     const background = yield call(() => {}, action);
     yield put({ type: actions.SHUFFLE_BACKGROUND_SUCCESS, background });
   } catch (error) {
