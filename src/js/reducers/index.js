@@ -1,29 +1,36 @@
+/* eslint-disable */
 import { combineReducers } from 'redux';
 import * as actions from '../actions';
 
-export const backgrounds = (state = { all: [], used: [] }, action) => {
+export const ids = (state = [], action) => {
   switch (action.type) {
     case actions.UPDATE_ALL_BACKGROUNDS:
-      return {
-        all: action.payload,
-        used: []
-      };
+      return action.payload.result;
+    default:
+      return state;
+  }
+};
+
+export const entities = (state = {}, action) => {
+  switch (action.type) {
+    case actions.UPDATE_ALL_BACKGROUNDS:
+      return action.payload.entities.backgrounds;
+    default:
+      return state;
+  }
+};
+
+export const used = (state = [], action) => {
+  switch (action.type) {
     default:
       return state;
   }
 };
 
 export default combineReducers({
-  backgrounds
+  backgrounds: combineReducers({
+    ids,
+    entities,
+    used
+  })
 });
-
-
-/*
-{
-    background: {
-        isFetching: true,
-        url: 'https://www.flickr.com/photos/ilovegreenland/13187636953/in/set-72157632226028027',
-        data:
-    }
-}
-*/

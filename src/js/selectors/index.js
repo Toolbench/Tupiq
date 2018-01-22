@@ -1,2 +1,15 @@
-export const getUsedBackgrounds = state => state.backgrounds.used;
-export const getAllBackgrounds = state => state.backgrounds.all;
+/* eslint-disable */
+export const getUsedBackgroundIDs = state => state.backgrounds.used;
+export const getAllBackgroundIDs = state => state.backgrounds.ids;
+export const getUnusedBackgroundIDs = (state) => {
+  const usedIDs = new Set(state.backgrounds.used);
+  const allIDs = new Set(state.backgrounds.ids);
+  return Array.from(new Set([...allIDs].filter(id => !usedIDs.has(id))));
+};
+
+export const getRandomUnusedBackground = (state) => {
+  const unusedBackgroundIDs = getUnusedBackgroundIDs(state);
+  const randomID = unusedBackgroundIDs[Math.floor(Math.random() * unusedBackgroundIDs.length)];
+  
+  return state.backgrounds.entities[randomID];
+};
