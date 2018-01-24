@@ -2,7 +2,7 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import * as actions from '../actions';
 import { getAllBackgroundIDs, getUsedBackgroundIDs, getRandomUnusedBackground } from '../selectors';
-import { picsum } from '../services';
+import { picsum, unsplash } from '../services';
 
 function* fetchBackground(action) {
   try {
@@ -18,11 +18,13 @@ function* fetchBackground(action) {
     }
 
     let randomBackground = yield select(getRandomUnusedBackground);
+    const backgroundImageDataURL = yield call(unsplash.getImageDataURL, randomBackground.postUrl);
+
+    //randomBackground.dataURL = backgroundImageDataURL;
 
     debugger;
 
-    const background = yield call(() => {}, action);
-    yield put({ type: actions.SHUFFLE_BACKGROUND_SUCCESS, background });
+    yield put({ type: actions.SHUFFLE_BACKGROUND_SUCCESS, payload: randomBackground });
   } catch (error) {
     yield put({ type: actions.SHUFFLE_BACKGROUND_FAIL, error });
   }

@@ -13,6 +13,8 @@ export const ids = (state = [], action) => {
 
 export const entities = (state = {}, action) => {
   switch (action.type) {
+    case action.SHUFFLE_BACKGROUND_SUCCESS:
+      debugger;
     case actions.UPDATE_ALL_BACKGROUNDS:
       return action.payload.entities.backgrounds;
     default:
@@ -22,6 +24,19 @@ export const entities = (state = {}, action) => {
 
 export const used = (state = [], action) => {
   switch (action.type) {
+    case action.SHUFFLE_BACKGROUND_SUCCESS:
+      debugger;
+      return [...state, action.payload.id];
+    default:
+      return state;
+  }
+};
+
+export const current = (state = {}, action) => {
+  switch (action.type) {
+    case action.SHUFFLE_BACKGROUND_SUCCESS:
+      debugger;
+      return action.payload;
     default:
       return state;
   }
@@ -31,6 +46,7 @@ export default combineReducers({
   backgrounds: combineReducers({
     ids,
     entities,
-    used
+    used,
+    current
   })
 });
