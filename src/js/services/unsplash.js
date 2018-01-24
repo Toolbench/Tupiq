@@ -1,14 +1,4 @@
-const canvasToDataUrl = (image, compress) => {
-  const canvas = document.createElement('canvas');
-
-  canvas.width = image.width;
-  canvas.height = image.height;
-
-  const context = canvas.getContext('2d');
-  context.drawImage(image, 0, 0, canvas.width, canvas.height);
-
-  return canvas.toDataURL('image/webp', compress);
-};
+import { canvasToDataURL } from '../util';
 
 export const getImageDataURL = postURL => new Promise((resolve, reject) => {
   const image = new Image();
@@ -28,7 +18,9 @@ export const getImageDataURL = postURL => new Promise((resolve, reject) => {
       compress = 0.4;
     }
 
-    resolve(canvasToDataUrl(event.target, compress));
+    const dataURL = canvasToDataURL(event.target, compress);
+
+    resolve(dataURL);
   });
 
   xmlHTTP.onerror = (error) => {

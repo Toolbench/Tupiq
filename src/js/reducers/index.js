@@ -6,6 +6,7 @@ export const ids = (state = [], action) => {
   switch (action.type) {
     case actions.UPDATE_ALL_BACKGROUNDS:
       return action.payload.result;
+      break;
     default:
       return state;
   }
@@ -13,10 +14,9 @@ export const ids = (state = [], action) => {
 
 export const entities = (state = {}, action) => {
   switch (action.type) {
-    case action.SHUFFLE_BACKGROUND_SUCCESS:
-      debugger;
     case actions.UPDATE_ALL_BACKGROUNDS:
       return action.payload.entities.backgrounds;
+      break;
     default:
       return state;
   }
@@ -24,9 +24,9 @@ export const entities = (state = {}, action) => {
 
 export const used = (state = [], action) => {
   switch (action.type) {
-    case action.SHUFFLE_BACKGROUND_SUCCESS:
-      debugger;
+    case actions.SHUFFLE_BACKGROUND_SUCCESS:
       return [...state, action.payload.id];
+      break;
     default:
       return state;
   }
@@ -34,9 +34,9 @@ export const used = (state = [], action) => {
 
 export const current = (state = {}, action) => {
   switch (action.type) {
-    case action.SHUFFLE_BACKGROUND_SUCCESS:
-      debugger;
+    case actions.SHUFFLE_BACKGROUND_SUCCESS:
       return action.payload;
+      break;
     default:
       return state;
   }
