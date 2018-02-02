@@ -10,6 +10,6 @@
 		"node": true
 	},
 	"globals": {
-        "chrome": true
+		"chrome": true
     }
 }
