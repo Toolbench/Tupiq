@@ -4,6 +4,10 @@
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
+    "background": {
+        "scripts": ["js/background.js"]
+    },
+    "permissions": ["alarms"],
     "description": "Plan your day with Tupiq, a beautiful New Tab page.",
     "minimum_chrome_version": "40.0.0",
     "manifest_version": 2

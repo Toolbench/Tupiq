@@ -6,6 +6,7 @@
   "dependencies": {
     "humps": "^2.0.1",
     "isomorphic-fetch": "^2.2.1",
+    "lz-string": "^1.4.4",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
