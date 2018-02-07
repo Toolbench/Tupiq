@@ -1,5 +1,5 @@
 /* eslint-disable no-debugger */
-import React, { Component } from 'react';
+import React from 'react';
 import Background from '../background';
 
 // const currentVersion = chrome.runtime.getManifest().version;

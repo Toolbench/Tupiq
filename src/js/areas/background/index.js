@@ -19,18 +19,11 @@ class Background extends Component {
 
   render() {
     const style = {
-      backgroundImage: `url(${this.props.background.dataURL})`,
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      height: '100%',
-      width: '100%',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center center'
+      backgroundImage: `url(${this.props.background.dataURL})`
     };
 
     return (
-      <div style={style}>
+      <div style={style} className="background">
         <div>
           <button onClick={this.onLoadClick}>Shuffle</button>
         </div>
