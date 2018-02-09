@@ -1,22 +1,18 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+/* eslint-disable */
+import { call, put, takeLatest } from 'redux-saga/effects';
 import * as actions from '../actions';
-import { getAllBackgroundIDs, getRandomBackground } from '../selectors';
-import { picsum, unsplash } from '../services';
+import { imageifier, unsplash } from '../services';
 
 function* fetchBackground(action) {
   try {
-    let allBackgroundIDs = yield select(getAllBackgroundIDs);
+    const randomBackgroundCall = yield call(unsplash.fetchRandom, action.payload);
+    const randomBackground =
+      randomBackgroundCall.response.entities.backgrounds[randomBackgroundCall.response.result];
 
-    if (allBackgroundIDs.length === 0) {
-      const backgroundList = yield call(picsum.fetchList, action);
-
-      yield put({ type: actions.UPDATE_ALL_BACKGROUNDS, payload: backgroundList.response });
-
-      allBackgroundIDs = yield select(getAllBackgroundIDs);
-    }
-
-    const randomBackground = yield select(getRandomBackground);
-    randomBackground.dataURL = yield call(unsplash.getImageDataURL, randomBackground.postUrl);
+    randomBackground.dataURL = yield call(
+      imageifier.getImageDataURL,
+      randomBackground.urls.full
+    );
 
     yield put({ type: actions.SHUFFLE_BACKGROUND_SUCCESS, payload: randomBackground });
   } catch (error) {

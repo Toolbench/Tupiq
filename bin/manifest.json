@@ -6,5 +6,9 @@
     },
     "description": "Plan your day with Tupiq, a beautiful New Tab page.",
     "minimum_chrome_version": "40.0.0",
+    "oauth2": {
+        "client_id": "1022186080812-fpgbc34rns8pdtnkefat2jmac9fatdt2.apps.googleusercontent.com",
+        "scopes": ["https://www.googleapis.com/auth/calendar"]
+    },
     "manifest_version": 2
 }

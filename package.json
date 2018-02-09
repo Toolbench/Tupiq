@@ -5,8 +5,8 @@
   "main": "src/js/app.js",
   "dependencies": {
     "humps": "^2.0.1",
+    "idb-keyval": "^2.3.0",
     "isomorphic-fetch": "^2.2.1",
-    "lz-string": "^1.4.4",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "eslint": "^4.15.0",

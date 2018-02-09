@@ -1,44 +1,37 @@
-import { canvasToDataURL } from '../util';
+/* eslint-disable */
+import 'isomorphic-fetch';
+import { normalize } from 'normalizr';
+import { camelizeKeys } from 'humps';
+import { backgroundSchema } from '../schemas';
 
-export const getImageDataURL = postURL => new Promise((resolve, reject) => {
-  const image = new Image();
-  const xmlHTTP = new XMLHttpRequest();
-  let totalSize;
+const URL = 'https://api.unsplash.com';
+const queryStringObject = {
+  'orientation': 'landscape',
+  'client_id': ''
+};
+const toQueryString = object => Object.keys(object).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`).join('&');
 
-  image.addEventListener('error', (error) => {
-    reject(error);
-  });
+function callApi(endpoint) {
+  return fetch(URL + endpoint)
+    .then(response =>
+      response.json().then(json => ({ json, response }))).then(({ json, response }) => {
+      if (!response.ok) {
+        return Promise.reject(json);
+      }
 
-  image.addEventListener('load', (event) => {
-    let compress = 0.6;
+      const camelizedJson = camelizeKeys(json);
+      const normalizedData = normalize(camelizedJson, backgroundSchema);
 
-    if (totalSize > 10000000) {
-      compress = 0.2;
-    } else if (totalSize > 5000000) {
-      compress = 0.4;
-    }
+      return normalizedData;
+    })
+    .then(
+      response => ({ response }),
+      error => ({ error: error.message || 'Something bad happened' })
+    );
+}
 
-    const dataURL = canvasToDataURL(event.target, compress);
+export const fetchRandom = query => {
+  const queryString = toQueryString(query ? {...queryStringObject, ...{query}} : {...queryStringObject});
 
-    resolve(dataURL);
-  });
-
-  xmlHTTP.onerror = (error) => {
-    reject(error);
-  };
-
-  xmlHTTP.onload = () => {
-    const blob = new Blob([xmlHTTP.response]);
-    image.src = window.URL.createObjectURL(blob);
-  };
-
-  xmlHTTP.onprogress = (event) => {
-    if (totalSize === undefined) {
-      totalSize = event.total;
-    }
-  };
-
-  xmlHTTP.open('GET', `${postURL}/download`, true);
-  xmlHTTP.responseType = 'arraybuffer';
-  xmlHTTP.send();
-});
+  return callApi(`/photos/random?${queryString}`);
+};

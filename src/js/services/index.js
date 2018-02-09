@@ -1,5 +1,5 @@
-import * as _picsum from './picsum';
 import * as _unsplash from './unsplash';
+import * as _imageifier from './imageifier';
 
-export const picsum = _picsum;
 export const unsplash = _unsplash;
+export const imageifier = _imageifier;

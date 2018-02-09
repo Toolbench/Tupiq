@@ -1,41 +1,18 @@
-/* eslint-disable no-debugger */
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { shuffleBackground } from '../../actions';
 import { getCurrentBackground } from '../../selectors';
 
 // const currentVersion = chrome.runtime.getManifest().version;
 
 class Background extends Component {
-  constructor(props) {
-    super(props);
-    this.onLoadClick = this.onLoadClick.bind(this);
-  }
-
-  onLoadClick() {
-    this.props.shuffleBackground();
-  }
-
   render() {
     const style = {
-      backgroundImage: `url(${this.props.background.dataURL})`,
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      height: '100%',
-      width: '100%',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center center'
+      backgroundImage: `url(${this.props.background.dataURL})`
     };
 
-    return (
-      <div style={style}>
-        <div>
-          <button onClick={this.onLoadClick}>Shuffle</button>
-        </div>
-      </div>
-    );
+    return <div id="background" style={style} />;
   }
 }
 
@@ -46,18 +23,30 @@ function mapStateToProps(state) {
 }
 
 Background.propTypes = {
-  shuffleBackground: PropTypes.func.isRequired,
   background: PropTypes.shape({
-    author: PropTypes.string.isRequired,
-    authorUrl: PropTypes.string.isRequired,
-    dataURL: PropTypes.string.isRequired,
-    filename: PropTypes.string.isRequired,
-    format: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-    id: PropTypes.number.isRequired,
-    postUrl: PropTypes.string.isRequired,
-    width: PropTypes.number.isRequired
+    urls: PropTypes.shape({
+      raw: PropTypes.string.isRequired,
+      full: PropTypes.string.isRequired,
+      regular: PropTypes.string.isRequired,
+      small: PropTypes.string.isRequired,
+      thumb: PropTypes.string.isRequired
+    }).isRequired,
+    links: PropTypes.shape({
+      self: PropTypes.string.isRequired,
+      html: PropTypes.string.isRequired,
+      download: PropTypes.string.isRequired,
+      download_location: PropTypes.string.isRequired
+    }).isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    dataURL: PropTypes.string.isRequired
   }).isRequired
 };
 
-export default connect(mapStateToProps, { shuffleBackground })(Background);
+export default connect(mapStateToProps)(Background);

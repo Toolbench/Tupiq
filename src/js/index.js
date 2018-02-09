@@ -3,43 +3,22 @@ import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import LZString from 'lz-string';
 import logger from 'redux-logger';
+import idb from 'idb-keyval';
 import App from './areas/app';
 import reducer from './reducers';
 import sagas from './sagas';
 
 /* eslint-disable */
-let transaction;
+const persistMiddleware = store => next => (action) => {
+  next(action);
 
-const request = indexedDB.open('tupiq', 1);
+  idb.set('state', store.getState());
+};
 
-request.onupgradeneeded = event => {
-  const db = event.target.result;
-
-  db.createObjectStore('state');
-}
-
-request.onsuccess = event => {
-  const db = event.target.result;
-  const objectStore = db.transaction(['state'], 'readwrite').objectStore('state');
-
-  const persistMiddleware = store => next => (action) => {
-    next(action);
-
-    const objectStore = db.transaction(['state'], 'readwrite').objectStore('state');
-    const request = objectStore.put(LZString.compressToUint8Array(JSON.stringify(store.getState())), 'theState');
-
-    request.onsuccess = event => {
-      console.log('great success');
-    }
-  };
-
-  const getPersistedStateRequest = objectStore.get('theState');
-
-  getPersistedStateRequest.onsuccess = event => {
-    const persistedState = event.target.result;
-    const serializedState = (persistedState) ? JSON.parse(LZString.decompressFromUint8Array(persistedState)) : undefined;
+idb.get('state')
+  .then(persistedState => {
+    const serializedState = (persistedState) ? persistedState : undefined;
     const sagaMiddleware = createSagaMiddleware();
     
     const store = createStore(
@@ -55,10 +34,6 @@ request.onsuccess = event => {
         <App />
       </Provider>,
       document.getElementById('root')
-    );  
-  }
-
-  getPersistedStateRequest.onerror = error => {
-    //debugger;
-  }
-}
+    );
+  })
+  .catch(err => console.log('It failed!', err));
