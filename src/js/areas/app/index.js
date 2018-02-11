@@ -2,13 +2,14 @@
 import React from 'react';
 import Background from '../background';
 import Terminal from '../terminal';
+import Console from '../console';
 
 // const currentVersion = chrome.runtime.getManifest().version;
 
 const App = () => (
-  <div>
+  <div id="app">
     <Background />
-    <Terminal />
+    <Console />
   </div>
 );
 

@@ -38,7 +38,7 @@ Background.propTypes = {
       self: PropTypes.string.isRequired,
       html: PropTypes.string.isRequired,
       download: PropTypes.string.isRequired,
-      download_location: PropTypes.string.isRequired
+      downloadLocation: PropTypes.string.isRequired
     }).isRequired,
     user: PropTypes.shape({
       id: PropTypes.string.isRequired,
