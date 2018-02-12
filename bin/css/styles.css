@@ -1,0 +1,59 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Regular.ttf')  format('truetype');
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+#app {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#console {
+  position: absolute;
+  font-size: 16px;
+  width: 500px;
+  text-align: center;
+}
+#calendar {
+  height: 100px;
+  width: 100%;
+  background: rgba(255,255,255,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid rgb(220, 220, 220)
+}
+#terminal input {
+  border: 0;
+  background: rgba(255,255,255,0.75);
+  padding: 15px;
+  width: 100%;
+  height: 35px;
+  font-size: 26px;
+  color: #333;
+  font-weight: bold;
+  font-family: monospace, sans-serif;
+  text-align: center;
+}
+#background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+}
