@@ -10,5 +10,19 @@
         "client_id": "1022186080812-fpgbc34rns8pdtnkefat2jmac9fatdt2.apps.googleusercontent.com",
         "scopes": ["https://www.googleapis.com/auth/calendar"]
     },
-    "manifest_version": 2
+    "content_security_policy": "script-src 'self' https://calendar.google.com https://ssl.google-analytics.com; object-src 'self'",
+    "permissions": [
+        "alarms",
+        "contextMenus",
+        "identity",
+        "notifications",
+        "storage",
+        "tabs",
+        "http://*/*",
+        "https://*/*",
+        "http://calendar.google.com/calendar/*",
+        "https://calendar.google.com/calendar/*"
+      ],
+    "manifest_version": 2,
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGm6qZn9jRSkIfqVhQhGFZ2TDKXqSFBzuAAM7Vt672u00I7fTRUuj0euy8TTkm6HYuMqi29dWxkjuWwz0brUWmMIQUqZEesE8MTnIXDPS/pROkuOuXtA57ab0Qgw5WA5o0VsSKLrg3sBJG9lQZAV45rTPS/VglcNvVf9di9moIN98jecPis8CYokObjrOhILCbS1B5oi4sSOkV/2J2NHIqf5Bg4ymY/lyVzBSKh448sP4Ti3B8RFI9fl5aKKiA0f6MoOvwwu3pbsQgXokfwUFrSDPq/0lhlq4l4o5vfC22Z0OupOqoNvQlLEkzkO9VVRVOxoITjrsWFLB66hMDN9OwIDAQAB"
 }
