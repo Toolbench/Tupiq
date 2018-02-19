@@ -22,7 +22,10 @@ function* fetchBackground(action) {
 
 function* fetchCalendar(action) {
   try {
-    const fetchBackgroundCall = yield call(calendar.fetchEvents);
+    const fetchCalendarsCall = yield call(calendar.fetchCalendars);
+    const fetchEventsdCall = yield call(calendar.fetchEvents, Object.getKeys(fetchCalendarsCall.response.entities.calendars));
+
+    debugger;
   } catch (error) {
     console.log(error);
   }

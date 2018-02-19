@@ -2,48 +2,55 @@
 import 'isomorphic-fetch';
 import { normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
-import { backgroundSchema } from '../schemas';
+import { arrayOfCalendars } from '../schemas';
 
-const URL = 'https://www.googleapis.com/calendar/v3/calendars/{calendarId}';
-const queryStringObject = {
-  'orientation': 'landscape',
-  'client_id': ''
-};
+const URL = 'https://www.googleapis.com/calendar/v3';
+const queryStringObject = {};
 const toQueryString = object => Object.keys(object).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`).join('&');
 
-function callApi(endpoint) {
-  chrome.identity.getAuthToken({'interactive': true}, (authToken) => {
-    if (chrome.runtime.lastError) {
+function callApi(endpoint, schema) {
+  return new Promise((resolve, reject) => {
+    chrome.identity.getAuthToken({ interactive: true }, (authToken) => {
+      if (chrome.runtime.lastError) {
         console.log('Chrome Runtime Error', chrome.runtime.lastError.message);
-    }
-    
-    debugger;
-  });
-  
-  /*
-  return fetch(URL + endpoint)
-    .then(response =>
-      response.json().then(json => ({ json, response }))).then(({ json, response }) => {
-      if (!response.ok) {
-        return Promise.reject(json);
       }
 
-      const camelizedJson = camelizeKeys(json);
-      const normalizedData = normalize(camelizedJson, backgroundSchema);
+      fetch(URL + endpoint, {
+          headers: {
+            Authorization: `Bearer ${authToken}`
+          }
+        })
+        .then(response =>
+          response.json().then(json => ({ json, response }))).then(({ json, response }) => {
+          if (!response.ok) {
+            reject(json);
+          }
 
-      return normalizedData;
-    })
-    .then(
-      response => ({ response }),
-      error => ({ error: error.message || 'Something bad happened' })
-    );
-  */
+          const camelizedJson = camelizeKeys(json.items);
+          const normalizedData = normalize(camelizedJson, schema);
+
+          return normalizedData;
+        })
+        .then(
+          response => resolve({ response }),
+          error => reject({ error: error.message || 'Something bad happened' })
+        );
+    });
+  });
 }
 
-export const fetchEvents = query => {
+export const fetchEvents = calendarIds => {
   //const queryString = toQueryString(query ? {...queryStringObject, ...{query}} : {...queryStringObject});
 
   //return callApi(`/events?${queryString}`);
 
-  return callApi('/events');
+  return new Promise((resolve, reject) => {
+    chrome.identity.getAuthToken({ interactive: true }, (authToken) => {
+      // batch
+    });
+  });
+
+  //return callApi('/calendars/{calendarId}/events');
 };
+
+export const fetchCalendars = () => callApi('/users/me/calendarList', arrayOfCalendars);
