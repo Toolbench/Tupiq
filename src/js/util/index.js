@@ -9,3 +9,5 @@ export const canvasToDataURL = (image, compress) => {
 
   return canvas.toDataURL('image/webp', compress);
 };
+
+export const toQueryString = object => Object.keys(object).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`).join('&');

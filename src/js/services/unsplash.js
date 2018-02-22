@@ -3,13 +3,13 @@ import 'isomorphic-fetch';
 import { normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
 import { backgroundSchema } from '../schemas';
+import { toQueryString } from '../util';
 
 const URL = 'https://api.unsplash.com';
 const queryStringObject = {
   'orientation': 'landscape',
   'client_id': ''
 };
-const toQueryString = object => Object.keys(object).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`).join('&');
 
 function callApi(endpoint) {
   return fetch(URL + endpoint)
