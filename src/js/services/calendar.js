@@ -2,9 +2,11 @@
 import 'isomorphic-fetch';
 import { normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
+import { createBatchBody, parseBatchResponse } from 'google-api-batch-utils';
 import { arrayOfCalendars } from '../schemas';
 
 const URL = 'https://www.googleapis.com/calendar/v3';
+const BATCH_URL = 'https://www.googleapis.com/batch/calendar/v3';
 const queryStringObject = {};
 const toQueryString = object => Object.keys(object).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`).join('&');
 
@@ -40,17 +42,47 @@ function callApi(endpoint, schema) {
 }
 
 export const fetchEvents = calendarIds => {
-  //const queryString = toQueryString(query ? {...queryStringObject, ...{query}} : {...queryStringObject});
-
-  //return callApi(`/events?${queryString}`);
-
   return new Promise((resolve, reject) => {
     chrome.identity.getAuthToken({ interactive: true }, (authToken) => {
-      // batch
+      let uris = calendarIds.map(calendarId => ({ uri: `/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events` }));
+
+      fetch(BATCH_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/mixed; boundary="batch_tupiq"',
+          Authorization: `Bearer ${authToken}`
+        },
+        body: createBatchBody(uris, 'batch_tupiq')
+      }).then((response) => {
+        readStream(response.body).then(raw => {
+          debugger;
+        });
+      }).catch(function(error) {
+        debugger;
+        console.log("error");
+      });
     });
   });
-
-  //return callApi('/calendars/{calendarId}/events');
 };
 
 export const fetchCalendars = () => callApi('/users/me/calendarList', arrayOfCalendars);
+
+function readStream(stream) {
+  const reader = stream.getReader();
+  let result = '';
+
+  // read() returns a promise that resolves
+  // when a value has been received
+  return new Promise((resolve, reject) => {
+    reader.read().then(function processText({ done, value }) {
+      if (done) {
+        resolve(result);
+      }
+
+      result += value;
+
+      // Read some more, and call this function again
+      return reader.read().then(processText);
+    });
+  });
+}
