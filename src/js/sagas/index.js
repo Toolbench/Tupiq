@@ -23,6 +23,9 @@ function* fetchBackground(action) {
 function* fetchCalendar(action) {
   try {
     const fetchCalendarsCall = yield call(calendar.fetchCalendars);
+    
+    debugger;
+    
     const fetchEventsdCall = yield call(calendar.fetchEvents, Object.keys(fetchCalendarsCall.response.entities.calendars));
 
     debugger;

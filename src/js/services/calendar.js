@@ -14,7 +14,7 @@ function callApi(endpoint, schema) {
   return new Promise((resolve, reject) => {
     chrome.identity.getAuthToken({ interactive: true }, (authToken) => {
       if (chrome.runtime.lastError) {
-        reject(new Error(chrome.runtime.lastError.message));
+        return reject('chrome.runtime.lastError.message');
       }
 
       const isBatch = Array.isArray(endpoint);
@@ -34,7 +34,7 @@ function callApi(endpoint, schema) {
 
           return parser().then(parsed => ({ parsed, response })).then(({ parsed, response }) => {
             if (!response.ok) {
-              return reject(parsed);
+              return Promise.reject(parsed);
             }
 
             if (isBatch) {
@@ -52,11 +52,12 @@ function callApi(endpoint, schema) {
           });
         })
         .then(
-          response => resolve({ response }),
-          error => ({ error: error.message || 'Something bad happened' })
-        );
+          response => resolve(response)
+        ).catch(error => reject(error))
     });
-  });
+  }).then(
+    response => ({ response })
+  ).catch(error => {error: error.message || 'Something bad happened'});
 }
 
 export const fetchEvents = calendarIds => {
