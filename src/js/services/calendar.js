@@ -10,14 +10,24 @@ import { toQueryString } from '../util';
 const URL = 'https://www.googleapis.com/calendar/v3';
 const BATCH_URL = 'https://www.googleapis.com/batch/calendar/v3';
 
-function callApi(endpoint, schema) {
+function getAuthToken() {
   return new Promise((resolve, reject) => {
     chrome.identity.getAuthToken({ interactive: true }, (authToken) => {
       if (chrome.runtime.lastError) {
-        return reject('chrome.runtime.lastError.message');
+        reject(chrome.runtime.lastError);
       }
 
-      const isBatch = Array.isArray(endpoint);
+      resolve(authToken);
+    });
+  });
+}
+
+function callApi(endpoint, schema) {
+  const isBatch = Array.isArray(endpoint);
+  let response;
+  
+  return getAuthToken()
+    .then(authToken => {
       const url = isBatch ? BATCH_URL : `${URL}${endpoint}`;
       const options = !isBatch ? { headers: { Authorization: `Bearer ${authToken}` } } : {
         method: 'POST',
@@ -28,36 +38,34 @@ function callApi(endpoint, schema) {
         body: createBatchBody(endpoint, 'batch_tupiq')
       };
       
-      fetch(url, options)
-        .then(response => {
-          const parser = isBatch ? response.text.bind(response) : response.json.bind(response);
+      return fetch(url, options);
+    })
+    .then(response => {
+      if (!response.ok) {
+        return Promise.reject(new Error(response.statusText || 'Something bad happened'));
+      }
+      
+      const parser = isBatch ? response.text.bind(response) : response.json.bind(response);
 
-          return parser().then(parsed => ({ parsed, response })).then(({ parsed, response }) => {
-            if (!response.ok) {
-              return Promise.reject(parsed);
-            }
+      return parser();
+    })
+    .then(parsed => parsed )
+    .then(parsed => {
+      if (isBatch) {
+        parsed = parseBatchResponse(parsed).reduce((a, b) => {
+          return [...a, ...b.items];
+        }, []);
+      } else {
+        parsed = parsed.items;
+      }
 
-            if (isBatch) {
-              parsed = parseBatchResponse(parsed).reduce((a, b) => {
-                return [...a, ...b.items];
-              }, []);
-            } else {
-              parsed = parsed.items;
-            }
-  
-            const camelizedJson = camelizeKeys(parsed);
-            const normalizedData = normalize(camelizedJson, schema);
-  
-            return normalizedData;
-          });
-        })
-        .then(
-          response => resolve(response)
-        ).catch(error => reject(error))
-    });
-  }).then(
-    response => ({ response })
-  ).catch(error => {error: error.message || 'Something bad happened'});
+      const camelizedJson = camelizeKeys(parsed);
+      const normalizedData = normalize(camelizedJson, schema);
+
+      return normalizedData;
+    })
+    .then(response => ({ response }))
+    .catch(error => { error: error.message || 'Something bad happened' });
 }
 
 export const fetchEvents = calendarIds => {
