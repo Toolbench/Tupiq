@@ -23,14 +23,11 @@ function* fetchBackground(action) {
 function* fetchCalendar(action) {
   try {
     const fetchCalendarsCall = yield call(calendar.fetchCalendars);
-    
-    debugger;
-    
-    const fetchEventsdCall = yield call(calendar.fetchEvents, Object.keys(fetchCalendarsCall.response.entities.calendars));
+    const fetchEventsCall = yield call(calendar.fetchEvents, Object.keys(fetchCalendarsCall.response.entities.calendars));
 
-    debugger;
+    yield put({ type: actions.FETCH_CALENDAR_SUCCESS, payload: { calendars: fetchCalendarsCall.response, events: fetchEventsCall.response }});
   } catch (error) {
-    console.log(error);
+    yield put({ type: actions.FETCH_CALENDAR_FAIL, error });
   }
 }
 
