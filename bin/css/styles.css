@@ -57,3 +57,12 @@ body {
   background-size: cover;
   background-position: center center;
 }
+#topSites {
+  height: 50px;
+  width: 100%;
+  background: rgba(255,255,255,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid rgb(220, 220, 220)
+}

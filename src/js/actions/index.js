@@ -14,9 +14,15 @@ export const FETCH_CALENDAR = 'FETCH_CALENDAR';
 export const FETCH_CALENDAR_SUCCESS = 'FETCH_CALENDAR_SUCCESS';
 export const FETCH_CALENDARD_FAIL = 'FETCH_CALENDAR_FAIL';
 
+export const FETCH_TOP_SITES = 'FETCH_TOP_SITES';
+export const FETCH_TOP_SITES_SUCCESS = 'FETCH_TOP_SITES_SUCCESS';
+
 /**
  * Action Creators
  */
 export const shuffleBackground = createAction(SHUFFLE_BACKGROUND);
 
 export const fetchCalendar = createAction(FETCH_CALENDAR);
+
+export const fetchTopSites = createAction(FETCH_TOP_SITES);
+

@@ -13,6 +13,7 @@
     "content_security_policy": "script-src 'self' https://calendar.google.com https://www.googleapis.com https://ssl.google-analytics.com; object-src 'self'",
     "permissions": [
         "alarms",
+        "topSites",
         "contextMenus",
         "identity",
         "notifications",

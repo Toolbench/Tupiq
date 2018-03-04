@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as actions from '../actions';
-import { imageifier, unsplash, calendar } from '../services';
+import { imageifier, unsplash, calendar, topSites } from '../services';
 
 function* fetchBackground(action) {
   try {
@@ -31,9 +31,19 @@ function* fetchCalendar(action) {
   }
 }
 
+function* fetchTopSites() {
+  try {
+    const fetchTopSitesCall = yield call(topSites.fetchTopSites);
+    yield put({ type: actions.FETCH_TOP_SITES_SUCCESS, payload: fetchTopSitesCall});
+  } catch (error) {
+    debugger;
+  }
+}
+
 function* sagas() {
   yield takeLatest(actions.SHUFFLE_BACKGROUND, fetchBackground);
   yield takeLatest(actions.FETCH_CALENDAR, fetchCalendar);
+  yield takeLatest(actions.FETCH_TOP_SITES, fetchTopSites);
 }
 
 export default sagas;
