@@ -1,4 +1,3 @@
-/* eslint-disable */
 import 'isomorphic-fetch';
 import { normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
@@ -7,8 +6,8 @@ import { toQueryString } from '../util';
 
 const URL = 'https://api.unsplash.com';
 const queryStringObject = {
-  'orientation': 'landscape',
-  'client_id': ''
+  orientation: 'landscape',
+  client_id: ''
 };
 
 function callApi(endpoint) {
@@ -30,8 +29,10 @@ function callApi(endpoint) {
     );
 }
 
-export const fetchRandom = query => {
-  const queryString = toQueryString(query ? {...queryStringObject, ...{query}} : {...queryStringObject});
+export const fetchRandom = (query) => {
+  const queryString = toQueryString(query ?
+    { ...queryStringObject, ...{ query } } :
+    { ...queryStringObject });
 
   return callApi(`/photos/random?${queryString}`);
 };

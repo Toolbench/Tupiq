@@ -4,7 +4,7 @@ import * as actions from '../actions';
 export const ids = (state = [], action) => {
   switch (action.type) {
     case actions.FETCH_CALENDAR_SUCCESS:
-      return action.payload.events.result;
+      return action.payload.events.result || [];
     default:
       return state;
   }
@@ -13,7 +13,7 @@ export const ids = (state = [], action) => {
 export const entities = (state = {}, action) => {
   switch (action.type) {
     case actions.FETCH_CALENDAR_SUCCESS:
-      return action.payload.events.entities.events;
+      return action.payload.events.entities.events || {};
     default:
       return state;
   }
