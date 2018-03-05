@@ -30,16 +30,27 @@ body {
 #calendar {
   height: 100px;
   width: 100%;
-  background: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.95);
   display: flex;
   justify-content: center;
   align-items: center;
   border-top: 1px solid rgb(220, 220, 220)
 }
+#calendar .big-talk {
+  color: #455A64;
+  font-size: 16px;
+}
+#calendar .small-talk {
+  color: #8fa4af;
+  font-size: 14px;
+}
+#terminal {
+  background: rgba(255,255,255,0.95);
+  padding: 15px;
+  width: 100%;
+}
 #terminal input {
   border: 0;
-  background: rgba(255,255,255,0.75);
-  padding: 15px;
   width: 100%;
   height: 35px;
   font-size: 26px;
@@ -47,6 +58,9 @@ body {
   font-weight: bold;
   font-family: monospace, sans-serif;
   text-align: center;
+}
+#terminal .logo {
+  cursor: pointer;
 }
 #background {
   position: absolute;
@@ -60,9 +74,10 @@ body {
 #topSites {
   height: 50px;
   width: 100%;
-  background: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.95);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgb(220, 220, 220)
+  border-top: 1px solid rgb(220, 220, 220);
+  padding: 0 20px;
 }

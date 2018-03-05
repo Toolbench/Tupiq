@@ -16,7 +16,7 @@ class TopSites extends Component {
     return (
       <div id="topSites">
         {
-          this.props.topSites.map(topSite => <a href={topSite.url}><img alt={topSite.title} src={`https://www.google.com/s2/favicons?domain=${topSite.url}`} /></a>)
+          this.props.topSites.map(topSite => <a key={topSite.url} href={topSite.url}><img alt={topSite.title} src={`https://www.google.com/s2/favicons?domain=${topSite.url}`} /></a>)
         }
       </div>
     );

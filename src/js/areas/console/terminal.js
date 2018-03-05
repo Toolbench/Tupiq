@@ -1,14 +1,15 @@
-/* eslint-disable no-debugger */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { shuffleBackground } from '../../actions';
+import Logo from 'react-svg-loader!../../../svg/tupiq-logo.svg'; // eslint-disable-line
 
 class Terminal extends Component {
   constructor(props) {
     super(props);
 
     this.onKeyDown = this.onKeyDown.bind(this);
+    this.onLogoClick = this.onLogoClick.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +30,10 @@ class Terminal extends Component {
     }
   }
 
+  onLogoClick() {
+    this.props.shuffleBackground();
+  }
+
   updateInputValue(event) {
     this.setState({
       inputValue: event.target.value
@@ -38,9 +43,9 @@ class Terminal extends Component {
   render() {
     return (
       <div id="terminal">
-        <input
-          onChange={event => this.updateInputValue(event)}
-          placeholder=""
+        <Logo
+          className="logo"
+          onClick={() => this.onLogoClick()}
         />
       </div>
     );

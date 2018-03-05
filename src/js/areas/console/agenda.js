@@ -10,6 +10,8 @@ class Agenda extends Component {
     super(props);
 
     this.onClick = this.onClick.bind(this);
+
+    this.props.fetchCalendar();
   }
 
   onClick() {
@@ -19,8 +21,8 @@ class Agenda extends Component {
   renderChitChat() {
     return (
       <div>
-        <p>{ this.props.chitChat.main }</p>
-        <p>{ this.props.chitChat.smallTalk }</p>
+        <p className="big-talk">{ this.props.chitChat.bigTalk }</p>
+        <p className="small-talk">{ this.props.chitChat.smallTalk }</p>
       </div>
     );
   }
@@ -56,7 +58,7 @@ Agenda.propTypes = {
   fetchCalendar: PropTypes.func.isRequired,
   areCalendarsConnected: PropTypes.bool.isRequired,
   chitChat: PropTypes.shape({
-    main: PropTypes.string.isRequired,
+    bigTalk: PropTypes.string.isRequired,
     smallTalk: PropTypes.string.isRequired
   })
 };
