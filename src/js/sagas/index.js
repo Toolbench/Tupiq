@@ -22,7 +22,7 @@ function* fetchBackground(action) {
 
 function* fetchCalendar(action) {
   try {
-    const fetchCalendarsCall = yield call(calendar.fetchCalendars);
+    const fetchCalendarsCall = yield call(calendar.fetchCalendars, action.payload.interactive);
     const fetchEventsCall = yield call(calendar.fetchEvents, Object.keys(fetchCalendarsCall.response.entities.calendars));
 
     yield put({ type: actions.FETCH_CALENDAR_SUCCESS, payload: { calendars: fetchCalendarsCall.response, events: fetchEventsCall.response }});

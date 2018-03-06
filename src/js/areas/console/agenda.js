@@ -11,11 +11,11 @@ class Agenda extends Component {
 
     this.onClick = this.onClick.bind(this);
 
-    this.props.fetchCalendar();
+    this.props.fetchCalendar({ interactive: false });
   }
 
   onClick() {
-    this.props.fetchCalendar();
+    this.props.fetchCalendar({ interactive: true });
   }
 
   renderChitChat() {

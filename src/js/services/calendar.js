@@ -10,9 +10,13 @@ import { toQueryString } from '../util';
 const URL = 'https://www.googleapis.com/calendar/v3';
 const BATCH_URL = 'https://www.googleapis.com/batch/calendar/v3';
 
-function getAuthToken() {
+// chrome://identity-internals/
+
+function getAuthToken(interactive = false) {
   return new Promise((resolve, reject) => {
-    chrome.identity.getAuthToken({ interactive: true }, (authToken) => {
+    chrome.identity.getAuthToken({ interactive }, (authToken) => {
+      debugger;
+      
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);
       }
@@ -22,11 +26,11 @@ function getAuthToken() {
   });
 }
 
-function callApi(endpoint, schema) {
+function callApi(endpoint, schema, interactive) {
   const isBatch = Array.isArray(endpoint);
   let response;
   
-  return getAuthToken()
+  return getAuthToken(interactive)
     .then(authToken => {
       const url = isBatch ? BATCH_URL : `${URL}${endpoint}`;
       const options = !isBatch ? { headers: { Authorization: `Bearer ${authToken}` } } : {
@@ -42,6 +46,7 @@ function callApi(endpoint, schema) {
     })
     .then(response => {
       if (!response.ok) {
+        // chrome.identity.removeCachedAuthToken
         return Promise.reject(new Error(response.statusText || 'Something bad happened'));
       }
       
@@ -83,4 +88,4 @@ export const fetchEvents = calendarIds => {
   return callApi(uris, arrayOfEvents);
 };
 
-export const fetchCalendars = () => callApi('/users/me/calendarList?fields=items(id,summary,timeZone,selected)', arrayOfCalendars);
+export const fetchCalendars = (interactive) => callApi('/users/me/calendarList?fields=items(id,summary,timeZone,selected)', arrayOfCalendars, interactive);
