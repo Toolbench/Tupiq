@@ -1,4 +1,4 @@
-
+// import moment from 'moment';
 
 export const getUsedBackgroundIDs = state => state.backgrounds.used;
 export const getCurrentBackground = state => state.backgrounds.current;
@@ -16,7 +16,12 @@ export const getChitChat = (state) => {
     bigTalk = 'Today and tomorrow look clear';
     smallTalk = 'And there are no events on the horizon';
   } else {
-    bigTalk = 'Design meeting in 5';
+    // const now = moment();
+    // const tomorrow = moment().add(1, 'days').endOf('day');
+    const upcomingEvent = events[0];
+    const nextEventName = upcomingEvent.summary || 'Untitled';
+
+    bigTalk = `${nextEventName} in 5`;
     smallTalk = 'And three other events on today';
   }
 

@@ -15,8 +15,6 @@ const BATCH_URL = 'https://www.googleapis.com/batch/calendar/v3';
 function getAuthToken(interactive = false) {
   return new Promise((resolve, reject) => {
     chrome.identity.getAuthToken({ interactive }, (authToken) => {
-      debugger;
-      
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);
       }
