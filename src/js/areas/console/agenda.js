@@ -18,11 +18,21 @@ class Agenda extends Component {
     this.props.fetchCalendar({ interactive: true });
   }
 
+  renderMarkup(markup) {
+    return { __html: markup };
+  }
+
   renderChitChat() {
     return (
       <div>
-        <p className="big-talk">{ this.props.chitChat.bigTalk }</p>
-        <p className="small-talk">{ this.props.chitChat.smallTalk }</p>
+        <p
+          className="big-talk"
+          dangerouslySetInnerHTML={this.renderMarkup(this.props.chitChat.bigTalk)}
+        />
+        <p
+          className="small-talk"
+          dangerouslySetInnerHTML={this.renderMarkup(this.props.chitChat.smallTalk)}
+        />
       </div>
     );
   }

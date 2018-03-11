@@ -5,7 +5,7 @@ import { camelizeKeys } from 'humps';
 import moment from 'moment';
 import { createBatchBody, parseBatchResponse } from 'google-api-batch-utils';
 import { arrayOfCalendars, array, arrayOfEvents } from '../schemas';
-import { toQueryString } from '../util';
+import { toQueryString } from '../utils';
 
 const URL = 'https://www.googleapis.com/calendar/v3';
 const BATCH_URL = 'https://www.googleapis.com/batch/calendar/v3';

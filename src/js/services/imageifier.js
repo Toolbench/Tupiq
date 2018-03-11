@@ -1,4 +1,4 @@
-import { canvasToDataURL } from '../util';
+import { canvasToDataURL } from '../utils';
 
 export const getImageDataURL = postURL => new Promise((resolve, reject) => {
   const image = new Image();

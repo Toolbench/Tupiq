@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 import { normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
 import { backgroundSchema } from '../schemas';
-import { toQueryString } from '../util';
+import { toQueryString } from '../utils';
 
 const URL = 'https://api.unsplash.com';
 const queryStringObject = {
