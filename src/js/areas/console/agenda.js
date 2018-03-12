@@ -2,8 +2,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { fetchCalendar } from '../../actions';
 import { getChitChat, getAreCalendarsConnected } from '../../selectors';
+
+const Chatblock = styled.div`
+  padding: 10px;
+`;
 
 class Agenda extends Component {
   constructor(props) {
@@ -24,7 +29,7 @@ class Agenda extends Component {
 
   renderChitChat() {
     return (
-      <div>
+      <Chatblock>
         <p
           className="big-talk"
           dangerouslySetInnerHTML={this.renderMarkup(this.props.chitChat.bigTalk)}
@@ -33,7 +38,7 @@ class Agenda extends Component {
           className="small-talk"
           dangerouslySetInnerHTML={this.renderMarkup(this.props.chitChat.smallTalk)}
         />
-      </div>
+      </Chatblock>
     );
   }
 
