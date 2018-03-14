@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentBackground } from '../../selectors';
+import styles from './index.scss';
 
 // const currentVersion = chrome.runtime.getManifest().version;
 
@@ -12,7 +13,7 @@ class Background extends Component {
       backgroundImage: `url(${this.props.background.dataURL})`
     };
 
-    return <div id="background" style={style} />;
+    return <div id={styles.background} style={style} />;
   }
 }
 

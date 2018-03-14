@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { shuffleBackground } from '../../actions';
 import Logo from 'react-svg-loader!../../../svg/tupiq-logo.svg'; // eslint-disable-line
+import styles from './terminal.scss';
 
 class Terminal extends Component {
   constructor(props) {
@@ -42,9 +43,9 @@ class Terminal extends Component {
 
   render() {
     return (
-      <div id="terminal">
+      <div id={styles.terminal}>
         <Logo
-          className="logo"
+          className={styles.logo}
           onClick={() => this.onLogoClick()}
         />
       </div>

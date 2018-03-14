@@ -1,0 +1,17 @@
+#calendar {
+  height: 100px;
+  width: 100%;
+  background: rgba(255,255,255,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid rgb(220, 220, 220)
+}
+#calendar .big-talk {
+  color: #455A64;
+  font-size: 16px;
+}
+#calendar .small-talk {
+  color: #8fa4af;
+  font-size: 14px;
+}

@@ -2,13 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { fetchCalendar } from '../../actions';
 import { getChitChat, getAreCalendarsConnected } from '../../selectors';
-
-const Chatblock = styled.div`
-  padding: 10px;
-`;
+import styles from './agenda.scss';
 
 class Agenda extends Component {
   constructor(props) {
@@ -29,16 +25,16 @@ class Agenda extends Component {
 
   renderChitChat() {
     return (
-      <Chatblock>
+      <div>
         <p
-          className="big-talk"
+          className={styles.bigTalk}
           dangerouslySetInnerHTML={this.renderMarkup(this.props.chitChat.bigTalk)}
         />
         <p
-          className="small-talk"
+          className={styles.smallTalk}
           dangerouslySetInnerHTML={this.renderMarkup(this.props.chitChat.smallTalk)}
         />
-      </Chatblock>
+      </div>
     );
   }
 
@@ -52,7 +48,7 @@ class Agenda extends Component {
 
   render() {
     return (
-      <div id="calendar">
+      <div id={styles.calendar}>
         { this.props.areCalendarsConnected ?
             this.renderChitChat() :
             this.renderConnectPrompt()

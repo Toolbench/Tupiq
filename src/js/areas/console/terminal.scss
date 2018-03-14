@@ -1,0 +1,18 @@
+#terminal {
+  background: rgba(255,255,255,0.95);
+  padding: 15px;
+  width: 100%;
+}
+#terminal input {
+  border: 0;
+  width: 100%;
+  height: 35px;
+  font-size: 26px;
+  color: #333;
+  font-weight: bold;
+  font-family: monospace, sans-serif;
+  text-align: center;
+}
+#terminal .logo {
+  cursor: pointer;
+}
