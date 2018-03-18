@@ -1,0 +1,52 @@
+/**
+ * Colors
+ */
+
+// Material Design Blue Gray Palette
+$blue-50: #ECEFF1;
+$blue-100: #CFD8DC;
+$blue-200: #B0BEC5;
+$blue-300: #90A4AE;
+$blue-400: #78909C;
+$blue-500: #607D8B;
+$blue-600: #546E7A;
+$blue-700: #455A64;
+$blue-800: #37474F;
+$blue-900: #263238;
+
+$primary-font-color: $blue-700;
+$secondary-font-color: #8fa4af;
+$hint-disabled-font-color: $blue-200;
+$link-font-color: #2baaed;
+
+$welcome-primary-font-color: #fff;
+$welcome-secondary-font-color: $blue-200;
+$welcome-skip-font-color: $blue-600;
+
+$weather-primary-font-color: $blue-400;
+$weather-secondary-font-color: $secondary-font-color;
+$weather-icon-font-color: $blue-100;
+
+$calendar-primary-font-color: $primary-font-color;
+$calendar-secondary-font-color: $secondary-font-color;
+$calendar-hightlight-font-color: $blue-800;
+
+$border-color: #e6ebf0;
+
+$welcome-background-color: $blue-900;
+
+/**
+ * Font Sizes
+ */
+$big-font-size: 18px;
+$primary-font-size: 16px;
+$secondary-font-size: 14px;
+$small-font-size: 13px;
+$tiny-font-size: 12px;
+
+/**
+ * Transitions
+ */
+$regular-transition-duration: .1s;
+$long-transition-duration: .2s;
+$extra-long-transition-duration: .3s;

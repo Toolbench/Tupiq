@@ -1,8 +1,5 @@
-#calendar {
-  height: 100px;
-  width: 100%;
-  background: rgba(255,255,255,0.95);
-  display: flex;
+.calendar {
+  composes: card from "../../shared/_cards.scss";
   justify-content: center;
   align-items: center;
   border-top: 1px solid rgb(220, 220, 220)

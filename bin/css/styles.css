@@ -1,4 +1,4 @@
-#index__background___3cn9u {
+#index__background___3Mw5O {
   position: absolute;
   top: 0;
   left: 0;
@@ -6,12 +6,28 @@
   width: 100%;
   background-size: cover;
   background-position: center center; }
-#terminal__terminal___Z6NHZ {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 15px;
-  width: 100%; }
+/**
+ * Colors
+ */
+/**
+ * Font Sizes
+ */
+/**
+ * Transitions
+ */
+._cards__card___1csmc {
+  overflow: hidden;
+  padding: 20px 20px;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  background: rgba(255, 255, 255, 0.95); }
+  ._cards__card___1csmc:not(:last-of-type) {
+    border-bottom: 1px solid #e6ebf0; }
+.terminal__terminal___2ScJl { }
 
-#terminal__terminal___Z6NHZ input {
+.terminal__terminal___2ScJl input {
   border: 0;
   width: 100%;
   height: 35px;
@@ -21,37 +37,30 @@
   font-family: monospace, sans-serif;
   text-align: center; }
 
-#terminal__terminal___Z6NHZ .terminal__logo___2XGNx {
+.terminal__terminal___2ScJl .terminal__logo___1N2H3 {
   cursor: pointer; }
-#agenda__calendar___16KsY {
-  height: 100px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  display: flex;
+.agenda__calendar___1HYep {
   justify-content: center;
   align-items: center;
   border-top: 1px solid gainsboro; }
 
-#agenda__calendar___16KsY .agenda__big-talk___2iq4n {
+#agenda__calendar___1HYep .agenda__big-talk___1-I2f {
   color: #455A64;
   font-size: 16px; }
 
-#agenda__calendar___16KsY .agenda__small-talk___32WYP {
+#agenda__calendar___1HYep .agenda__small-talk___1SobA {
   color: #8fa4af;
   font-size: 14px; }
-#topSites__topSites___12VYf {
+.topSites__topSites___2Z8_H {
   height: 50px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  display: flex;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid gainsboro;
   padding: 0 20px; }
-#index__console___sW6rP {
+#index__console___3Ostb {
   position: absolute;
   font-size: 16px;
-  width: 500px;
+  width: 460px;
   text-align: center; }
 @font-face {
   font-family: 'Roboto';
@@ -66,7 +75,7 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif; }
 
-#index__app___1zMwu {
+#index__app___3y31D {
   position: absolute;
   width: 100%;
   height: 100%;

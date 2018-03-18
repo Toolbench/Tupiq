@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { shuffleBackground } from '../../actions';
-import Logo from 'react-svg-loader!../../../svg/tupiq-logo.svg'; // eslint-disable-line
+import Logo from 'react-svg-loader!../../svg/tupiq-logo.svg'; // eslint-disable-line
 import styles from './terminal.scss';
 
 class Terminal extends Component {
@@ -43,7 +43,7 @@ class Terminal extends Component {
 
   render() {
     return (
-      <div id={styles.terminal}>
+      <div className={styles.terminal}>
         <Logo
           className={styles.logo}
           onClick={() => this.onLogoClick()}

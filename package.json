@@ -2,7 +2,7 @@
   "name": "Tupiq",
   "version": "2.0.0",
   "description": "",
-  "main": "src/js/app.js",
+  "main": "src/index.js",
   "dependencies": {
     "google-api-batch-utils": "^1.0.1",
     "humps": "^2.0.1",

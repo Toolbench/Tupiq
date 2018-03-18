@@ -48,7 +48,7 @@ class Agenda extends Component {
 
   render() {
     return (
-      <div id={styles.calendar}>
+      <div className={styles.calendar}>
         { this.props.areCalendarsConnected ?
             this.renderChitChat() :
             this.renderConnectPrompt()
